@@ -61,7 +61,7 @@ jobs:
 
       # Validate metadata and content of the NuGet package
       - name: Validate package
-        run: meziantou.validate-nuget-package (Get-ChildItem "${{env.NugGetDirectory}}/*.nupkg")
+        run: meziantou.validate-nuget-package "${{env.NugGetDirectory}}/Talegen.AspNetCore.App.nupkg"
   run_test:
     runs-on: windows-latest
     steps:
