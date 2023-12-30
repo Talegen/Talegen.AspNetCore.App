@@ -111,7 +111,7 @@
             <param name="iocInitialization">Contains an optional services initialization action.</param>
             <param name="postSecurityServiceInitialization">Contains an optional post security service intialization.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.AppStartup`1.Configure(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{Microsoft.AspNetCore.Builder.IApplicationBuilder},System.Action{Microsoft.AspNetCore.Routing.IEndpointRouteBuilder})">
+        <member name="M:Talegen.AspNetCore.App.AppStartup`1.Configure(Microsoft.AspNetCore.Builder.WebApplication,System.Action{Microsoft.AspNetCore.Builder.WebApplication},System.Action{Microsoft.AspNetCore.Routing.IEndpointRouteBuilder})">
             <summary>
             This method gets called by the runtime. Use this method to configure the HTTP request pipeline
             </summary>
@@ -126,7 +126,7 @@
             <param name="app">Contains an application builder instance.</param>
             <param name="development">Contains a value indicating if running in development environment.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.AppStartup`1.ConfigureApplicationRoutes(Microsoft.AspNetCore.Builder.IApplicationBuilder,System.Action{Microsoft.AspNetCore.Routing.IEndpointRouteBuilder})">
+        <member name="M:Talegen.AspNetCore.App.AppStartup`1.ConfigureApplicationRoutes(Microsoft.AspNetCore.Builder.WebApplication,System.Action{Microsoft.AspNetCore.Routing.IEndpointRouteBuilder})">
             <summary>
             This method is used to configure the application routes.
             </summary>
