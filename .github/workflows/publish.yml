@@ -26,8 +26,10 @@ jobs:
     # Install the .NET SDK indicated in the global.json file
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
+      with:
+           dotnet-version: '8.0.x'
     # Create the NuGet package in the folder from the environment variable NuGetDirectory
-    - run: dotnet pack --configuration Release --output ${{env.NuGetDirectory}}
+    - run: dotnet pack ./src/Talegen.AspNetCore.App.csproj --configuration Release --output ${{env.NuGetDirectory}}
 
     # Publish the NuGet package as an artifact, so they can be used in follow-on jobs
     - uses: actions/upload-artifact@v4
@@ -44,6 +46,8 @@ jobs:
       # Install the .NET SDK indicated in the global.json file
       - name: Setup .NET
         uses: actions/setup-dotnet@v4
+        with:
+           dotnet-version: '8.0.x'
 
       # Download the NuGet package created in the previous job
       - uses: actions/download-artifact@v4
@@ -63,8 +67,10 @@ jobs:
     - uses: actions/checkout@v4
     - name: Setup .NET
       uses: actions/setup-dotnet@v4
+      with:
+           dotnet-version: '8.0.x'
     - name: Run tests
-      run: dotnet test --configuration Release
+      run: dotnet test ./src/Talegen.AspNetCore.App.sln --configuration Release
 
   deploy:
     # Publish only when creating a GitHub Release
@@ -81,6 +87,8 @@ jobs:
       # Install the .NET SDK
       - name: Setup .NET core
         uses: actions/setup-dotnet@v4
+        with:
+           dotnet-version: '8.0.x'
 
       # Publish all NuGet packages to NuGet.org
       - name: Publish NuGet package
