@@ -18,6 +18,9 @@ namespace Talegen.AspNetCore.App.Services.Messaging
     using System.Globalization;
     using System.Resources;
 
+    /// <summary>
+    /// This interface defines the message factory used to create new <see cref="ISenderMessage" /> objects.
+    /// </summary>
     public interface ISenderMessageFactory
     {
         /// <summary>

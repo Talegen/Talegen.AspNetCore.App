@@ -20,7 +20,7 @@ namespace Talegen.AspNetCore.App.Services.Queue
     /// <summary>
     /// This interface defines the minimum implementation of a queue service.
     /// </summary>
-    /// <typeparam name="IMessage">Contains the message implementation to interact with.</typeparam>
+    /// <typeparam name="IQueueItem">Contains the message implementation to interact with.</typeparam>
     public interface IQueueService<IQueueItem>
     {
         /// <summary>

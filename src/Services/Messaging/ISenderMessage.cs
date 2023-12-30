@@ -63,7 +63,6 @@ namespace Talegen.AspNetCore.App.Services.Messaging
     /// <summary>
     /// This interface defines a minimum implementation of a sender message.
     /// </summary>
-    /// <typeparam name="TAddressType">Contains the type of address for the message.</typeparam>
     public interface ISenderMessage : IQueueItem
     {
         /// <summary>

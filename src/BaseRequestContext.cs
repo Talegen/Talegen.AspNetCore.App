@@ -46,7 +46,8 @@ namespace Talegen.AspNetCore.App
         /// <param name="cache">Contains the cache service.</param>
         /// <param name="security">Contains the security service.</param>
         /// <param name="messaging">Contains the messaging service.</param>
-        /// <param name="auditlog">Contains the audit log service.</param>
+        /// <param name="audit">Contains the audit log service.</param>
+        /// <param name="errorManager">Contains the error manager.</param>
         public BaseRequestContext(IDistributedCache cache,
             ISecurityService security,
             IMessagingService messaging,

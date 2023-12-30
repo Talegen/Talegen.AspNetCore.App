@@ -15,6 +15,9 @@
 */
 namespace Talegen.AspNetCore.App
 {
+    /// <summary>
+    /// This class contains the application configuration builder settings.
+    /// </summary>
     public class AppConfigBuilderSettings
     {
         /// <summary>

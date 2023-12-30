@@ -27,7 +27,7 @@ namespace Talegen.AspNetCore.App.Controllers
     public abstract class BaseController<TILogger> : ControllerBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseController" /> class.
+        /// Initializes a new instance of the <see cref="BaseController{TILogger}" /> class.
         /// </summary>
         /// <param name="logger">Contains an instance of the default logger.</param>
         public BaseController(TILogger logger)
@@ -47,11 +47,6 @@ namespace Talegen.AspNetCore.App.Controllers
         {
             get
             {
-                /// <summary>
-                /// Gets the access token.
-                /// </summary>
-                /// <value>The access token.</value>
-
                 string? result = string.Empty;
                 HttpContext context = this.HttpContext;
 

@@ -53,7 +53,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         }
 
         /// <summary>
-        /// This method is used to create a new <see cref="SenderMessage" /> and populate the message content with optional token values.
+        /// This method is used to create a new <see cref="ISenderMessage" /> and populate the message content with optional token values.
         /// </summary>
         /// <param name="from">Contains the message sender address.</param>
         /// <param name="recipients">Contains a list of <see cref="ISenderAddress" /> recipient objects.</param>
@@ -63,7 +63,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
         /// <param name="resourceManager">Contains the resource manager used for retrieving template content.</param>
         /// <param name="cultureInfoOverride">Contains an optional locale string override for message body resource lookup.</param>
-        /// <returns>Returns a new <see cref="SenderMessage" /> containing template message content.</returns>
+        /// <returns>Returns a new <see cref="ISenderMessage" /> containing template message content.</returns>
         public ISenderMessage CreateSenderMessage(ISenderAddress from, List<ISenderAddress> recipients, string subject, string templateName, string emailTemplateFolder, Dictionary<string, string>? tokensList = null, ResourceManager? resourceManager = null, CultureInfo? cultureInfoOverride = null)
         {
             ArgumentNullException.ThrowIfNull(from);
@@ -103,7 +103,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         }
 
         /// <summary>
-        /// This method is used to create a new <see cref="SenderMessage" /> and populate the message content with optional token values.
+        /// This method is used to create a new <see cref="ISenderMessage" /> and populate the message content with optional token values.
         /// </summary>
         /// <param name="from">Contains the message sender address.</param>
         /// <param name="to">Contains the message recipient address.</param>
@@ -113,17 +113,17 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
         /// <param name="textBodyContentType">Contains an optional text body content type.</param>
         /// <param name="htmlBodyContentType">Contains an optional HTML body content type.</param>
-        /// <returns>Returns a new <see cref="SenderMessage" /> containing message content.</returns>
+        /// <returns>Returns a new <see cref="ISenderMessage" /> containing message content.</returns>
         public ISenderMessage CreateSenderMessage(ISenderAddress from, ISenderAddress to, string subject, string textBody, string htmlBody = "", Dictionary<string, string>? tokensList = null, string textBodyContentType = "text/plain", string htmlBodyContentType = "text/html")
         {
             return CreateSenderMessage(from, new List<ISenderAddress>() { to }, subject, textBody, htmlBody, false, tokensList, textBodyContentType, htmlBodyContentType);
         }
 
         /// <summary>
-        /// This method is used to create a new <see cref="SenderMessage" /> and populate the message content with optional token values.
+        /// This method is used to create a new <see cref="ISenderMessage" /> and populate the message content with optional token values.
         /// </summary>
         /// <param name="from">Contains the message sender address.</param>
-        /// <param name="recipients">Contains a list of <see cref="MailAddress" /> recipient objects.</param>
+        /// <param name="recipients">Contains a list of <see cref="ISenderAddress" /> recipient objects.</param>
         /// <param name="subject">Contains the message subject.</param>
         /// <param name="textBody">Contains the body of the message in text format.</param>
         /// <param name="htmlBody">Contains the body of the message in HTML format.</param>
@@ -133,7 +133,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
         /// <param name="textBodyContentType">Contains an optional text body content type.</param>
         /// <param name="htmlBodyContentType">Contains an optional HTML body content type.</param>
-        /// <returns>Returns a new <see cref="SenderMessage" /> containing message content.</returns>
+        /// <returns>Returns a new <see cref="ISenderMessage" /> containing message content.</returns>
         public ISenderMessage CreateSenderMessage(ISenderAddress from, List<ISenderAddress> recipients, string subject, string textBody, string htmlBody = "", bool recipientsVisible = false, Dictionary<string, string>? tokensList = null, string textBodyContentType = "text/plain", string htmlBodyContentType = "text/html")
         {
             if (tokensList != null)

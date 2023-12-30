@@ -182,7 +182,7 @@ namespace Talegen.AspNetCore.App.Services.Audit
         }
 
         /// <summary>
-        /// This method is used to execute the passed query LINQ and return the results as an <see cref="AuditLog" /> list.
+        /// This method is used to execute the passed query LINQ and return the results as an <see cref="AuditLogBase" /> list.
         /// </summary>
         /// <param name="query">Contains the LINQ statement to execute.</param>
         /// <param name="filters">Contains the filters used for the query</param>

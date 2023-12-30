@@ -25,6 +25,7 @@ namespace Talegen.AspNetCore.App.Repository
         /// Adds an entity to the repository.
         /// </summary>
         /// <param name="entity">Contains the entry to add.</param>
+        /// <param name="cancellationToken">Contains an optional cancellation token.</param>
         /// <returns>Contains the result of the repository action.</returns>
         Task<RepositoryResult<T>> AddAsync(T entity, CancellationToken cancellationToken = default);
 
@@ -33,6 +34,7 @@ namespace Talegen.AspNetCore.App.Repository
         /// Deletes an entity from the repository.
         /// </summary>
         /// <param name="id">Contains the entity identity to delete.</param>
+        /// <param name="cancellationToken">Contains an optional cancellation token.</param>
         /// <returns>Contains the result of the repository action.</returns>
         Task<RepositoryResult<T>> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
 
@@ -40,6 +42,7 @@ namespace Talegen.AspNetCore.App.Repository
         /// Deletes an entity from the repository.
         /// </summary>
         /// <param name="entity">Contains the entity to delete.</param>
+        /// <param name="cancellationToken">Contains an optional cancellation token.</param>
         /// <returns>Contains the result of the repository action.</returns>
         Task<RepositoryResult<T>> DeleteAsync(T entity, CancellationToken cancellationToken = default);
 
@@ -47,6 +50,7 @@ namespace Talegen.AspNetCore.App.Repository
         /// Updates an entity in the repository.
         /// </summary>
         /// <param name="entity">Contains the entity to update.</param>
+        /// <param name="cancellationToken">Contains an optional cancellation token.</param>
         /// <returns>Contains the result of the repository action.</returns>
         Task<RepositoryResult<T>> UpdateAsync(T entity, CancellationToken cancellationToken = default);
 
@@ -54,12 +58,14 @@ namespace Talegen.AspNetCore.App.Repository
         /// Gets an entity from the repository.
         /// </summary>
         /// <param name="id">Contains the identity of the entity to return.</param>
+        /// <param name="cancellationToken">Contains an optional cancellation token.</param>
         /// <returns>Contains the result of the repository action.</returns>
         Task<RepositoryResult<T>> GetAsync(Guid id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets all entities from the repository.
         /// </summary>
+        /// <param name="cancellationToken">Contains an optional cancellation token.</param>
         /// <returns>Contains a queryable result of the repository action.</returns>
         Task<RepositoryResult<IQueryable<T>>> GetAllAsync(CancellationToken cancellationToken = default);
     }

@@ -24,13 +24,13 @@ namespace Talegen.AspNetCore.App
     /// </summary>
     /// <typeparam name="TAppConfigType">Contains the type of application configuration class.</typeparam>
     /// <example>
-    /// var c = new AppConfigBuilder<AppConfig>(new AppConfigBuilderSettings { UseSerilog = true });
-    /// // c.AppConfig.SomeProperty
+    /// var c = new AppConfigBuilder{AppConfig}(new AppConfigBuilderSettings { UseSerilog = true });
+    /// c.AppConfig.SomeProperty
     /// </example>
     public class AppConfigBuilder<TAppConfigType> : ConfigurationBuilder
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AppConfigBuilder"/> class.
+        /// Initializes a new instance of the <see cref="AppConfigBuilder{TAppConfigType}"/> class.
         /// </summary>
         /// <param name="appConfigBuilderSettings">Contains the app config builder settings.</param>
         public AppConfigBuilder(AppConfigBuilderSettings appConfigBuilderSettings)

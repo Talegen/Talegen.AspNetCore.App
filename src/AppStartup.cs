@@ -21,7 +21,6 @@ namespace Talegen.AspNetCore.App
     using Talegen.AspNetCore.App.Models.Settings;
     using Talegen.Common.Models.Server.Configuration;
     using Talegen.Common.Core.Extensions;
-    using Amazon.CloudWatch;
     using IdentityModel.Client;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Talegen.Common.Core.Errors;
@@ -89,7 +88,6 @@ namespace Talegen.AspNetCore.App
         /// </summary>
         /// <param name="configuration">Contains a configuration instance.</param>
         /// <param name="environment">Contains an environment instance.</param>
-        /// <param name="logger">Contains a logger instance.</param>
         public AppStartup(IConfiguration configuration, IWebHostEnvironment environment)
         {
             this.Configuration = configuration;
@@ -116,6 +114,7 @@ namespace Talegen.AspNetCore.App
         /// </summary>
         /// <param name="services">Contains the service collection.</param>
         /// <param name="iocInitialization">Contains an optional services initialization action.</param>
+        /// <param name="postSecurityServiceInitialization">Contains an optional post security service intialization.</param>
         public void ConfigureServices(IServiceCollection services, Action<IServiceCollection>? iocInitialization = default, Action<IServiceCollection>? postSecurityServiceInitialization = default)
         {
             bool development = this.Environment.IsDevelopment();
@@ -200,7 +199,6 @@ namespace Talegen.AspNetCore.App
         /// This method is used to configure the application routes.
         /// </summary>
         /// <param name="app">Contains an application builder instance.</param>
-        /// <param name="development">Contains a value indicating if running in development environment.</param>
         /// <param name="optionalRoutes">Contains an optional action for application route logic.</param>
         private void ConfigureApplicationRoutes(IApplicationBuilder app, Action<IEndpointRouteBuilder>? optionalRoutes = default)
         {
@@ -272,7 +270,6 @@ namespace Talegen.AspNetCore.App
         /// Initializes the cache system.
         /// </summary>
         /// <param name="services">Contains the service collection</param>
-        /// <param name="settings">Contains the application settings.</param>
         private void InitializeCache(IServiceCollection services)
         {
             if (this.AppSettings.Cache.CacheType == CacheType.Redis && !string.IsNullOrWhiteSpace(this.AppSettings.Cache.ConnectionStringName))
@@ -522,7 +519,7 @@ namespace Talegen.AspNetCore.App
                             policy.AllowAnyHeader();
 
                             // if origins defined, restrict them.
-                            if (this.AppSettings.Security.AllowedOrigins != null && this.AppSettings.Security.AllowedOrigins.Any())
+                            if (this.AppSettings.Security.AllowedOrigins != null && this.AppSettings.Security.AllowedOrigins.Count > 0)
                             {
                                 // allow for the matching of a wildcard domain.
                                 policy.WithOrigins(this.AppSettings.Security.AllowedOrigins.ToArray())
@@ -618,7 +615,6 @@ namespace Talegen.AspNetCore.App
         /// Initializes the background workers.
         /// </summary>
         /// <param name="services">Contains the services collection.</param>
-        /// <param name="settings">Contains the settings.</param>
         private void InitializeBackgroundWorkers(IServiceCollection services)
         {
             try
