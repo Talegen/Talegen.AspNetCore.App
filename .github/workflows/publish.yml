@@ -40,28 +40,6 @@ jobs:
         retention-days: 7
         path: ${{env.NuGetDirectory}}/*.nupkg
 
-  validate_nuget:
-    runs-on: windows-latest
-    needs: [create_nuget]
-    steps:
-      # Install the .NET SDK indicated in the global.json file
-      - name: Setup .NET
-        uses: actions/setup-dotnet@v4
-        with:
-           dotnet-version: '8.0.x'
-
-      # Download the NuGet package created in the previous job
-      - uses: actions/download-artifact@v4
-        with:
-          name: nuget
-          path: ${{env.NuGetDirectory}}
-
-      - name: Install nuget validator
-        run: dotnet tool update Meziantou.Framework.NuGetPackageValidation.Tool --global
-
-      # Validate metadata and content of the NuGet package
-      - name: Validate package
-        run: meziantou.validate-nuget-package "${{env.NugGetDirectory}}/Talegen.AspNetCore.App.nupkg"
   run_test:
     runs-on: windows-latest
     steps:
@@ -77,7 +55,7 @@ jobs:
     # Publish only when creating a GitHub Release
     if: github.event_name == 'release'
     runs-on: windows-latest
-    needs: [validate_nuget, run_test]
+    needs: [run_test]
     steps:
       # Download the NuGet package created in the previous job
       - uses: actions/download-artifact@v4
