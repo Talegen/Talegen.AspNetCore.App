@@ -67,7 +67,7 @@ namespace Talegen.AspNetCore.App.Repository
         /// </summary>
         /// <param name="cancellationToken">Contains an optional cancellation token.</param>
         /// <returns>Contains a queryable result of the repository action.</returns>
-        Task<RepositoryResult<IQueryable<T>>> GetAllAsync(CancellationToken cancellationToken = default);
+        Task<RepositoryResult<IEnumerable<T>>> GetAllAsync(CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Saves all changes to the repository.
