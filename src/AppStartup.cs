@@ -151,7 +151,7 @@ namespace Talegen.AspNetCore.App
         /// <param name="app">Contains an instance of application builder.</param>
         /// <param name="optionalBuilder">Contains an optional action for app builder logic.</param>
         /// <param name="optionalRoutes">Contains an optional action for application route logic.</param>
-        public void Configure(WebApplication app, Action<WebApplication>? optionalBuilder = default, Action<IEndpointRouteBuilder>? optionalRoutes = default)
+        public void Configure(IApplicationBuilder app, Action<IApplicationBuilder>? optionalBuilder = default, Action<IEndpointRouteBuilder>? optionalRoutes = default)
         {
             bool development = this.Environment.IsDevelopment();
 
@@ -200,7 +200,7 @@ namespace Talegen.AspNetCore.App
         /// </summary>
         /// <param name="app">Contains an application builder instance.</param>
         /// <param name="optionalRoutes">Contains an optional action for application route logic.</param>
-        private void ConfigureApplicationRoutes(WebApplication app, Action<IEndpointRouteBuilder>? optionalRoutes = default)
+        private void ConfigureApplicationRoutes(IApplicationBuilder app, Action<IEndpointRouteBuilder>? optionalRoutes = default)
         {
             ArgumentNullException.ThrowIfNull(app, nameof(app));
 
