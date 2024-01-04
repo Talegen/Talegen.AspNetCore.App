@@ -15,26 +15,23 @@
 */
 namespace Talegen.AspNetCore.App.Controllers
 {
+    using System.Net;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
-    using System.Net;
-    using Talegen.AspNetCore.App.Services.Security;
     using Talegen.Common.Core.Errors;
     using Talegen.Common.Models.Server;
 
     /// <summary>
     /// This class implements the base API controller class.
     /// </summary>
-    public abstract class BaseApiController<TController> : BaseController<ILogger<TController>>
+    public abstract class BaseApiController : BaseController
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseApiController{TController}" /> class.
+        /// Initializes a new instance of the <see cref="BaseApiController" /> class.
         /// </summary>
         /// <param name="requestContext">Contains an instance of request context.</param>
-        /// <param name="logger">Contains a logger instance.</param>
-        public BaseApiController(BaseRequestContext requestContext, ILogger<TController> logger) 
-            : base(logger)
+        public BaseApiController(BaseRequestContext requestContext)
         {
             this.RequestContext = requestContext;
         }

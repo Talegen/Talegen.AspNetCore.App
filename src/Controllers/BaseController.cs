@@ -24,21 +24,14 @@ namespace Talegen.AspNetCore.App.Controllers
     /// This class contains the base controller class to be inherited in ASP.net Core applications.
     /// </summary>
     /// <typeparam name="TILogger">Contains the logger type</typeparam>
-    public abstract class BaseController<TILogger> : ControllerBase
+    public abstract class BaseController : ControllerBase
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="BaseController{TILogger}" /> class.
+        /// Initializes a new instance of the <see cref="BaseController" /> class.
         /// </summary>
-        /// <param name="logger">Contains an instance of the default logger.</param>
-        public BaseController(TILogger logger)
+        public BaseController()
         {
-            this.Logger = logger;
         }
-
-        /// <summary>
-        /// Gets the logger instance.
-        /// </summary>
-        protected TILogger Logger { get; private set; }
 
         /// <summary>
         /// Gets the access token if available in the request header.

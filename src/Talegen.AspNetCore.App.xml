@@ -285,53 +285,52 @@
             </summary>
             <value>The client address.</value>
         </member>
-        <member name="T:Talegen.AspNetCore.App.Controllers.BaseApiController`1">
+        <member name="T:Talegen.AspNetCore.App.Controllers.BaseApiController">
             <summary>
             This class implements the base API controller class.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController`1.#ctor(Talegen.AspNetCore.App.BaseRequestContext,Microsoft.Extensions.Logging.ILogger{`0})">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController.#ctor(Talegen.AspNetCore.App.BaseRequestContext)">
             <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Controllers.BaseApiController`1" /> class.
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Controllers.BaseApiController" /> class.
             </summary>
             <param name="requestContext">Contains an instance of request context.</param>
-            <param name="logger">Contains a logger instance.</param>
         </member>
-        <member name="P:Talegen.AspNetCore.App.Controllers.BaseApiController`1.RequestContext">
+        <member name="P:Talegen.AspNetCore.App.Controllers.BaseApiController.RequestContext">
             <summary>
             Gets the application request context.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController`1.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController.OnActionExecuting(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext)">
             <summary>
             This method is used to execute before the action method is executed.
             </summary>
             <param name="context">Contains the action context.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController`1.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController.OnActionExecuted(Microsoft.AspNetCore.Mvc.Filters.ActionExecutedContext)">
             <summary>
             Called after the action method is invoked.
             </summary>
             <param name="context">The action executed context.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController`1.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)">
             <summary>
             Called before the action method is invoked.
             </summary>
             <param name="context">The action executing context.</param>
             <param name="next">
-            The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate" /> to execute. Invoke this delegate in the body of <see cref="M:Talegen.AspNetCore.App.Controllers.BaseApiController`1.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)" /> to continue
+            The <see cref="T:Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate" /> to execute. Invoke this delegate in the body of <see cref="M:Talegen.AspNetCore.App.Controllers.BaseApiController.OnActionExecutionAsync(Microsoft.AspNetCore.Mvc.Filters.ActionExecutingContext,Microsoft.AspNetCore.Mvc.Filters.ActionExecutionDelegate)" /> to continue
             execution of the action.
             </param>
             <returns>A <see cref="T:System.Threading.Tasks.Task" /> instance.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController`1.NotFound">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController.NotFound">
             <summary>
             Overload the existing NotFound with a response that returns an action error type.
             </summary>
             <returns>Returns an error result containing a 404 message code.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController`1.SuccessOrFailResult">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController.SuccessOrFailResult">
             <summary>
             This method is used to return either an empty success (200) IHttpActionResult if no critical or validation errors are found within the context error
             manager class. If errors are found the method returns a bad request (400) response with a <see cref="T:Talegen.Common.Models.Server.ErrorResponseModel" /> result that overrides
@@ -339,7 +338,7 @@
             </summary>
             <returns>Returns either a empty OK result upon success or returns a bad request with an <see cref="T:Talegen.Common.Models.Server.ErrorResponseModel" /> result.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController`1.SuccessOrFailResult``1(``0,System.String,System.Guid)">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController.SuccessOrFailResult``1(``0,System.String,System.Guid)">
             <summary>
             This method is used to return either a successful (200) IHttpActionResult if no critical or validation errors are found within the context error
             manager class. If errors are found the method returns a bad request (400) response with a <see cref="T:Talegen.Common.Models.Server.ErrorResponseModel" /> result that overrides
@@ -351,47 +350,41 @@
             <param name="recordId">Contains an optional record identity value.</param>
             <returns>Returns either a successful model upon success or returns a bad request with an <see cref="T:Talegen.Common.Models.Server.ErrorResponseModel" /> result.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController`1.AddModelErrors">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController.AddModelErrors">
             <summary>
             Adds the model state errors to the error manager.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController`1.AddIdentityErrors(Microsoft.AspNetCore.Identity.IdentityResult)">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController.AddIdentityErrors(Microsoft.AspNetCore.Identity.IdentityResult)">
             <summary>
             This method is used to add identity result errors to the model error manager.
             </summary>
             <param name="result">Contains the identity result that contains errors.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController`1.CreateErrorResult(System.Net.HttpStatusCode)">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController.CreateErrorResult(System.Net.HttpStatusCode)">
             <summary>
             This method is used to create the error response action result to return to the client.
             </summary>
             <param name="errorCode">Contains an optional status code to return in the response message. By default 400 Bad Request is returned.</param>
             <returns>Returns an action response containing an <see cref="T:Talegen.Common.Models.Server.ErrorResponseModel" /> object.</returns>
         </member>
-        <member name="T:Talegen.AspNetCore.App.Controllers.BaseController`1">
+        <member name="T:Talegen.AspNetCore.App.Controllers.BaseController">
             <summary>
             This class contains the base controller class to be inherited in ASP.net Core applications.
             </summary>
             <typeparam name="TILogger">Contains the logger type</typeparam>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseController`1.#ctor(`0)">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseController.#ctor">
             <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Controllers.BaseController`1" /> class.
-            </summary>
-            <param name="logger">Contains an instance of the default logger.</param>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Controllers.BaseController`1.Logger">
-            <summary>
-            Gets the logger instance.
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Controllers.BaseController" /> class.
             </summary>
         </member>
-        <member name="P:Talegen.AspNetCore.App.Controllers.BaseController`1.AccessToken">
+        <member name="P:Talegen.AspNetCore.App.Controllers.BaseController.AccessToken">
             <summary>
             Gets the access token if available in the request header.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Controllers.BaseController`1.GetToken(Microsoft.AspNetCore.Http.HttpRequest)">
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseController.GetToken(Microsoft.AspNetCore.Http.HttpRequest)">
             <summary>
             This method is used to retrieve the authentication token from the request header and/or the url if not in the header.
             </summary>
@@ -1460,11 +1453,6 @@
             This class defines a background job that processes messages in the message queue.
             </summary>
         </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.logger">
-            <summary>
-            Contains a logger instance.
-            </summary>
-        </member>
         <member name="F:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.service">
             <summary>
             Contains the messaging service instance.
@@ -1485,7 +1473,7 @@
             Contains a value indicating if dispose has been called.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.#ctor(Talegen.AspNetCore.App.Services.Messaging.IMessagingService,Microsoft.Extensions.Logging.ILogger)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.#ctor(Talegen.AspNetCore.App.Services.Messaging.IMessagingService)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob" /> class.
             </summary>

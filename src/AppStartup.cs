@@ -234,8 +234,14 @@ namespace Talegen.AspNetCore.App
                 {
                     // handle any post configuration settings here.
                 });
-            
-                
+
+            // setup logging
+            Log.Logger = new LoggerConfiguration()
+                .MinimumLevel.Debug()
+                .ReadFrom.Configuration(this.Configuration)
+                .Enrich.FromLogContext()
+                .CreateLogger();
+
             this.AppSettings = settingsSection.Get<TConfigType>() ?? throw new Exception(string.Format(Properties.Resources.ErrorNoConfigurationText, typeof(TConfigType).Name));
             bool development = this.Environment.IsDevelopment();
             this.connectionString = this.Configuration.GetConnectionString(DefaultConnectionKey).ConvertToString();
@@ -366,7 +372,7 @@ namespace Talegen.AspNetCore.App
 
                         // add a messaging processor
                         services.AddSingleton<IMessageProcessor, SmtpMessageProcessor>();
-
+                        services.AddSingleton<IMessagingService, SmtpMessagingService>();
                         break;
                     case MessagingType.Memory:
                         throw new NotImplementedException();

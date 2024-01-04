@@ -15,6 +15,7 @@
 */
 namespace Talegen.AspNetCore.App.Services.Messaging
 {
+    using Serilog;
     using Talegen.AspNetCore.App.Properties;
 
     /// <summary>
@@ -23,11 +24,6 @@ namespace Talegen.AspNetCore.App.Services.Messaging
     public class BackgroundMessagingJob : IHostedService, IDisposable
     {
         #region Private Fields
-        /// <summary>
-        /// Contains a logger instance.
-        /// </summary>
-        private readonly ILogger logger;
-
         /// <summary>
         /// Contains the messaging service instance.
         /// </summary>
@@ -55,12 +51,10 @@ namespace Talegen.AspNetCore.App.Services.Messaging
         /// Initializes a new instance of the <see cref="BackgroundMessagingJob" /> class.
         /// </summary>
         /// <param name="service">Contains an instance of the messaging service.</param>
-        /// <param name="logger">Contains a logger instance.</param>
-        public BackgroundMessagingJob(IMessagingService service, ILogger logger)
+        public BackgroundMessagingJob(IMessagingService service)
         {
             ArgumentNullException.ThrowIfNull(service);
             this.service = service;
-            this.logger = logger; 
         }
 
         #endregion
@@ -74,7 +68,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
         /// <returns>Returns the task to execute.</returns>
         public Task StartAsync(CancellationToken cancellationToken)
         {
-            this.logger.LogInformation(Properties.Resources.MessageQueueJobStartText);
+            Log.Information(Properties.Resources.MessageQueueJobStartText);
 #pragma warning disable CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
             this.timer = new Timer(this.DoWork, null, TimeSpan.Zero, TimeSpan.FromSeconds(this.service.QueueProcessingIntervalSeconds));
 #pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
@@ -92,7 +86,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
         /// <returns>Returns the task result.</returns>
         public Task StopAsync(CancellationToken cancellationToken)
         {
-            this.logger.LogInformation(Resources.MessageQueueJobStopText);
+            Log.Information(Resources.MessageQueueJobStopText);
 
             // store any messages in queue.
             this.service.StoreMessageQueue();
