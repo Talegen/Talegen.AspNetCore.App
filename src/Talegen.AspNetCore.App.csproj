@@ -12,16 +12,16 @@
     <Company>Talegen, LLC</Company>
     <Description>Common Support Code for ASP.NET Core Applications Built by Talegen</Description>
     <Copyright>Copyright © Talegen, LLC. All rights reserved.</Copyright>
-    <Version>1.0.5</Version>
-    <AssemblyVersion>1.0.5</AssemblyVersion>
-    <FileVersion>1.0.5</FileVersion>
+    <Version>1.0.6</Version>
+    <AssemblyVersion>1.0.6</AssemblyVersion>
+    <FileVersion>1.0.6</FileVersion>
     <PackageProjectUrl>https://talegen.com</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>logo.png</PackageIcon>
     <ApplicationIcon>Assets\logo.ico</ApplicationIcon>
     <RepositoryUrl>https://github.com/Talegen/Talegen.AspNetCore.App</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Changes made for ILogger removal and Serilog standardization.</PackageReleaseNotes>
+    <PackageReleaseNotes>Changes to support connection strings.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>

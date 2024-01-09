@@ -372,7 +372,6 @@
             <summary>
             This class contains the base controller class to be inherited in ASP.net Core applications.
             </summary>
-            <typeparam name="TILogger">Contains the logger type</typeparam>
         </member>
         <member name="M:Talegen.AspNetCore.App.Controllers.BaseController.#ctor">
             <summary>
@@ -390,6 +389,19 @@
             </summary>
             <param name="request">Contains the request to search for an access token.</param>
             <returns>Returns the token from the request header.</returns>
+        </member>
+        <member name="T:Talegen.AspNetCore.App.Extensions.ConnectionStringExtensions">
+            <summary>
+            This class contains extension methods for connection strings.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Extensions.ConnectionStringExtensions.ParseToObject``1(System.String)">
+            <summary>
+            This method is used to parse a connection string into an object.
+            </summary>
+            <typeparam name="T">Contains the object type to return.</typeparam>
+            <param name="connectionString">Contains the connection string to parse.</param>
+            <returns>Returns a new instance of the object.</returns>
         </member>
         <member name="T:Talegen.AspNetCore.App.Filters.ApiExceptionFilterAttribute">
             <summary>
@@ -848,6 +860,43 @@
             <summary>
             Gets or sets an optional set of metadata for the notification message.
             </summary>
+        </member>
+        <member name="T:Talegen.AspNetCore.App.Models.Settings.AmazonSQSSettings">
+            <summary>
+            This class contains the Amazon SQS settings.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Models.Settings.AmazonSQSSettings.AccessKey">
+            <summary>
+            Gets or sets the access key.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Models.Settings.AmazonSQSSettings.SecretKey">
+            <summary>
+            Gets or sets the secret key.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Models.Settings.AmazonSQSSettings.ServiceUrl">
+            <summary>
+            Gets or sets the service URL.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Models.Settings.AmazonSQSSettings.Region">
+            <summary>
+            Gets or sets the region.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Models.Settings.AmazonSQSSettings.GetCredentials">
+            <summary>
+            This method is used to get the AWS credentials.
+            </summary>
+            <returns>Returns new Basic credentials.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Models.Settings.AmazonSQSSettings.GetRegionEndpoint">
+            <summary>
+            This method is used to get the region endpoint.
+            </summary>
+            <returns>Returns the region endpoint</returns>
         </member>
         <member name="T:Talegen.AspNetCore.App.Models.Settings.AppAdvancedSettings">
             <summary>
@@ -1478,7 +1527,6 @@
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob" /> class.
             </summary>
             <param name="service">Contains an instance of the messaging service.</param>
-            <param name="logger">Contains a logger instance.</param>
         </member>
         <member name="M:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.StartAsync(System.Threading.CancellationToken)">
             <summary>

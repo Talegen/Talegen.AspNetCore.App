@@ -23,7 +23,6 @@ namespace Talegen.AspNetCore.App.Controllers
     /// <summary>
     /// This class contains the base controller class to be inherited in ASP.net Core applications.
     /// </summary>
-    /// <typeparam name="TILogger">Contains the logger type</typeparam>
     public abstract class BaseController : ControllerBase
     {
         /// <summary>
