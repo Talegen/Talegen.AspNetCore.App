@@ -70,6 +70,24 @@ namespace Talegen.AspNetCore.App.Properties {
         }
         
         /// <summary>
+        ///   Looks up a localized string similar to Multipart boundary length limit {0} exceeded..
+        /// </summary>
+        internal static string ErrorContentTypeBoundaryLimitExceededText {
+            get {
+                return ResourceManager.GetString("ErrorContentTypeBoundaryLimitExceededText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Missing content-type boundary..
+        /// </summary>
+        internal static string ErrorContentTypeBoundryNotFoundText {
+            get {
+                return ResourceManager.GetString("ErrorContentTypeBoundryNotFoundText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
         ///   Looks up a localized string similar to The message template folder &apos;{0}&apos; was not found. Message template system cannot work without template files..
         /// </summary>
         internal static string ErrorEmailTemplateDirectoryNotFoundText {

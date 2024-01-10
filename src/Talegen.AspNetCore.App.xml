@@ -1,4 +1,19 @@
 <?xml version="1.0"?>
+<!--
+ * Talegen ASP.net Core App Library
+ * (c) Copyright Talegen, LLC.
+ * 
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *
+-->
 <doc>
     <assembly>
         <name>Talegen.AspNetCore.App</name>
@@ -403,6 +418,77 @@
             <param name="connectionString">Contains the connection string to parse.</param>
             <returns>Returns a new instance of the object.</returns>
         </member>
+        <member name="T:Talegen.AspNetCore.App.Extensions.FileStreamingHelper">
+            <summary>
+            This class contains methods to help with streaming file data from a request.
+            </summary>
+        </member>
+        <member name="F:Talegen.AspNetCore.App.Extensions.FileStreamingHelper.DefaultFormOptions">
+            <summary>
+            Contains the default form options.
+            </summary>
+        </member>
+        <member name="F:Talegen.AspNetCore.App.Extensions.FileStreamingHelper.ReaderBufferSize">
+            <summary>
+            Contains the reader buffer size.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Extensions.FileStreamingHelper.StreamFile(Microsoft.AspNetCore.Http.HttpRequest,System.IO.Stream)">
+            <summary>
+            This method streams a file from a request to a target stream.
+            </summary>
+            <param name="request">Contains the <see cref="T:Microsoft.AspNetCore.Http.HttpRequest" /> object.</param>
+            <param name="targetStream">Contains a target <see cref="T:System.IO.Stream" /> object that will receive form data found in the request.</param>
+            <returns>Returns a form value validator object for any multipart form data found in the request.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Extensions.FileStreamingHelper.GetEncoding(Microsoft.AspNetCore.WebUtilities.MultipartSection)">
+            <summary>
+            This method gets the encoding from a multipart section.
+            </summary>
+            <param name="section">An <see cref="T:Microsoft.AspNetCore.WebUtilities.MultipartSection" /> object.</param>
+            <returns>Returns the encoding object found in the multipart section if any, otherwise defaults to UTF8.</returns>
+        </member>
+        <member name="T:Talegen.AspNetCore.App.Extensions.MultipartRequestHelper">
+            <summary>
+            This helper class is used to assist with Multipart Requests.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Extensions.MultipartRequestHelper.GetBoundary(Microsoft.Net.Http.Headers.MediaTypeHeaderValue,System.Int32)">
+            <summary>
+            This method is used to determine the boundaries of request content types.
+            </summary>
+            <param name="contentType">An object of <see cref="T:Microsoft.Net.Http.Headers.MediaTypeHeaderValue" />.</param>
+            <param name="lengthLimit">A value indicating max length.</param>
+            <returns>Returns a string containing the boundary value if found.</returns>
+            <remarks>
+            The boundary is defined using a unique code. E.g., Content-Type: multipart/form-data; boundary="----WebKitFormBoundaryxyz123" 
+            The specification says 70 characters is a reasonable limit.
+            </remarks>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Extensions.MultipartRequestHelper.IsMultipartContentType(System.String)">
+            <summary>
+            This method is used to determine if a request content type is multipart data.
+            </summary>
+            <param name="contentType">String value to be evaluated.</param>
+            <returns>Returns a value indicating whether or not the content type is multipart.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Extensions.MultipartRequestHelper.HasFormDataContentDisposition(Microsoft.Net.Http.Headers.ContentDispositionHeaderValue)">
+            <summary>
+            This method is used to determine if a request contains form data.
+            </summary>
+            <param name="contentDisposition">Contains an <see cref="T:Microsoft.Net.Http.Headers.ContentDispositionHeaderValue" /> object.</param>
+            <returns>Returns a value indicating whether the content disposition has a form data type.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Extensions.MultipartRequestHelper.HasFileContentDisposition(Microsoft.Net.Http.Headers.ContentDispositionHeaderValue)">
+            <summary>
+            This method is used to determine if a request contains file data.
+            </summary>
+            <param name="contentDisposition">Contains an <see cref="T:Microsoft.Net.Http.Headers.ContentDispositionHeaderValue" /> object.</param>
+            <returns>Returns a value indicating whether the content disposition has a file type.</returns>
+            <remarks>
+            E.g., Content-Disposition: form-data; name="profilePhoto1"; filename="profile-photo.jpg"
+            </remarks>
+        </member>
         <member name="T:Talegen.AspNetCore.App.Filters.ApiExceptionFilterAttribute">
             <summary>
             This class is used to handle and model a response for unhandled API controller exceptions.
@@ -424,6 +510,23 @@
             This filter method is used to handle exceptions.
             </summary>
             <param name="context">Contains the context.</param>
+        </member>
+        <member name="T:Talegen.AspNetCore.App.Filters.DisableFormValueModelBindingAttribute">
+            <summary>
+            This attribute is used to filder controller requests and ignore configured model binding.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Filters.DisableFormValueModelBindingAttribute.OnResourceExecuting(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutingContext)">
+            <summary>
+            This method overrides the action executing for action executions.
+            </summary>
+            <param name="context">Contains the action context object.</param>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Filters.DisableFormValueModelBindingAttribute.OnResourceExecuted(Microsoft.AspNetCore.Mvc.Filters.ResourceExecutedContext)">
+            <summary>
+            This method overrides the action executed for action executions.
+            </summary>
+            <param name="context">Contains the resource executed context.</param>
         </member>
         <member name="T:Talegen.AspNetCore.App.Models.Audit.AuditEvent">
             <summary>
@@ -1137,6 +1240,16 @@
         <member name="P:Talegen.AspNetCore.App.Properties.Resources.ApplicationName">
             <summary>
               Looks up a localized string similar to Talegen App.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Properties.Resources.ErrorContentTypeBoundaryLimitExceededText">
+            <summary>
+              Looks up a localized string similar to Multipart boundary length limit {0} exceeded..
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Properties.Resources.ErrorContentTypeBoundryNotFoundText">
+            <summary>
+              Looks up a localized string similar to Missing content-type boundary..
             </summary>
         </member>
         <member name="P:Talegen.AspNetCore.App.Properties.Resources.ErrorEmailTemplateDirectoryNotFoundText">

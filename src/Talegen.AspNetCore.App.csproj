@@ -12,16 +12,16 @@
     <Company>Talegen, LLC</Company>
     <Description>Common Support Code for ASP.NET Core Applications Built by Talegen</Description>
     <Copyright>Copyright © Talegen, LLC. All rights reserved.</Copyright>
-    <Version>1.0.6</Version>
-    <AssemblyVersion>1.0.6</AssemblyVersion>
-    <FileVersion>1.0.6</FileVersion>
+    <Version>1.0.7</Version>
+    <AssemblyVersion>1.0.7</AssemblyVersion>
+    <FileVersion>1.0.7</FileVersion>
     <PackageProjectUrl>https://talegen.com</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>logo.png</PackageIcon>
     <ApplicationIcon>Assets\logo.ico</ApplicationIcon>
     <RepositoryUrl>https://github.com/Talegen/Talegen.AspNetCore.App</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Changes to support connection strings.</PackageReleaseNotes>
+    <PackageReleaseNotes>Adding helper extensions for mulitpart content streaming.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>

@@ -15,32 +15,28 @@
 */
 namespace Talegen.AspNetCore.App
 {
-    using Talegen.AspNetCore.Web.Bindings;
-    using Serilog;
-    using Talegen.AspNetCore.App.Services.Messaging;
-    using Talegen.AspNetCore.App.Models.Settings;
-    using Talegen.Common.Models.Server.Configuration;
-    using Talegen.Common.Core.Extensions;
-    using IdentityModel.Client;
-    using Microsoft.Extensions.Diagnostics.HealthChecks;
-    using Talegen.Common.Core.Errors;
-    using Talegen.AspNetCore.App.Services.Queue;
-    using Talegen.AspNetCore.App.Services.Messaging.Smtp;
-    using Talegen.AspNetCore.App.Services.Messaging.Queue;
-    using Talegen.AspNetCore.App.Filters;
-    using Microsoft.AspNetCore.Mvc.Authorization;
-    using Microsoft.AspNetCore.Authorization;
-    using Microsoft.AspNetCore.Authentication.JwtBearer;
-    using Microsoft.IdentityModel.Tokens;
-    using Microsoft.AspNetCore.Authentication.OAuth;
-    using Microsoft.AspNetCore.Authentication.OpenIdConnect;
-    using System.Net.Http.Headers;
-    using Newtonsoft.Json.Linq;
     using System.IdentityModel.Tokens.Jwt;
+    using IdentityModel.Client;
+    using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authorization;
     using Microsoft.AspNetCore.Http.Features;
     using Microsoft.AspNetCore.Mvc;
+    using Microsoft.AspNetCore.Mvc.Authorization;
     using Microsoft.AspNetCore.Server.Kestrel.Core;
     using Microsoft.AspNetCore.StaticFiles;
+    using Microsoft.Extensions.Diagnostics.HealthChecks;
+    using Microsoft.IdentityModel.Tokens;
+    using Serilog;
+    using Talegen.AspNetCore.App.Filters;
+    using Talegen.AspNetCore.App.Models.Settings;
+    using Talegen.AspNetCore.App.Services.Messaging;
+    using Talegen.AspNetCore.App.Services.Messaging.Queue;
+    using Talegen.AspNetCore.App.Services.Messaging.Smtp;
+    using Talegen.AspNetCore.App.Services.Queue;
+    using Talegen.AspNetCore.Web.Bindings;
+    using Talegen.Common.Core.Errors;
+    using Talegen.Common.Core.Extensions;
+    using Talegen.Common.Models.Server.Configuration;
 
     /// <summary>
     /// This class defines the application startup logic for a core web API.
