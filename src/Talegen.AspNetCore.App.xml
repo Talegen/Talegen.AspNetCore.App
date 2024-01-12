@@ -1,19 +1,4 @@
 <?xml version="1.0"?>
-<!--
- * Talegen ASP.net Core App Library
- * (c) Copyright Talegen, LLC.
- * 
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- * http://www.apache.org/licenses/LICENSE-2.0
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- *
--->
 <doc>
     <assembly>
         <name>Talegen.AspNetCore.App</name>
@@ -299,6 +284,26 @@
             Gets the client address.
             </summary>
             <value>The client address.</value>
+        </member>
+        <member name="T:Talegen.AspNetCore.App.Binders.JsonWithFilesFormDataModelBinder">
+            <summary>
+            This class implements a binder for handling a JSON and file multi-part form data request.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Binders.JsonWithFilesFormDataModelBinder.#ctor(Newtonsoft.Json.JsonSerializerSettings,Microsoft.Extensions.Logging.ILoggerFactory)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Binders.JsonWithFilesFormDataModelBinder"/> class.
+            </summary>
+            <param name="jsonSettings">Contains the Json serializer settings.</param>
+            <param name="loggerFactory">Contains a logger factory instance.</param>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Binders.JsonWithFilesFormDataModelBinder.BindModelAsync(Microsoft.AspNetCore.Mvc.ModelBinding.ModelBindingContext)">
+            <summary>
+            This method is used to bind models included in multi-part form requests.
+            </summary>
+            <param name="bindingContext">Contains the binding context.</param>
+            <returns>Returns a task result.</returns>
+            <exception cref="T:System.ArgumentNullException">Thrown if the model context is not defined.</exception>
         </member>
         <member name="T:Talegen.AspNetCore.App.Controllers.BaseApiController">
             <summary>
