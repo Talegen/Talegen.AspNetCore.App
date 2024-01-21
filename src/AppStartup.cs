@@ -16,9 +16,11 @@
 namespace Talegen.AspNetCore.App
 {
     using System.IdentityModel.Tokens.Jwt;
+    using System.Runtime.Serialization;
     using IdentityModel.Client;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http.Features;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Authorization;
@@ -26,6 +28,8 @@ namespace Talegen.AspNetCore.App
     using Microsoft.AspNetCore.StaticFiles;
     using Microsoft.Extensions.Diagnostics.HealthChecks;
     using Microsoft.IdentityModel.Tokens;
+    using Newtonsoft.Json;
+    using Newtonsoft.Json.Converters;
     using Serilog;
     using Talegen.AspNetCore.App.Filters;
     using Talegen.AspNetCore.App.Models.Settings;
@@ -55,29 +59,15 @@ namespace Talegen.AspNetCore.App
         private const string ScopeProfile = "profile";
 
         /// <summary>
-        /// Contains the default connection key.
-        /// </summary>
-        private const string DefaultConnectionKey = "DefaultConnection";
-
-        /// <summary>
         /// Contains the default telemetry key.
         /// </summary>
         private const string DefaultTelemetryKey = "TelemetryConnection";
-
-        /// <summary>
-        /// Contains the data connection string.
-        /// </summary>
-        private string connectionString = string.Empty;
 
         /// <summary>
         /// Contains the cache connection string.
         /// </summary>
         private string cacheConnectionString = string.Empty;
 
-        /// <summary>
-        /// Contains the telemetry connection string.
-        /// </summary>
-        private string telemetryConnectionString = string.Empty;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AppStartup{TConfigType}" /> class.
@@ -104,6 +94,20 @@ namespace Talegen.AspNetCore.App
         /// Gets the application settings.
         /// </summary>
         public TConfigType AppSettings { get; private set; }
+
+        /// <summary>
+        /// Gets the Json settings.
+        /// </summary>
+        public JsonSerializerSettings JsonSettings => new JsonSerializerSettings
+        {
+            Formatting = this.Environment.IsDevelopment() ? Formatting.Indented : Formatting.None,
+            DateTimeZoneHandling = DateTimeZoneHandling.Utc,
+            StringEscapeHandling = StringEscapeHandling.EscapeNonAscii,
+            ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver(),
+            NullValueHandling = NullValueHandling.Ignore,
+            DefaultValueHandling = DefaultValueHandling.Include & DefaultValueHandling.Populate,
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+        };
 
         /// <summary>
         /// This method gets called by the runtime. Use this method to add services to the container.
@@ -198,7 +202,7 @@ namespace Talegen.AspNetCore.App
         /// <param name="optionalRoutes">Contains an optional action for application route logic.</param>
         private void ConfigureApplicationRoutes(IApplicationBuilder app, Action<IEndpointRouteBuilder>? optionalRoutes = default)
         {
-            ArgumentNullException.ThrowIfNull(app, nameof(app));
+            ArgumentNullException.ThrowIfNull(app);
 
             app.UseEndpoints(endpoints =>
             {
@@ -224,13 +228,6 @@ namespace Talegen.AspNetCore.App
         /// <exception cref="Exception">Exception is thrown if no application settings section is found.</exception>
         private void InitializeSettings(IServiceCollection services)
         {
-            IConfigurationSection settingsSection = this.Configuration.GetSection(typeof(TConfigType).Name);
-            services.Configure<TConfigType>(settingsSection)
-                .PostConfigure<TConfigType>(options =>
-                {
-                    // handle any post configuration settings here.
-                });
-
             // setup logging
             Log.Logger = new LoggerConfiguration()
                 .MinimumLevel.Debug()
@@ -238,15 +235,22 @@ namespace Talegen.AspNetCore.App
                 .Enrich.FromLogContext()
                 .CreateLogger();
 
-            this.AppSettings = settingsSection.Get<TConfigType>() ?? throw new Exception(string.Format(Properties.Resources.ErrorNoConfigurationText, typeof(TConfigType).Name));
+            IConfigurationSection settingsSection = this.Configuration.GetSection(typeof(TConfigType).Name);
+
+            services.Configure<TConfigType>(settingsSection)
+                .PostConfigure<TConfigType>(options =>
+                {
+                    // handle any post configuration settings here.
+                    Log.Debug("Startup Initialize Settings - Post Configure for services.Configure<{0}>(settingsSection);", nameof(TConfigType));
+                });
+
+            this.AppSettings = settingsSection.Get<TConfigType>() ?? throw new AppServerException(string.Format(Properties.Resources.ErrorNoConfigurationText, typeof(TConfigType).Name));
             bool development = this.Environment.IsDevelopment();
-            this.connectionString = this.Configuration.GetConnectionString(DefaultConnectionKey).ConvertToString();
             this.cacheConnectionString = this.Configuration.GetConnectionString(this.AppSettings.Cache.ConnectionStringName).ConvertToString();
 
             if (development || this.AppSettings.Advanced.ShowDiagnostics)
             {
                 Microsoft.IdentityModel.Logging.IdentityModelEventSource.ShowPII = true;               
-                Log.Debug("Connection String: {0}", this.connectionString);
                 Log.Debug("Cache Type: {0}", this.AppSettings.Cache.CacheType.ToString());
                 Log.Debug("Cache Connection String: {0}", this.cacheConnectionString);
                 Log.Debug("Cache Name: {0}", this.AppSettings.Cache.CacheName);
@@ -264,6 +268,13 @@ namespace Talegen.AspNetCore.App
             // initialize the error manager
             services.AddTransient<IErrorManager, ErrorManager>();
 
+            // setup JSON settings
+            // default JSON serializer settings
+            services.AddSingleton((service) =>
+            {
+                return this.JsonSettings;
+            });
+
             // initialize cache mechanisms
             this.InitializeCache(services);
 
@@ -271,7 +282,7 @@ namespace Talegen.AspNetCore.App
             this.InitializeTelemetry(services, development);
 
             // initialize the messaging service
-            this.InitializeMessagingService(services, development);
+            this.InitializeMessagingService(services);
 
             // setup unhandled APi error modeling.
             services.AddScoped<ApiExceptionFilterAttribute>();
@@ -306,11 +317,11 @@ namespace Talegen.AspNetCore.App
         private void InitializeTelemetry(IServiceCollection services, bool development)
         {
             string key = !string.IsNullOrWhiteSpace(this.AppSettings.Telemetry.InstrumentationKey) ? this.AppSettings.Telemetry.InstrumentationKey : DefaultTelemetryKey;
-            this.telemetryConnectionString = this.Configuration.GetConnectionString(key).ConvertToString();
+            string telemetryConnectionString = this.Configuration.GetConnectionString(key).ConvertToString();
 
             if (this.AppSettings.Telemetry.Enabled &&
                 (!development || this.AppSettings.Advanced.ShowDiagnostics)
-                && !string.IsNullOrWhiteSpace(this.telemetryConnectionString))
+                && !string.IsNullOrWhiteSpace(telemetryConnectionString))
             {
                 switch (this.AppSettings.Telemetry.TelemetryType)
                 {
@@ -329,23 +340,24 @@ namespace Talegen.AspNetCore.App
         /// This method is used to inialize the configured messaging service.
         /// </summary>
         /// <param name="services">Contains the service collection.</param>
-        /// <param name="development">Contains a value indicating whether the enviromnet is development.</param>
         /// <exception cref="NotImplementedException">Thrown if a non-supported messaging type is specified in configuration.</exception>
-        private void InitializeMessagingService(IServiceCollection services, bool development)
+        private void InitializeMessagingService(IServiceCollection services)
         {
             // initialize the messaging service
             if (this.AppSettings.Messaging != null && this.AppSettings.Messaging.MessagingType != MessagingType.None)
             {
                 // add messaging queue service
-                services.AddSingleton<IQueueService<IQueueItem>, MessagingQueue>();
+                services.AddSingleton<IMessagingQueue, MessagingQueue>();
 
                 // add queued message sender
                 services.AddSingleton<IMessageSender, QueuedMessageSender>();
 
+                Log.Information("Configuring Messaging Services ({0})", this.AppSettings.Messaging.MessagingType);
+
                 switch (this.AppSettings.Messaging.MessagingType)
                 {
                     case MessagingType.Smtp:
-
+                        Log.Debug("Adding SMTP messaging");
                         // setup smtp messaging service
                         services.AddSingleton((service) =>
                         {
@@ -404,6 +416,7 @@ namespace Talegen.AspNetCore.App
             })
             .AddNewtonsoftJson(setup =>
             {
+                setup.SerializerSettings.Converters.Add(new StringEnumConverter());
                 setup.SerializerSettings.Formatting = development ? Newtonsoft.Json.Formatting.Indented : Newtonsoft.Json.Formatting.None;
                 setup.SerializerSettings.DateTimeZoneHandling = Newtonsoft.Json.DateTimeZoneHandling.Utc;
                 setup.SerializerSettings.StringEscapeHandling = Newtonsoft.Json.StringEscapeHandling.EscapeNonAscii;
@@ -411,7 +424,7 @@ namespace Talegen.AspNetCore.App
                 setup.SerializerSettings.NullValueHandling = Newtonsoft.Json.NullValueHandling.Ignore;
                 setup.SerializerSettings.DefaultValueHandling = Newtonsoft.Json.DefaultValueHandling.Include & Newtonsoft.Json.DefaultValueHandling.Populate;
                 setup.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
-            }); ;
+            }); 
         }
 
         /// <summary>
@@ -501,10 +514,7 @@ namespace Talegen.AspNetCore.App
                         options.AutomaticRefreshInterval = TimeSpan.FromMinutes(5);
                         options.BackchannelTimeout = TimeSpan.FromMinutes(5);
                         options.RefreshInterval = TimeSpan.FromMinutes(5);
-                        options.BackchannelHttpHandler = new HttpClientHandler
-                        {
-                            ServerCertificateCustomValidationCallback = HttpClientHandler.DangerousAcceptAnyServerCertificateValidator
-                        };
+                        
                         options.TokenValidationParameters = new TokenValidationParameters
                         {
                             NameClaimType = "name",

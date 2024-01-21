@@ -15,41 +15,35 @@
 */
 namespace Talegen.AspNetCore.App.Services.Queue
 {
-    using System.Collections.Concurrent;
-
     /// <summary>
-    /// This interface defines the minimum implementation of a queue service.
+    /// This interface is used to interact with the queue service.
     /// </summary>
-    /// <typeparam name="IQueueItem">Contains the message implementation to interact with.</typeparam>
-    public interface IQueueService<IQueueItem>
+    public interface IQueueService
     {
         /// <summary>
-        /// Gets the thread-safe queue for handling messages.
+        /// Gets or sets the queue processing interval in seconds.
         /// </summary>
-        ConcurrentQueue<IQueueItem> Messages { get; }
+        int QueueProcessingIntervalSeconds { get; }
 
         /// <summary>
-        /// Adds a new sender message to the queue to be processed.
+        /// This method is used to execute and process the queue messaging.
         /// </summary>
-        /// <param name="message">Contains the message to process.</param>
-        void Add(IQueueItem message);
+        void Process();
 
         /// <summary>
-        /// Removes the specified message.
+        /// This method is used to store the remaining queue items to disk during a shutdown event.
         /// </summary>
-        /// <param name="message">Contains the message to remove</param>
-        void Remove(IQueueItem message);
+        void StoreQueue();
 
         /// <summary>
-        /// Clears the queue.
+        /// This method is used to restore queue items from the disk during a startup.
         /// </summary>
-        void Clear();
+        void RestoreQueue();
 
         /// <summary>
-        /// Gets the next available messages in the queue to process.
+        /// This method is used to check on the existence of the queue path, and if it doesn't exist, it is created.
         /// </summary>
-        /// <param name="count">Contains the number of messages to process. Default is 0, indicating all available messages to process.</param>
-        /// <returns>Returns an enumerable list of queue items to process.</returns>
-        IEnumerable<IQueueItem> Peek(int count = 0);
+        /// <returns>Returns a value indicating if the path exists.</returns>
+        bool CheckQueuePath();
     }
 }

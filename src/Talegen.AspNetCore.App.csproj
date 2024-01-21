@@ -12,16 +12,16 @@
     <Company>Talegen, LLC</Company>
     <Description>Common Support Code for ASP.NET Core Applications Built by Talegen</Description>
     <Copyright>Copyright © Talegen, LLC. All rights reserved.</Copyright>
-    <Version>1.0.8</Version>
-    <AssemblyVersion>1.0.8</AssemblyVersion>
-    <FileVersion>1.0.8</FileVersion>
+    <Version>1.0.9</Version>
+    <AssemblyVersion>1.0.9</AssemblyVersion>
+    <FileVersion>1.0.9</FileVersion>
     <PackageProjectUrl>https://talegen.com</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>logo.png</PackageIcon>
     <ApplicationIcon>Assets\logo.ico</ApplicationIcon>
     <RepositoryUrl>https://github.com/Talegen/Talegen.AspNetCore.App</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <PackageReleaseNotes>Adding a new binder JsonWithFilesFormDataModelBinder to support models in multi-part form posts with IFormFile property.</PackageReleaseNotes>
+    <PackageReleaseNotes>Queue interfaces refactoring to fix issues with adding new interfaces based in IQueue.</PackageReleaseNotes>
     <NeutralLanguage>en</NeutralLanguage>
     <PackageLicenseExpression>Apache-2.0</PackageLicenseExpression>
     <GenerateResourceUsePreserializedResources>true</GenerateResourceUsePreserializedResources>
@@ -55,7 +55,7 @@
     <PackageReference Include="Serilog.Settings.Configuration" Version="8.0.0" />
     <PackageReference Include="Serilog.Sinks.ApplicationInsights" Version="4.0.0" />
     <PackageReference Include="Serilog.Sinks.Console" Version="5.0.1" />
-    <PackageReference Include="StackExchange.Redis" Version="2.7.10" />
+    <PackageReference Include="StackExchange.Redis" Version="2.7.17" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.5.0" />
     <PackageReference Include="Talegen.AspNetCore.Web" Version="1.1.4" />
   </ItemGroup>

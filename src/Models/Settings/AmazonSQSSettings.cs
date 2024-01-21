@@ -31,7 +31,7 @@ namespace Talegen.AspNetCore.App.Models.Settings
         /// <summary>
         /// Gets or sets the secret key.
         /// </summary>
-        public string SecretKey { get; set; }
+        public string Secret { get; set; }
 
         /// <summary>
         /// Gets or sets the service URL.
@@ -50,13 +50,13 @@ namespace Talegen.AspNetCore.App.Models.Settings
         public AWSCredentials GetCredentials()
         {
             AWSCredentials? credentials;
-            if (string.IsNullOrWhiteSpace(this.AccessKey) || string.IsNullOrWhiteSpace(this.SecretKey))
+            if (string.IsNullOrWhiteSpace(this.AccessKey) || string.IsNullOrWhiteSpace(this.Secret))
             {
                 credentials = FallbackCredentialsFactory.GetCredentials();
             }
             else
             {
-                credentials = new BasicAWSCredentials(this.AccessKey, this.SecretKey);
+                credentials = new BasicAWSCredentials(this.AccessKey, this.Secret);
             }
 
             return credentials;

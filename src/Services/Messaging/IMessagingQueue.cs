@@ -18,9 +18,9 @@ namespace Talegen.AspNetCore.App.Services.Messaging
     using Talegen.AspNetCore.App.Services.Queue;
 
     /// <summary>
-    /// This interface defines a minimum implementation of a message service.
+    /// This interface defines a minimmum implementation of a messaging queue.
     /// </summary>
-    public interface IMessagingService : IQueueService
+    public interface IMessagingQueue : IQueue<IQueueItem>
     {
     }
 }

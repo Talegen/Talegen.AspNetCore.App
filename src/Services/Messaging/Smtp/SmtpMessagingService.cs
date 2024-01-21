@@ -33,7 +33,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// <summary>
         /// Contains an instance of the queue service.
         /// </summary>
-        private readonly IQueueService<IQueueItem> queueService;
+        private readonly IMessagingQueue queueService;
 
         /// <summary>
         /// Contains an instance of the message processor.
@@ -51,7 +51,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// <param name="context">Contains an instance of SMTP messaging context.</param>
         /// <param name="queueService">Contains an instance of queue service.</param>
         /// <param name="messageProcessor">Contains an instance of message processor.</param>
-        public SmtpMessagingService(SmtpMessageContext context, IQueueService<IQueueItem> queueService, IMessageProcessor messageProcessor)
+        public SmtpMessagingService(SmtpMessageContext context, IMessagingQueue queueService, IMessageProcessor messageProcessor)
         {
             this.context = context;
             this.queueService = queueService;
@@ -67,7 +67,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// This method is used to check the message queue folder availability.
         /// </summary>
         /// <returns>Returns a value indicating whether the message queue folder exists.</returns>
-        public bool CheckMessagePath()
+        public bool CheckQueuePath()
         {
             bool result = !string.IsNullOrWhiteSpace(this.context.MessageQueueFolder);
 
@@ -129,11 +129,11 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// <summary>
         /// This method is used to restore messages from the message queue folder.
         /// </summary>
-        public void RestoreMessageQueue()
+        public void RestoreQueue()
         {
             Log.Debug(Resources.MessagingServiceRestoreQueueText, this.messageProcessor.ToString());
 
-            if (this.CheckMessagePath())
+            if (this.CheckQueuePath())
             {
                 string[] files = Directory.GetFiles(this.context.MessageQueueFolder);
 
@@ -169,12 +169,12 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// <summary>
         /// This method is used to store messages in the message queue folder.
         /// </summary>
-        public void StoreMessageQueue()
+        public void StoreQueue()
         {
             Log.Debug(Resources.MessagingServiceStoreQueueText, this.messageProcessor.ToString());
 
             // if the queue message path exists...
-            if (this.CheckMessagePath())
+            if (this.CheckQueuePath())
             {
                 // stop processing....
                 this.processing = false;

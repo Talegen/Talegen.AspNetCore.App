@@ -25,13 +25,13 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Queue
         /// <summary>
         /// Gets the messaging queue service.
         /// </summary>
-        private readonly IQueueService<IQueueItem> messagingQueue;
+        private readonly IMessagingQueue messagingQueue;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="QueuedMessageSender" /> class.
         /// </summary>
         /// <param name="queueService">Contains an instance of the queue service.</param>
-        public QueuedMessageSender(IQueueService<IQueueItem> queueService)
+        public QueuedMessageSender(IMessagingQueue queueService)
         {
             this.messagingQueue = queueService;
         }

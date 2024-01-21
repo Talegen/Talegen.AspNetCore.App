@@ -74,7 +74,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
 #pragma warning restore CS8622 // Nullability of reference types in type of parameter doesn't match the target delegate (possibly because of nullability attributes).
 
             // restore any messages from queue folder.
-            this.service.RestoreMessageQueue();
+            this.service.RestoreQueue();
 
             return Task.CompletedTask;
         }
@@ -89,7 +89,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
             Log.Information(Resources.MessageQueueJobStopText);
 
             // store any messages in queue.
-            this.service.StoreMessageQueue();
+            this.service.StoreQueue();
 
             this.timer?.Change(Timeout.Infinite, 0);
             return Task.CompletedTask;
@@ -100,7 +100,8 @@ namespace Talegen.AspNetCore.App.Services.Messaging
         /// </summary>
         public void Dispose()
         {
-            this.Dispose(!this.disposed);
+            this.Dispose(true);
+            GC.SuppressFinalize(this);
         }
 
         #endregion
@@ -111,7 +112,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
         /// Disposes internal disposable objects.
         /// </summary>
         /// <param name="disposing">Contains a value indicating whether disposing is underway.</param>
-        private void Dispose(bool disposing)
+        protected virtual void Dispose(bool disposing)
         {
             if (disposing && !this.disposed)
             {

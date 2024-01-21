@@ -22,7 +22,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
     /// <summary>
     /// This class represents a queue for handling messages.
     /// </summary>
-    public class MessagingQueue : IQueueService<IQueueItem>
+    public class MessagingQueue : IMessagingQueue
     {
         /// <summary>
         /// Gets the thread-safe queue for handling messages.
@@ -62,7 +62,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
                         && Messages.State != QueueItemState.Complete)
                 .AsQueryable();
 
-            if (results != null && count > 0)
+            if (count > 0)
             {
                 results = results.Take(count);
             }
@@ -78,7 +78,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
         /// <param name="message">Contains the message to remove.</param>
         public void Remove(IQueueItem message)
         {
-            var item = Messages.ToArray().FirstOrDefault(m => m.Id == message.Id);
+            var item = Messages.FirstOrDefault(m => m.Id == message.Id);
 
             if (item != null)
             {

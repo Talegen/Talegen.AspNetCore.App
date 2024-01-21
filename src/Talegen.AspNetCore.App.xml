@@ -40,6 +40,29 @@
             Gets or sets a value indicating whether to use Serilog for logging.
             </summary>
         </member>
+        <member name="T:Talegen.AspNetCore.App.AppServerException">
+            <summary>
+            This class defines the main Application Server Exception to be thrown within Applications. 
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.AppServerException.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.AppServerException"/> class.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.AppServerException.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.AppServerException"/> class.
+            </summary>
+            <param name="message">Contains the exception message.</param>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.AppServerException.#ctor(System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.AppServerException"/> class.
+            </summary>
+            <param name="message">Contains the exception message.</param>
+            <param name="innerException">Contains the inner exception.</param>
+        </member>
         <member name="T:Talegen.AspNetCore.App.AppStartup`1">
             <summary>
             This class defines the application startup logic for a core web API.
@@ -56,29 +79,14 @@
             Contains the default scope profile.
             </summary>
         </member>
-        <member name="F:Talegen.AspNetCore.App.AppStartup`1.DefaultConnectionKey">
-            <summary>
-            Contains the default connection key.
-            </summary>
-        </member>
         <member name="F:Talegen.AspNetCore.App.AppStartup`1.DefaultTelemetryKey">
             <summary>
             Contains the default telemetry key.
             </summary>
         </member>
-        <member name="F:Talegen.AspNetCore.App.AppStartup`1.connectionString">
-            <summary>
-            Contains the data connection string.
-            </summary>
-        </member>
         <member name="F:Talegen.AspNetCore.App.AppStartup`1.cacheConnectionString">
             <summary>
             Contains the cache connection string.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.AppStartup`1.telemetryConnectionString">
-            <summary>
-            Contains the telemetry connection string.
             </summary>
         </member>
         <member name="M:Talegen.AspNetCore.App.AppStartup`1.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
@@ -101,6 +109,11 @@
         <member name="P:Talegen.AspNetCore.App.AppStartup`1.AppSettings">
             <summary>
             Gets the application settings.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.AppStartup`1.JsonSettings">
+            <summary>
+            Gets the Json settings.
             </summary>
         </member>
         <member name="M:Talegen.AspNetCore.App.AppStartup`1.ConfigureServices(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection},System.Action{Microsoft.Extensions.DependencyInjection.IServiceCollection})">
@@ -161,12 +174,11 @@
             <param name="development">Contains a value indicating if running in development environment.</param>
             <exception cref="T:System.NotImplementedException">Exception is thrown if attempting to use CloudWatch telemetry.</exception>
         </member>
-        <member name="M:Talegen.AspNetCore.App.AppStartup`1.InitializeMessagingService(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
+        <member name="M:Talegen.AspNetCore.App.AppStartup`1.InitializeMessagingService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
             This method is used to inialize the configured messaging service.
             </summary>
             <param name="services">Contains the service collection.</param>
-            <param name="development">Contains a value indicating whether the enviromnet is development.</param>
             <exception cref="T:System.NotImplementedException">Thrown if a non-supported messaging type is specified in configuration.</exception>
         </member>
         <member name="M:Talegen.AspNetCore.App.AppStartup`1.InitalizeWebApiSettings(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
@@ -979,7 +991,7 @@
             Gets or sets the access key.
             </summary>
         </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Settings.AmazonSQSSettings.SecretKey">
+        <member name="P:Talegen.AspNetCore.App.Models.Settings.AmazonSQSSettings.Secret">
             <summary>
             Gets or sets the secret key.
             </summary>
@@ -1709,36 +1721,15 @@
             <param name="cancellationToken">Contains a cancellation token.</param>
             <returns>Returns an async Task result.</returns>
         </member>
+        <member name="T:Talegen.AspNetCore.App.Services.Messaging.IMessagingQueue">
+            <summary>
+            This interface defines a minimmum implementation of a messaging queue.
+            </summary>
+        </member>
         <member name="T:Talegen.AspNetCore.App.Services.Messaging.IMessagingService">
             <summary>
-            This interface is used to interact with the messaging service.
+            This interface defines a minimum implementation of a message service.
             </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Messaging.IMessagingService.QueueProcessingIntervalSeconds">
-            <summary>
-            Gets or sets the queue processing interval in seconds.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.IMessagingService.Process">
-            <summary>
-            This method is used to execute and process the queue messaging.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.IMessagingService.StoreMessageQueue">
-            <summary>
-            This method is used to store the remaining queue items to disk during a shutdown event.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.IMessagingService.RestoreMessageQueue">
-            <summary>
-            This method is used to restore queue items from the disk during a startup.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.IMessagingService.CheckMessagePath">
-            <summary>
-            This method is used to check on the existence of the message queue path, and if it doesn't exist, it is created.
-            </summary>
-            <returns>Returns a value indicating if the path exists.</returns>
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress">
             <summary>
@@ -2119,7 +2110,7 @@
             Gets the messaging queue service.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender.#ctor(Talegen.AspNetCore.App.Services.Queue.IQueueService{Talegen.AspNetCore.App.Services.Queue.IQueueItem})">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender.#ctor(Talegen.AspNetCore.App.Services.Messaging.IMessagingQueue)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender" /> class.
             </summary>
@@ -2381,7 +2372,7 @@
             Contains a value indicating whether the queue should be processing.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService.#ctor(Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessageContext,Talegen.AspNetCore.App.Services.Queue.IQueueService{Talegen.AspNetCore.App.Services.Queue.IQueueItem},Talegen.AspNetCore.App.Services.Messaging.IMessageProcessor)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService.#ctor(Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessageContext,Talegen.AspNetCore.App.Services.Messaging.IMessagingQueue,Talegen.AspNetCore.App.Services.Messaging.IMessageProcessor)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService" /> class.
             </summary>
@@ -2394,7 +2385,7 @@
             Gets or sets the queue processing interval in seconds.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService.CheckMessagePath">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService.CheckQueuePath">
             <summary>
             This method is used to check the message queue folder availability.
             </summary>
@@ -2405,12 +2396,12 @@
             This method is used to send a message for the application.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService.RestoreMessageQueue">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService.RestoreQueue">
             <summary>
             This method is used to restore messages from the message queue folder.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService.StoreMessageQueue">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService.StoreQueue">
             <summary>
             This method is used to store messages in the message queue folder.
             </summary>
@@ -2623,6 +2614,41 @@
             <param name="audit">Contains an audit service.</param>
             <param name="errorManager">Contains an error manager service.</param>
         </member>
+        <member name="T:Talegen.AspNetCore.App.Services.Queue.IQueue`1">
+            <summary>
+            This interface defines the minimum implementation of a queue service.
+            </summary>
+            <typeparam name="IQueueItem">Contains the message implementation to interact with.</typeparam>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Services.Queue.IQueue`1.Messages">
+            <summary>
+            Gets the thread-safe queue for handling messages.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueue`1.Add(`0)">
+            <summary>
+            Adds a new sender message to the queue to be processed.
+            </summary>
+            <param name="message">Contains the message to process.</param>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueue`1.Remove(`0)">
+            <summary>
+            Removes the specified message.
+            </summary>
+            <param name="message">Contains the message to remove</param>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueue`1.Clear">
+            <summary>
+            Clears the queue.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueue`1.Peek(System.Int32)">
+            <summary>
+            Gets the next available messages in the queue to process.
+            </summary>
+            <param name="count">Contains the number of messages to process. Default is 0, indicating all available messages to process.</param>
+            <returns>Returns an enumerable list of queue items to process.</returns>
+        </member>
         <member name="T:Talegen.AspNetCore.App.Services.Queue.QueueItemState">
             <summary>
             Contains an enumeration of queue item states.
@@ -2678,40 +2704,36 @@
             Gets or sets the rety count of the queue item.
             </summary>
         </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Queue.IQueueService`1">
+        <member name="T:Talegen.AspNetCore.App.Services.Queue.IQueueService">
             <summary>
-            This interface defines the minimum implementation of a queue service.
-            </summary>
-            <typeparam name="IQueueItem">Contains the message implementation to interact with.</typeparam>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Queue.IQueueService`1.Messages">
-            <summary>
-            Gets the thread-safe queue for handling messages.
+            This interface is used to interact with the queue service.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService`1.Add(`0)">
+        <member name="P:Talegen.AspNetCore.App.Services.Queue.IQueueService.QueueProcessingIntervalSeconds">
             <summary>
-            Adds a new sender message to the queue to be processed.
-            </summary>
-            <param name="message">Contains the message to process.</param>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService`1.Remove(`0)">
-            <summary>
-            Removes the specified message.
-            </summary>
-            <param name="message">Contains the message to remove</param>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService`1.Clear">
-            <summary>
-            Clears the queue.
+            Gets or sets the queue processing interval in seconds.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService`1.Peek(System.Int32)">
+        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService.Process">
             <summary>
-            Gets the next available messages in the queue to process.
+            This method is used to execute and process the queue messaging.
             </summary>
-            <param name="count">Contains the number of messages to process. Default is 0, indicating all available messages to process.</param>
-            <returns>Returns an enumerable list of queue items to process.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService.StoreQueue">
+            <summary>
+            This method is used to store the remaining queue items to disk during a shutdown event.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService.RestoreQueue">
+            <summary>
+            This method is used to restore queue items from the disk during a startup.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService.CheckQueuePath">
+            <summary>
+            This method is used to check on the existence of the queue path, and if it doesn't exist, it is created.
+            </summary>
+            <returns>Returns a value indicating if the path exists.</returns>
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.Security.PermissionType">
             <summary>
