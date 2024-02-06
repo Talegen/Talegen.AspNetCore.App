@@ -13,7 +13,6 @@
  * limitations under the License.
  *
 */
-
 namespace Talegen.AspNetCore.App.Filters
 {
     using System;

@@ -221,6 +221,109 @@
             </summary>
             <param name="services">Contains the services collection.</param>
         </member>
+        <member name="T:Talegen.AspNetCore.App.Audit.AuditLogRepository">
+            <summary>
+            This class implements the audit log service.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.#ctor">
+            <summary>
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Audit.AuditLogRepository"/> class.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.AddAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogBase,System.Threading.CancellationToken)">
+            <summary>
+            This method is used to add a new audit log entry.
+            </summary>
+            <param name="entity">Contains the entry to log.</param>
+            <param name="cancellationToken">Contains an optional cancellation token.</param>
+            <returns>Returns the repository result.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.DeleteAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            This method is used to delete an audit log entry.
+            </summary>
+            <param name="id">Contains the identity of the log to delete.</param>
+            <param name="cancellationToken">Contains an optional cancellation token.</param>
+            <returns>Returns the repository result.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.DeleteAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogBase,System.Threading.CancellationToken)">
+            <summary>
+            This method is used to delete an audit log entry.
+            </summary>
+            <param name="entity">Contains the entity to delete.</param>
+            <param name="cancellationToken">Contains an optional cancellation token.</param>
+            <returns>Returns the repository result.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.GetAllAsync(System.Threading.CancellationToken)">
+            <summary>
+            This method is used to get a list of all audit log entries.
+            </summary>
+            <param name="cancellationToken">Contains an optional cancellation token.</param>
+            <returns>Returns the repository result.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.GetAsync(System.Guid,System.Threading.CancellationToken)">
+            <summary>
+            This method is used to get an audit log entry by id.
+            </summary>
+            <param name="id">Contains the identity of the record to find.</param>
+            <param name="cancellationToken">Contains an optional cancellation token.</param>
+            <returns>Returns the repository result.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.UpdateAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogBase,System.Threading.CancellationToken)">
+            <summary>
+            This method is used to update an audit log entry.
+            </summary>
+            <param name="entity">Contains the entity to update.</param>
+            <param name="cancellationToken">Contains an optional cancellation token.</param>
+            <returns>Returns the repository result.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.SaveChangesAsync(System.Threading.CancellationToken)">
+            <summary>
+            This method is used to get an audit log entry by id.
+            </summary>
+            <param name="cancellationToken">Contains an optional cancellation token.</param>
+            <returns>Returns the repository result.</returns>
+            <exception cref="T:System.NotImplementedException">This method is not implemented for this repository.</exception>
+        </member>
+        <member name="T:Talegen.AspNetCore.App.Audit.AuditLogService">
+            <summary>
+            This class implements the audit log service.
+            </summary>
+        </member>
+        <member name="F:Talegen.AspNetCore.App.Audit.AuditLogService.dataRepository">
+            <summary>
+            Contains an instance of the audit data repository.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogService.#ctor(Talegen.AspNetCore.App.Repository.IDataRepository{Talegen.AspNetCore.App.Models.Audit.AuditLogBase})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Audit.AuditLogService"/> class.
+            </summary>
+            <param name="dataRepository">Contains an instance of the audit data repository.</param>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogService.LogAsync(Talegen.AspNetCore.App.Models.Audit.AuditEvent,Talegen.AspNetCore.App.Models.Audit.AuditResult,System.String,System.String,System.Nullable{System.Guid},System.String,System.Threading.CancellationToken)">
+            <summary>
+            This method is used to log an audit event.
+            </summary>
+            <param name="auditEvent">Contains the audit event.</param>
+            <param name="eventResult">Contains the audit result.</param>
+            <param name="clientAddress">Contains the client IP address.</param>
+            <param name="message">Contains the message.</param>
+            <param name="userId">Contains the user identity.</param>
+            <param name="location">Contains the request location.</param>
+            <param name="cancellationToken">Contains an optional cancellation token.</param>
+            <returns>Returns a result indicating whether the log was successful.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogService.ReadAuditLogsAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogQueryFilterModel,System.Threading.CancellationToken)">
+            <summary>
+            This method is used to read audit logs.
+            </summary>
+            <param name="filters">Contains query filters for filtering results.</param>
+            <param name="cancellationToken">Contains an optional cancellation token.</param>
+            <returns>Returns a result.</returns>
+            <exception cref="T:System.NotImplementedException">This method is currently not implemented.</exception>
+        </member>
         <member name="T:Talegen.AspNetCore.App.BaseRequestContext">
             <summary>
             This class defines the application context to be used in the application.
@@ -1372,6 +1475,32 @@
         <member name="P:Talegen.AspNetCore.App.Properties.Resources.TemplateFolderPathRequired">
             <summary>
               Looks up a localized string similar to A template folder path is required..
+            </summary>
+        </member>
+        <member name="T:Talegen.AspNetCore.App.Repository.ApiDataConnectionInfo">
+            <summary>
+            This class implements the minimum implementation for a data connection info class.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Repository.ApiDataConnectionInfo.#ctor(System.String)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Repository.ApiDataConnectionInfo" /> class.
+            </summary>
+            <param name="dataConnectionString">Contains the initialized connection string.</param>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Repository.ApiDataConnectionInfo.ConnectionString">
+            <summary>
+            Gets or sets the connection string.
+            </summary>
+        </member>
+        <member name="T:Talegen.AspNetCore.App.Repository.IDataConnectionInfo">
+            <summary>
+            This interface defines the minimum implementation for a data connection info class.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Repository.IDataConnectionInfo.ConnectionString">
+            <summary>
+            Gets or sets the database connection string.
             </summary>
         </member>
         <member name="T:Talegen.AspNetCore.App.Repository.IDataRepository`1">
@@ -2810,6 +2939,36 @@
             <param name="messaging">Contains a messaging service.</param>
             <param name="audit">Contains an audit service.</param>
             <param name="errorManager">Contains an error manager service.</param>
+        </member>
+        <member name="T:Talegen.AspNetCore.App.Services.ServiceBase`1">
+            <summary>
+            This class implements the base service class for all services.
+            </summary>
+            <typeparam name="T">Contains the type of data repository model.</typeparam>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Services.ServiceBase`1.#ctor(Talegen.AspNetCore.App.BaseRequestContext,Talegen.AspNetCore.App.Repository.IDataRepository{`0})">
+            <summary>
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.ServiceBase`1" /> class.
+            </summary>
+            <param name="requestContext">Contains a request context.</param>
+            <param name="dataRepository">Contains a data repository.</param>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Services.ServiceBase`1.RequestContext">
+            <summary>
+            Gets the request context.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Services.ServiceBase`1.DataRepository">
+            <summary>
+            Gets the data context.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Services.ServiceBase`1.SaveChangesAsync(System.Threading.CancellationToken)">
+            <summary>
+            This method is used to execute the data context save changes and catch all validation errors.
+            </summary>
+            <param name="cancellationToken">Contains an optional cancellation token.</param>
+            <returns>Returns the number of rows updated on success.</returns>
         </member>
     </members>
 </doc>
