@@ -25,14 +25,20 @@ namespace Talegen.AspNetCore.App.Audit
     /// <summary>
     /// This class implements the audit log service.
     /// </summary>
-    public class AuditLogRepository : IDataRepository<AuditLogBase>
+    public class AuditLogRepository : IDataRepository<AuditLogBase, Guid>
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="AuditLogRepository"/> class.
         /// </summary>
-        public AuditLogRepository()
+        public AuditLogRepository(IDataConnectionInfo dataConnectionInfo)
         {
+            this.DataConnectionInfo = dataConnectionInfo;
         }
+
+        /// <summary>
+        /// Gets the data connection information.
+        /// </summary>
+        public IDataConnectionInfo DataConnectionInfo { get; private set; }
 
         /// <summary>
         /// This method is used to add a new audit log entry.

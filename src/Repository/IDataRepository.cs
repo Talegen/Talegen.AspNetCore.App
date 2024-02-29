@@ -19,8 +19,14 @@ namespace Talegen.AspNetCore.App.Repository
     /// This interface is used to handle all data related interactions.
     /// </summary>
     /// <typeparam name="T">Contains the type of the object to interact with in the repository.</typeparam>
-    public interface IDataRepository<T> where T : class
+    /// <typeparam name="K">Contains the type of the key to interact with in the repository.</typeparam>
+    public interface IDataRepository<T, K> where T : class 
     {
+        /// <summary>
+        /// Gets the data connection information.
+        /// </summary>
+        IDataConnectionInfo DataConnectionInfo { get; }
+
         /// <summary>
         /// Adds an entity to the repository.
         /// </summary>
@@ -36,7 +42,7 @@ namespace Talegen.AspNetCore.App.Repository
         /// <param name="id">Contains the entity identity to delete.</param>
         /// <param name="cancellationToken">Contains an optional cancellation token.</param>
         /// <returns>Contains the result of the repository action.</returns>
-        Task<RepositoryResult<T>> DeleteAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<RepositoryResult<T>> DeleteAsync(K id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Deletes an entity from the repository.
@@ -60,7 +66,7 @@ namespace Talegen.AspNetCore.App.Repository
         /// <param name="id">Contains the identity of the entity to return.</param>
         /// <param name="cancellationToken">Contains an optional cancellation token.</param>
         /// <returns>Contains the result of the repository action.</returns>
-        Task<RepositoryResult<T>> GetAsync(Guid id, CancellationToken cancellationToken = default);
+        Task<RepositoryResult<T>> GetAsync(K id, CancellationToken cancellationToken = default);
 
         /// <summary>
         /// Gets all entities from the repository.

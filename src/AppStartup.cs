@@ -16,6 +16,7 @@
 namespace Talegen.AspNetCore.App
 {
     using System.IdentityModel.Tokens.Jwt;
+    using System.Reflection;
     using System.Runtime.Serialization;
     using IdentityModel.Client;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -31,6 +32,7 @@ namespace Talegen.AspNetCore.App
     using Newtonsoft.Json;
     using Newtonsoft.Json.Converters;
     using Serilog;
+    using Talegen.AspNetCore.App.Converters;
     using Talegen.AspNetCore.App.Filters;
     using Talegen.AspNetCore.App.Models.Settings;
     using Talegen.AspNetCore.App.Services.Messaging;
@@ -68,16 +70,21 @@ namespace Talegen.AspNetCore.App
         /// </summary>
         private string cacheConnectionString = string.Empty;
 
-
         /// <summary>
         /// Initializes a new instance of the <see cref="AppStartup{TConfigType}" /> class.
         /// </summary>
         /// <param name="configuration">Contains a configuration instance.</param>
         /// <param name="environment">Contains an environment instance.</param>
-        public AppStartup(IConfiguration configuration, IWebHostEnvironment environment)
+        /// <param name="appName">Contains the application name of the entry program.</param>
+        public AppStartup(IConfiguration configuration, IWebHostEnvironment environment, string? appName = null)
         {
             this.Configuration = configuration;
             this.Environment = environment;
+            this.AppName = appName ?? Assembly.GetEntryAssembly()?.GetName().Name ?? "Unknown";
+
+#if DEBUG
+            Console.Title = this.AppName;
+#endif
         }
 
         /// <summary>
@@ -96,6 +103,11 @@ namespace Talegen.AspNetCore.App
         public TConfigType AppSettings { get; private set; }
 
         /// <summary>
+        /// Gets the application name.
+        /// </summary>
+        public string AppName { get; private set; }
+
+        /// <summary>
         /// Gets the Json settings.
         /// </summary>
         public JsonSerializerSettings JsonSettings => new JsonSerializerSettings
@@ -106,7 +118,8 @@ namespace Talegen.AspNetCore.App
             ContractResolver = new Newtonsoft.Json.Serialization.DefaultContractResolver(),
             NullValueHandling = NullValueHandling.Ignore,
             DefaultValueHandling = DefaultValueHandling.Include & DefaultValueHandling.Populate,
-            ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+            ReferenceLoopHandling = ReferenceLoopHandling.Ignore,
+            Converters = new List<JsonConverter> { new DecimalConverter() }
         };
 
         /// <summary>
@@ -128,7 +141,7 @@ namespace Talegen.AspNetCore.App
             iocInitialization?.Invoke(services);
 
             // initialize web api settings.
-            this.InitalizeWebApiSettings(services, development);
+            this.InitializeWebApiSettings(services, development);
 
             // setup security if defined.
             this.InitializeSecurity(services, development);
@@ -337,7 +350,7 @@ namespace Talegen.AspNetCore.App
         }
 
         /// <summary>
-        /// This method is used to inialize the configured messaging service.
+        /// This method is used to initialize the configured messaging service.
         /// </summary>
         /// <param name="services">Contains the service collection.</param>
         /// <exception cref="NotImplementedException">Thrown if a non-supported messaging type is specified in configuration.</exception>
@@ -394,8 +407,8 @@ namespace Talegen.AspNetCore.App
         /// This method is used to initialize the web api settings.
         /// </summary>
         /// <param name="services">Contains the service collection.</param>
-        /// <param name="development">Contains a value indicating whether the enviromnet is development.</param>
-        private void InitalizeWebApiSettings(IServiceCollection services, bool development)
+        /// <param name="development">Contains a value indicating whether the environment is development.</param>
+        private void InitializeWebApiSettings(IServiceCollection services, bool development)
         {
             bool authEnabled = this.AppSettings.Security != null && this.AppSettings.Security.AuthorityUri != null;
 

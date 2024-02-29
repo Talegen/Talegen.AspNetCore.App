@@ -40,5 +40,22 @@ namespace Talegen.AspNetCore.App
         /// <param name="innerException">Contains the inner exception.</param>
         public AppServerException(string? message, Exception? innerException)
             : base(message, innerException) { }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AppServerException"/> class.
+        /// </summary>
+        /// <param name="requestContext">Contains the application base request context.</param>
+        /// <param name="message">Contains the message to report.</param>
+        /// <param name="innerException">Contains an optional inner exception.</param>
+        public AppServerException(BaseRequestContext requestContext, string message, Exception? innerException = default)
+            : base(message, innerException) 
+        { 
+            this.RequestContext = requestContext;
+        }
+
+        /// <summary>
+        /// Gets the request context.
+        /// </summary>
+        public BaseRequestContext RequestContext { get; private set; }
     }
 }

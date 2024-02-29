@@ -110,10 +110,6 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
                 this.errorManager?.Critical(ex, ErrorCategory.Application);
                 throw;
             }
-            finally
-            {
-                client.Dispose();
-            }
 
             return result;
         }

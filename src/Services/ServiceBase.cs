@@ -23,14 +23,15 @@ namespace Talegen.AspNetCore.App.Services
     /// This class implements the base service class for all services.
     /// </summary>
     /// <typeparam name="T">Contains the type of data repository model.</typeparam>
-    public abstract class ServiceBase<T> where T : class
+    /// <typeparam name="K">Contains the type of the data repository model key.</typeparam>
+    public abstract class ServiceBase<T, K> where T : class
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ServiceBase{T}" /> class.
+        /// Initializes a new instance of the <see cref="ServiceBase{T, K}" /> class.
         /// </summary>
         /// <param name="requestContext">Contains a request context.</param>
         /// <param name="dataRepository">Contains a data repository.</param>
-        protected ServiceBase(BaseRequestContext requestContext, IDataRepository<T> dataRepository)
+        protected ServiceBase(BaseRequestContext requestContext, IDataRepository<T, K> dataRepository)
         {
             this.RequestContext = requestContext;
             this.DataRepository = dataRepository;
@@ -44,7 +45,7 @@ namespace Talegen.AspNetCore.App.Services
         /// <summary>
         /// Gets the data context.
         /// </summary>
-        protected IDataRepository<T> DataRepository { get; private set; }
+        protected IDataRepository<T, K> DataRepository { get; private set; }
 
         /// <summary>
         /// This method is used to execute the data context save changes and catch all validation errors.

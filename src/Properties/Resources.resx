@@ -126,9 +126,6 @@
   <data name="ErrorContentTypeBoundryNotFoundText" xml:space="preserve">
     <value>Missing content-type boundary.</value>
   </data>
-  <data name="ErrorEmailTemplateDirectoryNotFoundText" xml:space="preserve">
-    <value>The message template folder '{0}' was not found. Message template system cannot work without template files.</value>
-  </data>
   <data name="ErrorGeneralWebText" xml:space="preserve">
     <value>An error has occurred.</value>
   </data>
@@ -137,6 +134,9 @@
   </data>
   <data name="ErrorMessageSenderText" xml:space="preserve">
     <value>An error occurred while processing a message in message queue.</value>
+  </data>
+  <data name="ErrorMessageTemplateMissingText" xml:space="preserve">
+    <value>The message template '{0}' was not found. Ensure template exists.</value>
   </data>
   <data name="ErrorNoConfigurationText" xml:space="preserve">
     <value>The application configuration class '{0}' was not found in the configuration.</value>

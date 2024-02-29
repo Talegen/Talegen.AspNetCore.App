@@ -17,18 +17,13 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
 {
     using System.Globalization;
     using System.Resources;
-    using System.Runtime.CompilerServices;
+
 
     /// <summary>
     /// This class is used to create a new <see cref="ISenderMessage" /> object for the SMTP messaging service.
     /// </summary>
     public class SmtpSenderMessageFactory : ISenderMessageFactory
     {
-        /// <summary>
-        /// Contains the SMTP message context.
-        /// </summary>
-        private readonly SmtpMessageContext context;
-
         /// <summary>
         /// Contains the resource manager used for retrieving template content.
         /// </summary>
@@ -42,14 +37,23 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// <summary>
         /// Initializes a new instance of the <see cref="SmtpSenderMessageFactory" /> class.
         /// </summary>
-        /// <param name="context">Contains the SMTP message context.</param>
         /// <param name="resourceManager">Contains the resource manager used for retrieving template content.</param>
         /// <param name="cultureInfoOverride">Contains an optional locale string override for message body resource lookup.</param>
-        public SmtpSenderMessageFactory(SmtpMessageContext context, ResourceManager? resourceManager = default, CultureInfo? cultureInfoOverride = default)
+        public SmtpSenderMessageFactory(ResourceManager? resourceManager = default, CultureInfo? cultureInfoOverride = default)
         {
-            this.context = context;
             this.resourceManager = resourceManager ?? Properties.Resources.ResourceManager;
             this.cultureInfoOverride = cultureInfoOverride ?? CultureInfo.CurrentCulture;
+        }
+
+        /// <summary>
+        /// This method is used to create a new <see cref="ISenderAddress" /> object for the SMTP messaging service.
+        /// </summary>
+        /// <param name="address">Contains the address.</param>
+        /// <param name="displayName">Contains an optional display name.</param>
+        /// <returns>Returns the address.</returns>
+        public ISenderAddress CreateAddress(string address, string displayName = "")
+        {
+            return new SmtpMailAddress(address, displayName);
         }
 
         /// <summary>
@@ -59,12 +63,11 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// <param name="recipients">Contains a list of <see cref="ISenderAddress" /> recipient objects.</param>
         /// <param name="subject">Contains the message subject.</param>
         /// <param name="templateName">Contains a message template name to retrieve and load into the message body.</param>
-        /// <param name="emailTemplateFolder">Contains email template folder.</param>
         /// <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
         /// <param name="resourceManager">Contains the resource manager used for retrieving template content.</param>
         /// <param name="cultureInfoOverride">Contains an optional locale string override for message body resource lookup.</param>
         /// <returns>Returns a new <see cref="ISenderMessage" /> containing template message content.</returns>
-        public ISenderMessage CreateSenderMessage(ISenderAddress from, List<ISenderAddress> recipients, string subject, string templateName, string emailTemplateFolder, Dictionary<string, string>? tokensList = null, ResourceManager? resourceManager = null, CultureInfo? cultureInfoOverride = null)
+        public ISenderMessage CreateSenderMessage(ISenderAddress from, List<ISenderAddress> recipients, string subject, string templateName, Dictionary<string, string>? tokensList = null, ResourceManager? resourceManager = null, CultureInfo? cultureInfoOverride = null)
         {
             ArgumentNullException.ThrowIfNull(from);
 
@@ -80,11 +83,6 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
                 throw new ArgumentNullException(nameof(templateName));
             }
 
-            if (!Directory.Exists(this.context.MessageTemplateFolder))
-            {
-                throw new DirectoryNotFoundException(string.Format(CultureInfo.InvariantCulture, Properties.Resources.ErrorEmailTemplateDirectoryNotFoundText, emailTemplateFolder));
-            }
-
             if (resourceManager != null)
             {
                 this.resourceManager = resourceManager;
@@ -96,8 +94,8 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
             }
             
             // default to English if no language specified.
-            string textContent = TemplateExtensions.LoadTemplate(emailTemplateFolder, templateName + ".txt", this.cultureInfoOverride);
-            string htmlContent = TemplateExtensions.LoadTemplate(emailTemplateFolder, templateName + ".htm", this.cultureInfoOverride);
+            string textContent = TemplateExtensions.LoadTemplate(templateName + TemplateExtensions.TemplateTextSuffix, this.resourceManager, this.cultureInfoOverride);
+            string htmlContent = TemplateExtensions.LoadTemplate(templateName + TemplateExtensions.TemplateHtmlSuffix, this.resourceManager, this.cultureInfoOverride);
 
             return CreateSenderMessage(from, recipients, subject, textContent, htmlContent, false, tokensList);
         }

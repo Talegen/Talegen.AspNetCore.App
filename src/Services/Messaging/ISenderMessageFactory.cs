@@ -30,12 +30,11 @@ namespace Talegen.AspNetCore.App.Services.Messaging
         /// <param name="recipients">Contains a list of <see cref="ISenderAddress" /> recipient objects.</param>
         /// <param name="subject">Contains the message subject.</param>
         /// <param name="templateName">Contains a message template name to retrieve and load into the message body.</param>
-        /// <param name="emailTemplateFolder">Contains email template folder.</param>
         /// <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
         /// <param name="resourceManager">Contains the resource manager used for retrieving template content.</param>
         /// <param name="cultureInfoOverride">Contains an optional locale string override for message body resource lookup.</param>
         /// <returns>Returns a new <see cref="ISenderMessage" /> containing template message content.</returns>
-        ISenderMessage CreateSenderMessage(ISenderAddress from, List<ISenderAddress> recipients, string subject, string templateName, string emailTemplateFolder, Dictionary<string, string>? tokensList = null, ResourceManager? resourceManager = null, CultureInfo? cultureInfoOverride = null);
+        ISenderMessage CreateSenderMessage(ISenderAddress from, List<ISenderAddress> recipients, string subject, string templateName, Dictionary<string, string>? tokensList = null, ResourceManager? resourceManager = null, CultureInfo? cultureInfoOverride = null);
 
         /// <summary>
         /// This method is used to create a new <see cref="ISenderMessage" /> and populate the message content with optional token values.
@@ -67,5 +66,13 @@ namespace Talegen.AspNetCore.App.Services.Messaging
         /// <param name="htmlBodyContentType">Contains an optional HTML body content type.</param>
         /// <returns>Returns a new <see cref="ISenderMessage" /> containing message content.</returns>
         ISenderMessage CreateSenderMessage(ISenderAddress from, List<ISenderAddress> recipients, string subject, string textBody, string htmlBody = "", bool recipientsVisible = false, Dictionary<string, string>? tokensList = null, string textBodyContentType = "text/plain", string htmlBodyContentType = "text/html");
+
+        /// <summary>
+        /// This method is used to create a new <see cref="ISenderAddress" /> object.
+        /// </summary>
+        /// <param name="address">Contains the address.</param>
+        /// <param name="displayName">Contains an optional display name.</param>
+        /// <returns>Returns the address.</returns>
+        ISenderAddress CreateAddress(string address, string displayName = "");
     }
 }

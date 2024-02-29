@@ -32,14 +32,21 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// Initializes a new instance of the <see cref="SmtpMailAddress" /> class.
         /// </summary>
         /// <param name="address">Contains the address.</param>
-        public SmtpMailAddress(string address)
+        /// <param name="displayName">Contains an optional display name.</param>
+        public SmtpMailAddress(string address, string displayName = "")
         {
-            Address = address;
+            this.Address = address;
+            this.DisplayName = displayName;
         }
 
         /// <summary>
         /// Gets or sets the address.
         /// </summary>
         public string Address { get; set; }
+
+        /// <summary>
+        /// Gets or sets the address display name.
+        /// </summary>
+        public string DisplayName { get; set; }
     }
 }

@@ -39,14 +39,14 @@ namespace Talegen.AspNetCore.App.Services.Audit
         /// <summary>
         /// Contains a reference to the data repository.
         /// </summary>
-        private readonly IDataRepository<AuditLogBase> repository;
+        private readonly IDataRepository<AuditLogBase, Guid> repository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuditServiceBase" /> class.
         /// </summary>
         /// <param name="requestContext">Contains a reference to the request context.</param>
         /// <param name="repository">Contains a reference to the data repository.</param>
-        public AuditServiceBase(BaseRequestContext requestContext, IDataRepository<AuditLogBase> repository)
+        public AuditServiceBase(BaseRequestContext requestContext, IDataRepository<AuditLogBase, Guid> repository)
         {
             this.requestContext = requestContext;
             this.repository = repository;
@@ -161,7 +161,7 @@ namespace Talegen.AspNetCore.App.Services.Audit
                     }
                     else
                     {
-                        throw new Exception(string.Format(Resources.ErrorNoRepositoryResultFoundText, typeof(IDataRepository<AuditLogBase>).Name, nameof(this.BuildPagedResultsQueryAsync)));
+                        throw new AppServerException(string.Format(Resources.ErrorNoRepositoryResultFoundText, typeof(IDataRepository<AuditLogBase, Guid>).Name, nameof(this.BuildPagedResultsQueryAsync)));
                     }
                 }
             }

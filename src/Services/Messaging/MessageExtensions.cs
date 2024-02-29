@@ -18,6 +18,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
     using System.Globalization;
     using System.Linq;
     using Talegen.AspNetCore.App.Models;
+    using Talegen.Common.Models.Security;
 
     /// <summary>
     /// This class contains extensions for the message service.
@@ -41,7 +42,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
         /// <param name="requestedUri">Contains the requested Uri if any to use and base URL token value.</param>
         /// <param name="recipientUser">Contains the user to which the email is being sent.</param>
         /// <param name="senderUser">Contains the user to which the email is being sent from.</param>
-        public static void InitializeBaseTokens(this Dictionary<string, string> tokenValues, Uri? requestedUri = default, IUserInfo? recipientUser = null, IUserInfo? senderUser = null)
+        public static void InitializeBaseTokens(this Dictionary<string, string> tokenValues, Uri? requestedUri = default, IUserInfo<Guid>? recipientUser = null, IUserInfo<Guid>? senderUser = null)
         {
             ArgumentNullException.ThrowIfNull(tokenValues);
 
@@ -49,7 +50,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
             {
                 if (!tokenValues.ContainsKey(MessageTemplateTokens.FromUserName))
                 {
-                    tokenValues.Add(MessageTemplateTokens.FromUserName, senderUser.UserName);
+                    tokenValues.Add(MessageTemplateTokens.FromUserName, senderUser.Name);
                 }
 
                 if (!tokenValues.ContainsKey(MessageTemplateTokens.FromFirstName))
@@ -72,12 +73,12 @@ namespace Talegen.AspNetCore.App.Services.Messaging
             {
                 if (!tokenValues.ContainsKey(MessageTemplateTokens.UserId))
                 {
-                    tokenValues.Add(MessageTemplateTokens.UserId, recipientUser.UserId.ToString());
+                    tokenValues.Add(MessageTemplateTokens.UserId, recipientUser.Id.ToString());
                 }
 
                 if (!tokenValues.ContainsKey(MessageTemplateTokens.UserName))
                 {
-                    tokenValues.Add(MessageTemplateTokens.UserName, recipientUser.UserName);
+                    tokenValues.Add(MessageTemplateTokens.UserName, recipientUser.Name);
                 }
 
                 if (!tokenValues.ContainsKey(MessageTemplateTokens.FirstName))

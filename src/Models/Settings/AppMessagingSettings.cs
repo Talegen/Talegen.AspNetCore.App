@@ -58,5 +58,9 @@ namespace Talegen.AspNetCore.App.Models.Settings
         /// </summary>
         public int QueueProcessingIntervalSeconds { get; set; } = 60;
 
+        /// <summary>
+        /// Gets or sets a message template path.
+        /// </summary>
+        public string TemplatePath { get; set; } = "Templates";
     }
 }

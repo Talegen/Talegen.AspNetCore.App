@@ -63,6 +63,19 @@
             <param name="message">Contains the exception message.</param>
             <param name="innerException">Contains the inner exception.</param>
         </member>
+        <member name="M:Talegen.AspNetCore.App.AppServerException.#ctor(Talegen.AspNetCore.App.BaseRequestContext,System.String,System.Exception)">
+            <summary>
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.AppServerException"/> class.
+            </summary>
+            <param name="requestContext">Contains the application base request context.</param>
+            <param name="message">Contains the message to report.</param>
+            <param name="innerException">Contains an optional inner exception.</param>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.AppServerException.RequestContext">
+            <summary>
+            Gets the request context.
+            </summary>
+        </member>
         <member name="T:Talegen.AspNetCore.App.AppStartup`1">
             <summary>
             This class defines the application startup logic for a core web API.
@@ -89,12 +102,13 @@
             Contains the cache connection string.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.AppStartup`1.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IWebHostEnvironment)">
+        <member name="M:Talegen.AspNetCore.App.AppStartup`1.#ctor(Microsoft.Extensions.Configuration.IConfiguration,Microsoft.AspNetCore.Hosting.IWebHostEnvironment,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.AppStartup`1" /> class.
             </summary>
             <param name="configuration">Contains a configuration instance.</param>
             <param name="environment">Contains an environment instance.</param>
+            <param name="appName">Contains the application name of the entry program.</param>
         </member>
         <member name="P:Talegen.AspNetCore.App.AppStartup`1.Configuration">
             <summary>
@@ -109,6 +123,11 @@
         <member name="P:Talegen.AspNetCore.App.AppStartup`1.AppSettings">
             <summary>
             Gets the application settings.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.AppStartup`1.AppName">
+            <summary>
+            Gets the application name.
             </summary>
         </member>
         <member name="P:Talegen.AspNetCore.App.AppStartup`1.JsonSettings">
@@ -176,17 +195,17 @@
         </member>
         <member name="M:Talegen.AspNetCore.App.AppStartup`1.InitializeMessagingService(Microsoft.Extensions.DependencyInjection.IServiceCollection)">
             <summary>
-            This method is used to inialize the configured messaging service.
+            This method is used to initialize the configured messaging service.
             </summary>
             <param name="services">Contains the service collection.</param>
             <exception cref="T:System.NotImplementedException">Thrown if a non-supported messaging type is specified in configuration.</exception>
         </member>
-        <member name="M:Talegen.AspNetCore.App.AppStartup`1.InitalizeWebApiSettings(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
+        <member name="M:Talegen.AspNetCore.App.AppStartup`1.InitializeWebApiSettings(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
             <summary>
             This method is used to initialize the web api settings.
             </summary>
             <param name="services">Contains the service collection.</param>
-            <param name="development">Contains a value indicating whether the enviromnet is development.</param>
+            <param name="development">Contains a value indicating whether the environment is development.</param>
         </member>
         <member name="M:Talegen.AspNetCore.App.AppStartup`1.InitializeAdvancedSettings(Microsoft.Extensions.DependencyInjection.IServiceCollection,System.Boolean)">
             <summary>
@@ -226,9 +245,14 @@
             This class implements the audit log service.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.#ctor">
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.#ctor(Talegen.AspNetCore.App.Repository.IDataConnectionInfo)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Audit.AuditLogRepository"/> class.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Audit.AuditLogRepository.DataConnectionInfo">
+            <summary>
+            Gets the data connection information.
             </summary>
         </member>
         <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.AddAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogBase,System.Threading.CancellationToken)">
@@ -296,7 +320,7 @@
             Contains an instance of the audit data repository.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogService.#ctor(Talegen.AspNetCore.App.Repository.IDataRepository{Talegen.AspNetCore.App.Models.Audit.AuditLogBase})">
+        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogService.#ctor(Talegen.AspNetCore.App.Repository.IDataRepository{Talegen.AspNetCore.App.Models.Audit.AuditLogBase,System.Guid})">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Audit.AuditLogService"/> class.
             </summary>
@@ -524,6 +548,38 @@
             </summary>
             <param name="request">Contains the request to search for an access token.</param>
             <returns>Returns the token from the request header.</returns>
+        </member>
+        <member name="T:Talegen.AspNetCore.App.Converters.DecimalConverter">
+            <summary>
+            This class represents a custom JSON converter for decimal values.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Converters.DecimalConverter.CanConvert(System.Type)">
+            <summary>
+            This method is used to determine if the specified object type can be converted.
+            </summary>
+            <param name="objectType">Contains the object type.</param>
+            <returns>Returns a value indicating conversion support.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Converters.DecimalConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            This method is used to read the JSON value and convert it to a decimal value.
+            </summary>
+            <param name="reader">Contains the reader.</param>
+            <param name="objectType">Contains the object type.</param>
+            <param name="existingValue">Contains the existing value.</param>
+            <param name="serializer">Contains the JSON serializer.</param>
+            <returns></returns>
+            <exception cref="T:Newtonsoft.Json.JsonSerializationException">Returns if an unexpected decimal type is found.</exception>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Converters.DecimalConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <summary>
+            This method is used to write the JSON value to the output stream.
+            </summary>
+            <param name="writer"></param>
+            <param name="value"></param>
+            <param name="serializer"></param>
+            <exception cref="T:System.NotImplementedException"></exception>
         </member>
         <member name="T:Talegen.AspNetCore.App.Extensions.ConnectionStringExtensions">
             <summary>
@@ -785,41 +841,6 @@
             Gets or sets the search text.
             </summary>
             <value>The search text.</value>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Models.IUserInfo">
-            <summary>
-            This interface defines the minimum implementation of a user information object.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.IUserInfo.UserId">
-            <summary>
-            Gets or sets the user identifier.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.IUserInfo.UserName">
-            <summary>
-            Gets or sets the user name.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.IUserInfo.Email">
-            <summary>
-            Gets or sets the user email address.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.IUserInfo.FirstName">
-            <summary>
-            Gets or sets the user first name.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.IUserInfo.LastName">
-            <summary>
-            Gets or sets the user last name.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.IUserInfo.FullName">
-            <summary>
-            Gets the full name of the user.
-            </summary>
         </member>
         <member name="T:Talegen.AspNetCore.App.Models.Notifications.NotificationType">
             <summary>
@@ -1211,6 +1232,11 @@
             Gets or sets the queue processing interval in seconds.
             </summary>
         </member>
+        <member name="P:Talegen.AspNetCore.App.Models.Settings.AppMessagingSettings.TemplatePath">
+            <summary>
+            Gets or sets a message template path.
+            </summary>
+        </member>
         <member name="T:Talegen.AspNetCore.App.Models.Settings.AppSecuritySettings">
             <summary>
             This class contains the application security settings.
@@ -1372,11 +1398,6 @@
               Looks up a localized string similar to Missing content-type boundary..
             </summary>
         </member>
-        <member name="P:Talegen.AspNetCore.App.Properties.Resources.ErrorEmailTemplateDirectoryNotFoundText">
-            <summary>
-              Looks up a localized string similar to The message template folder &apos;{0}&apos; was not found. Message template system cannot work without template files..
-            </summary>
-        </member>
         <member name="P:Talegen.AspNetCore.App.Properties.Resources.ErrorGeneralWebText">
             <summary>
               Looks up a localized string similar to An error has occurred..
@@ -1390,6 +1411,11 @@
         <member name="P:Talegen.AspNetCore.App.Properties.Resources.ErrorMessageSenderText">
             <summary>
               Looks up a localized string similar to An error occurred while processing a message in message queue..
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Properties.Resources.ErrorMessageTemplateMissingText">
+            <summary>
+              Looks up a localized string similar to The message template &apos;{0}&apos; was not found. Ensure template exists..
             </summary>
         </member>
         <member name="P:Talegen.AspNetCore.App.Properties.Resources.ErrorNoConfigurationText">
@@ -1503,13 +1529,19 @@
             Gets or sets the database connection string.
             </summary>
         </member>
-        <member name="T:Talegen.AspNetCore.App.Repository.IDataRepository`1">
+        <member name="T:Talegen.AspNetCore.App.Repository.IDataRepository`2">
             <summary>
             This interface is used to handle all data related interactions.
             </summary>
             <typeparam name="T">Contains the type of the object to interact with in the repository.</typeparam>
+            <typeparam name="K">Contains the type of the key to interact with in the repository.</typeparam>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`1.AddAsync(`0,System.Threading.CancellationToken)">
+        <member name="P:Talegen.AspNetCore.App.Repository.IDataRepository`2.DataConnectionInfo">
+            <summary>
+            Gets the data connection information.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`2.AddAsync(`0,System.Threading.CancellationToken)">
             <summary>
             Adds an entity to the repository.
             </summary>
@@ -1517,7 +1549,7 @@
             <param name="cancellationToken">Contains an optional cancellation token.</param>
             <returns>Contains the result of the repository action.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`1.DeleteAsync(System.Guid,System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`2.DeleteAsync(`1,System.Threading.CancellationToken)">
             <summary>
             Deletes an entity from the repository.
             </summary>
@@ -1525,7 +1557,7 @@
             <param name="cancellationToken">Contains an optional cancellation token.</param>
             <returns>Contains the result of the repository action.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`1.DeleteAsync(`0,System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`2.DeleteAsync(`0,System.Threading.CancellationToken)">
             <summary>
             Deletes an entity from the repository.
             </summary>
@@ -1533,7 +1565,7 @@
             <param name="cancellationToken">Contains an optional cancellation token.</param>
             <returns>Contains the result of the repository action.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`1.UpdateAsync(`0,System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`2.UpdateAsync(`0,System.Threading.CancellationToken)">
             <summary>
             Updates an entity in the repository.
             </summary>
@@ -1541,7 +1573,7 @@
             <param name="cancellationToken">Contains an optional cancellation token.</param>
             <returns>Contains the result of the repository action.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`1.GetAsync(System.Guid,System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`2.GetAsync(`1,System.Threading.CancellationToken)">
             <summary>
             Gets an entity from the repository.
             </summary>
@@ -1549,14 +1581,14 @@
             <param name="cancellationToken">Contains an optional cancellation token.</param>
             <returns>Contains the result of the repository action.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`1.GetAllAsync(System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`2.GetAllAsync(System.Threading.CancellationToken)">
             <summary>
             Gets all entities from the repository.
             </summary>
             <param name="cancellationToken">Contains an optional cancellation token.</param>
             <returns>Contains a queryable result of the repository action.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`1.SaveChangesAsync(System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Repository.IDataRepository`2.SaveChangesAsync(System.Threading.CancellationToken)">
             <summary>
             Saves all changes to the repository.
             </summary>
@@ -1626,7 +1658,7 @@
             Contains a reference to the data repository.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase.#ctor(Talegen.AspNetCore.App.BaseRequestContext,Talegen.AspNetCore.App.Repository.IDataRepository{Talegen.AspNetCore.App.Models.Audit.AuditLogBase})">
+        <member name="M:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase.#ctor(Talegen.AspNetCore.App.BaseRequestContext,Talegen.AspNetCore.App.Repository.IDataRepository{Talegen.AspNetCore.App.Models.Audit.AuditLogBase,System.Guid})">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase" /> class.
             </summary>
@@ -1870,6 +1902,11 @@
             Gets or sets the address.
             </summary>
         </member>
+        <member name="P:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress.DisplayName">
+            <summary>
+            Gets or sets the display name.
+            </summary>
+        </member>
         <member name="T:Talegen.AspNetCore.App.Services.Messaging.MessageBodyType">
             <summary>
             Contains an enumeration of message body types.
@@ -1945,7 +1982,7 @@
             This interface defines the message factory used to create new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> objects.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.ISenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Services.Messaging.ISenderAddress},System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Resources.ResourceManager,System.Globalization.CultureInfo)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.ISenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Services.Messaging.ISenderAddress},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Resources.ResourceManager,System.Globalization.CultureInfo)">
             <summary>
             This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> and populate the message content with optional token values.
             </summary>
@@ -1953,7 +1990,6 @@
             <param name="recipients">Contains a list of <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress" /> recipient objects.</param>
             <param name="subject">Contains the message subject.</param>
             <param name="templateName">Contains a message template name to retrieve and load into the message body.</param>
-            <param name="emailTemplateFolder">Contains email template folder.</param>
             <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
             <param name="resourceManager">Contains the resource manager used for retrieving template content.</param>
             <param name="cultureInfoOverride">Contains an optional locale string override for message body resource lookup.</param>
@@ -1990,6 +2026,14 @@
             <param name="htmlBodyContentType">Contains an optional HTML body content type.</param>
             <returns>Returns a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> containing message content.</returns>
         </member>
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.ISenderMessageFactory.CreateAddress(System.String,System.String)">
+            <summary>
+            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress" /> object.
+            </summary>
+            <param name="address">Contains the address.</param>
+            <param name="displayName">Contains an optional display name.</param>
+            <returns>Returns the address.</returns>
+        </member>
         <member name="T:Talegen.AspNetCore.App.Services.Messaging.MessageExtensions">
             <summary>
             This class contains extensions for the message service.
@@ -2002,7 +2046,7 @@
             <param name="message">The message to evaluate.</param>
             <returns>Returns a value indicating if an HTML body was found.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.MessageExtensions.InitializeBaseTokens(System.Collections.Generic.Dictionary{System.String,System.String},System.Uri,Talegen.AspNetCore.App.Models.IUserInfo,Talegen.AspNetCore.App.Models.IUserInfo)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.MessageExtensions.InitializeBaseTokens(System.Collections.Generic.Dictionary{System.String,System.String},System.Uri,Talegen.Common.Models.Security.IUserInfo{System.Guid},Talegen.Common.Models.Security.IUserInfo{System.Guid})">
             <summary>
             This extension method is used to populate a message tokens list with commonly used values for an e-mail message.
             </summary>
@@ -2270,15 +2314,21 @@
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMailAddress" /> class.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMailAddress.#ctor(System.String)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMailAddress.#ctor(System.String,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMailAddress" /> class.
             </summary>
             <param name="address">Contains the address.</param>
+            <param name="displayName">Contains an optional display name.</param>
         </member>
         <member name="P:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMailAddress.Address">
             <summary>
             Gets or sets the address.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMailAddress.DisplayName">
+            <summary>
+            Gets or sets the address display name.
             </summary>
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage">
@@ -2540,11 +2590,6 @@
             This class is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> object for the SMTP messaging service.
             </summary>
         </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.context">
-            <summary>
-            Contains the SMTP message context.
-            </summary>
-        </member>
         <member name="F:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.resourceManager">
             <summary>
             Contains the resource manager used for retrieving template content.
@@ -2555,15 +2600,22 @@
             Contains an optional locale string override for message body resource lookup.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.#ctor(Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessageContext,System.Resources.ResourceManager,System.Globalization.CultureInfo)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.#ctor(System.Resources.ResourceManager,System.Globalization.CultureInfo)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory" /> class.
             </summary>
-            <param name="context">Contains the SMTP message context.</param>
             <param name="resourceManager">Contains the resource manager used for retrieving template content.</param>
             <param name="cultureInfoOverride">Contains an optional locale string override for message body resource lookup.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Services.Messaging.ISenderAddress},System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Resources.ResourceManager,System.Globalization.CultureInfo)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.CreateAddress(System.String,System.String)">
+            <summary>
+            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress" /> object for the SMTP messaging service.
+            </summary>
+            <param name="address">Contains the address.</param>
+            <param name="displayName">Contains an optional display name.</param>
+            <returns>Returns the address.</returns>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Services.Messaging.ISenderAddress},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Resources.ResourceManager,System.Globalization.CultureInfo)">
             <summary>
             This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> and populate the message content with optional token values.
             </summary>
@@ -2571,7 +2623,6 @@
             <param name="recipients">Contains a list of <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress" /> recipient objects.</param>
             <param name="subject">Contains the message subject.</param>
             <param name="templateName">Contains a message template name to retrieve and load into the message body.</param>
-            <param name="emailTemplateFolder">Contains email template folder.</param>
             <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
             <param name="resourceManager">Contains the resource manager used for retrieving template content.</param>
             <param name="cultureInfoOverride">Contains an optional locale string override for message body resource lookup.</param>
@@ -2613,71 +2664,29 @@
             This class contains template rendering methods for messages and text within the application.
             </summary>
         </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.TemplateCache">
-            <summary>
-            Contains the template cache for previously loaded template content.
-            </summary>
-        </member>
         <member name="F:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.DefaultLanguageCode">
             <summary>
             Contains the default language code.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.LoadTemplate(System.String,System.String,System.Globalization.CultureInfo)">
+        <member name="F:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.TemplateHtmlSuffix">
+            <summary>
+            Contains the suffix for HTML templates.
+            </summary>
+        </member>
+        <member name="F:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.TemplateTextSuffix">
+            <summary>
+            Contains the suffix for text templates.
+            </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.LoadTemplate(System.String,System.Resources.ResourceManager,System.Globalization.CultureInfo)">
             <summary>
             This method is used to load a template message body from a template file.
             </summary>
-            <param name="templateFolderPath">Contains the path to the template folder.</param>
-            <param name="templateFileName">Contains the file name of the template to load.</param>
+            <param name="templateName">Contains the file name of the template to load.</param>
+            <param name="resourceManager">Contains the resource manager containing the template contents.</param>
             <param name="cultureInfoOverride">Contains a culture info override to render a specific template language.</param>
             <returns>Returns the message body of the template.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.LoadTemplates(System.String,System.String,System.Globalization.CultureInfo)">
-            <summary>
-            This method is used to return both text and HTML versions of a message template.
-            </summary>
-            <param name="templateFolderPath">Contains the template folder path.</param>
-            <param name="templateName">Contains the template name prefix without extension.</param>
-            <param name="cultureInfoOverride">Contains an optional culture override.</param>
-            <returns>Returns both text and HTML versions of a specified template.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.RenderTemplateBody(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
-            <summary>
-            This method is used to render a dictionary of token values to the message body of a template.
-            </summary>
-            <param name="messageBodyText">Contains the message body text of the template to render.</param>
-            <param name="tokensList">Contains the token value dictionary used to insert values into the message body.</param>
-            <returns>Returns the message body with token values found in the tokens list.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.RenderTemplateFile(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Globalization.CultureInfo)">
-            <summary>
-            This method is used to render token values into a specific template file body and return the results.
-            </summary>
-            <param name="templateFolderPath">Contains the path to the template folder.</param>
-            <param name="templateFileName">Contains the file name of the template to load.</param>
-            <param name="tokensList">Contains the token value dictionary used to insert values into the message body.</param>
-            <param name="cultureInfoOverride">Contains a culture info override to render a specific template language.</param>
-            <returns>Returns the message body of the specified template with token values found in the tokens list inserted where noted.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.RenderTemplate(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Globalization.CultureInfo)">
-            <summary>
-            This method is used to render token values into a specific template file body and return the results.
-            </summary>
-            <param name="templateFolderPath">Contains the path to the template folder.</param>
-            <param name="templateName">Contains the file name of the template to load.</param>
-            <param name="tokensList">Contains the token value dictionary used to insert values into the message body.</param>
-            <param name="cultureInfoOverride">Contains a culture info override to render a specific template language.</param>
-            <returns>Returns the message body of the specified template with token values found in the tokens list inserted where noted.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.RenderTemplates(System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Globalization.CultureInfo)">
-            <summary>
-            This method is used to load and render both text and HTML templates for a specified template name.
-            </summary>
-            <param name="templateFolderPath">Contains the template folder path.</param>
-            <param name="templateName">Contains the template name prefix without extension.</param>
-            <param name="tokensList">Contains the token value dictionary used to insert values into the message body.</param>
-            <param name="cultureInfoOverride">Contains an optional culture override.</param>
-            <returns>Returns both text and HTML versions of a specified template with token values found in the tokens list inserted where noted.</returns>
         </member>
         <member name="M:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.ReplaceTokens(System.String,System.Collections.Generic.Dictionary{System.String,System.String})">
             <summary>
@@ -2686,15 +2695,6 @@
             <param name="content">Contains the content within to find and replace tokens.</param>
             <param name="tokensList">Contains the tokens used for replacement.</param>
             <returns>Returns the new content with found tokens replaced.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions.RetrieveTemplateInfo(System.String,System.String,System.String)">
-            <summary>
-            This method is used to build a template path and retrieve file information.
-            </summary>
-            <param name="templateFolderPath">Contains the template folder path.</param>
-            <param name="language">Contains the template language to load.</param>
-            <param name="templateFileName">Contains the template file name.</param>
-            <returns>Returns the File info object for the template path.</returns>
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.Notification.INotificationService">
             <summary>
@@ -2940,30 +2940,31 @@
             <param name="audit">Contains an audit service.</param>
             <param name="errorManager">Contains an error manager service.</param>
         </member>
-        <member name="T:Talegen.AspNetCore.App.Services.ServiceBase`1">
+        <member name="T:Talegen.AspNetCore.App.Services.ServiceBase`2">
             <summary>
             This class implements the base service class for all services.
             </summary>
             <typeparam name="T">Contains the type of data repository model.</typeparam>
+            <typeparam name="K">Contains the type of the data repository model key.</typeparam>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.ServiceBase`1.#ctor(Talegen.AspNetCore.App.BaseRequestContext,Talegen.AspNetCore.App.Repository.IDataRepository{`0})">
+        <member name="M:Talegen.AspNetCore.App.Services.ServiceBase`2.#ctor(Talegen.AspNetCore.App.BaseRequestContext,Talegen.AspNetCore.App.Repository.IDataRepository{`0,`1})">
             <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.ServiceBase`1" /> class.
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.ServiceBase`2" /> class.
             </summary>
             <param name="requestContext">Contains a request context.</param>
             <param name="dataRepository">Contains a data repository.</param>
         </member>
-        <member name="P:Talegen.AspNetCore.App.Services.ServiceBase`1.RequestContext">
+        <member name="P:Talegen.AspNetCore.App.Services.ServiceBase`2.RequestContext">
             <summary>
             Gets the request context.
             </summary>
         </member>
-        <member name="P:Talegen.AspNetCore.App.Services.ServiceBase`1.DataRepository">
+        <member name="P:Talegen.AspNetCore.App.Services.ServiceBase`2.DataRepository">
             <summary>
             Gets the data context.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.ServiceBase`1.SaveChangesAsync(System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Services.ServiceBase`2.SaveChangesAsync(System.Threading.CancellationToken)">
             <summary>
             This method is used to execute the data context save changes and catch all validation errors.
             </summary>

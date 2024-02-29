@@ -88,15 +88,6 @@ namespace Talegen.AspNetCore.App.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to The message template folder &apos;{0}&apos; was not found. Message template system cannot work without template files..
-        /// </summary>
-        internal static string ErrorEmailTemplateDirectoryNotFoundText {
-            get {
-                return ResourceManager.GetString("ErrorEmailTemplateDirectoryNotFoundText", resourceCulture);
-            }
-        }
-        
-        /// <summary>
         ///   Looks up a localized string similar to An error has occurred..
         /// </summary>
         internal static string ErrorGeneralWebText {
@@ -120,6 +111,15 @@ namespace Talegen.AspNetCore.App.Properties {
         internal static string ErrorMessageSenderText {
             get {
                 return ResourceManager.GetString("ErrorMessageSenderText", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to The message template &apos;{0}&apos; was not found. Ensure template exists..
+        /// </summary>
+        internal static string ErrorMessageTemplateMissingText {
+            get {
+                return ResourceManager.GetString("ErrorMessageTemplateMissingText", resourceCulture);
             }
         }
         

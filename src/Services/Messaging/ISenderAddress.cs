@@ -24,5 +24,10 @@ namespace Talegen.AspNetCore.App.Services.Messaging
         /// Gets or sets the address.
         /// </summary>
         string Address { get; set; }
+
+        /// <summary>
+        /// Gets or sets the display name.
+        /// </summary>
+        string DisplayName { get; set; }
     }
 }

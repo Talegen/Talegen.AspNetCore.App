@@ -31,13 +31,13 @@ namespace Talegen.AspNetCore.App.Audit
         /// <summary>
         /// Contains an instance of the audit data repository.
         /// </summary>
-        private readonly IDataRepository<AuditLogBase> dataRepository;
+        private readonly IDataRepository<AuditLogBase, Guid> dataRepository;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="AuditLogService"/> class.
         /// </summary>
         /// <param name="dataRepository">Contains an instance of the audit data repository.</param>
-        public AuditLogService(IDataRepository<AuditLogBase> dataRepository)
+        public AuditLogService(IDataRepository<AuditLogBase, Guid> dataRepository)
         {
             this.dataRepository = dataRepository;
         }
