@@ -329,7 +329,7 @@ namespace Talegen.AspNetCore.App
         /// <exception cref="NotImplementedException">Exception is thrown if attempting to use CloudWatch telemetry.</exception>
         private void InitializeTelemetry(IServiceCollection services, bool development)
         {
-            string key = !string.IsNullOrWhiteSpace(this.AppSettings.Telemetry.InstrumentationKey) ? this.AppSettings.Telemetry.InstrumentationKey : DefaultTelemetryKey;
+            string key = !string.IsNullOrWhiteSpace(this.AppSettings.Telemetry.ConnectionStringName) ? this.AppSettings.Telemetry.ConnectionStringName : DefaultTelemetryKey;
             string telemetryConnectionString = this.Configuration.GetConnectionString(key).ConvertToString();
 
             if (this.AppSettings.Telemetry.Enabled &&
@@ -339,7 +339,7 @@ namespace Talegen.AspNetCore.App
                 switch (this.AppSettings.Telemetry.TelemetryType)
                 {
                     case TelemetryType.ApplicationInsights:
-                        services.AddApplicationInsightsTelemetry();
+                        services.AddApplicationInsightsTelemetry(option => option.ConnectionString = telemetryConnectionString);
                         break;
                     case TelemetryType.AwsCloudWatch:
                         throw new NotImplementedException();

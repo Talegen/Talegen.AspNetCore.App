@@ -51,7 +51,7 @@ namespace Talegen.AspNetCore.App.Models.Settings
         /// <summary>
         /// Gets or sets the instrumentation key.
         /// </summary>
-        public string InstrumentationKey { get; set; } = DefaultTelemetryKeyName;
+        public string ConnectionStringName { get; set; } = DefaultTelemetryKeyName;
 
         /// <summary>
         /// Gets or sets the telemetry type.

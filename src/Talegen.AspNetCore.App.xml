@@ -1327,7 +1327,7 @@
             Contains the default telemetry key name.
             </summary>
         </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Settings.AppTelemetrySettings.InstrumentationKey">
+        <member name="P:Talegen.AspNetCore.App.Models.Settings.AppTelemetrySettings.ConnectionStringName">
             <summary>
             Gets or sets the instrumentation key.
             </summary>
