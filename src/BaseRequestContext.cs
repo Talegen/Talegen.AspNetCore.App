@@ -17,7 +17,6 @@ namespace Talegen.AspNetCore.App
 {
     using System.Security.Claims;
     using Microsoft.Extensions.Caching.Distributed;
-    using Talegen.AspNetCore.App.Services.Audit;
     using Talegen.AspNetCore.App.Services.Messaging;
     using Talegen.AspNetCore.App.Services.Security;
     using Talegen.AspNetCore.Web.Extensions;
@@ -45,18 +44,15 @@ namespace Talegen.AspNetCore.App
         /// <param name="cache">Contains the cache service.</param>
         /// <param name="security">Contains the security service.</param>
         /// <param name="messaging">Contains the messaging service.</param>
-        /// <param name="audit">Contains the audit log service.</param>
         /// <param name="errorManager">Contains the error manager.</param>
         public BaseRequestContext(IDistributedCache cache,
             ISecurityService security,
             IMessagingService messaging,
-            IAuditService<IAuditModel> audit,
             IErrorManager errorManager)
         {
             this.Cache = cache;
             this.Security = security;
             this.Messaging = messaging;
-            this.AuditLog = audit;
             this.ErrorManager = errorManager;
         }
 
@@ -74,11 +70,6 @@ namespace Talegen.AspNetCore.App
         /// Gets the application messaging service.
         /// </summary>
         public IMessagingService Messaging { get; private set; }
-
-        /// <summary>
-        /// Gets the application audit log service.
-        /// </summary>
-        public IAuditService<IAuditModel> AuditLog { get; private set; }
 
         /// <summary>
         /// Gets the application error manager.

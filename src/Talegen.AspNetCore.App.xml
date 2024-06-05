@@ -63,19 +63,6 @@
             <param name="message">Contains the exception message.</param>
             <param name="innerException">Contains the inner exception.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.AppServerException.#ctor(Talegen.AspNetCore.App.BaseRequestContext,System.String,System.Exception)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.AppServerException"/> class.
-            </summary>
-            <param name="requestContext">Contains the application base request context.</param>
-            <param name="message">Contains the message to report.</param>
-            <param name="innerException">Contains an optional inner exception.</param>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.AppServerException.RequestContext">
-            <summary>
-            Gets the request context.
-            </summary>
-        </member>
         <member name="T:Talegen.AspNetCore.App.AppStartup`1">
             <summary>
             This class defines the application startup logic for a core web API.
@@ -240,114 +227,6 @@
             </summary>
             <param name="services">Contains the services collection.</param>
         </member>
-        <member name="T:Talegen.AspNetCore.App.Audit.AuditLogRepository">
-            <summary>
-            This class implements the audit log service.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.#ctor(Talegen.AspNetCore.App.Repository.IDataConnectionInfo)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Audit.AuditLogRepository"/> class.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Audit.AuditLogRepository.DataConnectionInfo">
-            <summary>
-            Gets the data connection information.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.AddAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogBase,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to add a new audit log entry.
-            </summary>
-            <param name="entity">Contains the entry to log.</param>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns the repository result.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.DeleteAsync(System.Guid,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to delete an audit log entry.
-            </summary>
-            <param name="id">Contains the identity of the log to delete.</param>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns the repository result.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.DeleteAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogBase,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to delete an audit log entry.
-            </summary>
-            <param name="entity">Contains the entity to delete.</param>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns the repository result.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.GetAllAsync(System.Threading.CancellationToken)">
-            <summary>
-            This method is used to get a list of all audit log entries.
-            </summary>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns the repository result.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.GetAsync(System.Guid,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to get an audit log entry by id.
-            </summary>
-            <param name="id">Contains the identity of the record to find.</param>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns the repository result.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.UpdateAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogBase,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to update an audit log entry.
-            </summary>
-            <param name="entity">Contains the entity to update.</param>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns the repository result.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogRepository.SaveChangesAsync(System.Threading.CancellationToken)">
-            <summary>
-            This method is used to get an audit log entry by id.
-            </summary>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns the repository result.</returns>
-            <exception cref="T:System.NotImplementedException">This method is not implemented for this repository.</exception>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Audit.AuditLogService">
-            <summary>
-            This class implements the audit log service.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Audit.AuditLogService.dataRepository">
-            <summary>
-            Contains an instance of the audit data repository.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogService.#ctor(Talegen.AspNetCore.App.Repository.IDataRepository{Talegen.AspNetCore.App.Models.Audit.AuditLogBase,System.Guid})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Audit.AuditLogService"/> class.
-            </summary>
-            <param name="dataRepository">Contains an instance of the audit data repository.</param>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogService.LogAsync(Talegen.AspNetCore.App.Models.Audit.AuditEvent,Talegen.AspNetCore.App.Models.Audit.AuditResult,System.String,System.String,System.Nullable{System.Guid},System.String,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to log an audit event.
-            </summary>
-            <param name="auditEvent">Contains the audit event.</param>
-            <param name="eventResult">Contains the audit result.</param>
-            <param name="clientAddress">Contains the client IP address.</param>
-            <param name="message">Contains the message.</param>
-            <param name="userId">Contains the user identity.</param>
-            <param name="location">Contains the request location.</param>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns a result indicating whether the log was successful.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Audit.AuditLogService.ReadAuditLogsAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogQueryFilterModel,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to read audit logs.
-            </summary>
-            <param name="filters">Contains query filters for filtering results.</param>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns a result.</returns>
-            <exception cref="T:System.NotImplementedException">This method is currently not implemented.</exception>
-        </member>
         <member name="T:Talegen.AspNetCore.App.BaseRequestContext">
             <summary>
             This class defines the application context to be used in the application.
@@ -363,14 +242,13 @@
             Contains the current user's name.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.BaseRequestContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Services.Messaging.IMessagingService,Talegen.AspNetCore.App.Services.Audit.IAuditService{Talegen.AspNetCore.App.Services.Audit.IAuditModel},Talegen.Common.Core.Errors.IErrorManager)">
+        <member name="M:Talegen.AspNetCore.App.BaseRequestContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Services.Messaging.IMessagingService,Talegen.Common.Core.Errors.IErrorManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.BaseRequestContext"/> class.
             </summary>
             <param name="cache">Contains the cache service.</param>
             <param name="security">Contains the security service.</param>
             <param name="messaging">Contains the messaging service.</param>
-            <param name="audit">Contains the audit log service.</param>
             <param name="errorManager">Contains the error manager.</param>
         </member>
         <member name="P:Talegen.AspNetCore.App.BaseRequestContext.Cache">
@@ -386,11 +264,6 @@
         <member name="P:Talegen.AspNetCore.App.BaseRequestContext.Messaging">
             <summary>
             Gets the application messaging service.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.BaseRequestContext.AuditLog">
-            <summary>
-            Gets the application audit log service.
             </summary>
         </member>
         <member name="P:Talegen.AspNetCore.App.BaseRequestContext.ErrorManager">
@@ -703,144 +576,6 @@
             This method overrides the action executed for action executions.
             </summary>
             <param name="context">Contains the resource executed context.</param>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Models.Audit.AuditEvent">
-            <summary>
-            Contains an enumerated list of audit event types.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditEvent.Login">
-            <summary>
-            Login event.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditEvent.Logout">
-            <summary>
-            Logout event.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditEvent.Read">
-            <summary>
-            Read event.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditEvent.Create">
-            <summary>
-            Create event.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditEvent.Update">
-            <summary>
-            Update event.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditEvent.Delete">
-            <summary>
-            Delete event.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditEvent.Execute">
-            <summary>
-            Execute event.
-            </summary>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Models.Audit.AuditResult">
-            <summary>
-            Contains an enumerated list of audit event results.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditResult.Success">
-            <summary>
-            Successful event.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditResult.Fail">
-            <summary>
-            Unsuccessful event.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditResult.Info">
-            <summary>
-            Informational event.
-            </summary>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Models.Audit.AuditLogBase">
-            <summary>
-            This entity class represents a security log event record within the data store.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Audit.AuditLogBase.AuditLogId">
-            <summary>
-            Gets or sets the unique identity of the security event log record.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Audit.AuditLogBase.EventDateTime">
-            <summary>
-            Gets or sets the event date time the event occurred.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Audit.AuditLogBase.UserId">
-            <summary>
-            Gets or sets the optional associated user that generated the event.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Audit.AuditLogBase.Event">
-            <summary>
-            Gets or sets the event type.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Audit.AuditLogBase.Action">
-            <summary>
-            Gets or sets the event type.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Audit.AuditLogBase.Result">
-            <summary>
-            Gets or sets the event result.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Audit.AuditLogBase.Message">
-            <summary>
-            Gets or sets an additional event message.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Audit.AuditLogBase.ClientAddress">
-            <summary>
-            Gets or sets the client's IP address.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Audit.AuditLogBase.Location">
-            <summary>
-            Gets or sets the client's location.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Audit.AuditLogBase.Request">
-            <summary>
-            Gets or sets the request.
-            </summary>
-            <value>The request.</value>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Models.Audit.AuditLogQueryFilterModel">
-            <summary>
-            This class implements the paging query request model for browsing audit logs.
-            </summary>
-            <seealso cref="T:Talegen.Common.Models.Server.Queries.PaginatedQueryRequestModel" />
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditLogQueryFilterModel.Events">
-            <summary>
-            The events
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Models.Audit.AuditLogQueryFilterModel.Results">
-            <summary>
-            The results
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Models.Audit.AuditLogQueryFilterModel.SearchText">
-            <summary>
-            Gets or sets the search text.
-            </summary>
-            <value>The search text.</value>
         </member>
         <member name="T:Talegen.AspNetCore.App.Models.Notifications.NotificationType">
             <summary>
@@ -1642,151 +1377,6 @@
             <summary>
             Gets or sets the entity to return to the user.
             </summary>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase">
-            <summary>
-            This class implements the base audit service class.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase.requestContext">
-            <summary>
-            Contains a reference to the request context.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase.repository">
-            <summary>
-            Contains a reference to the data repository.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase.#ctor(Talegen.AspNetCore.App.BaseRequestContext,Talegen.AspNetCore.App.Repository.IDataRepository{Talegen.AspNetCore.App.Models.Audit.AuditLogBase,System.Guid})">
-            <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase" /> class.
-            </summary>
-            <param name="requestContext">Contains a reference to the request context.</param>
-            <param name="repository">Contains a reference to the data repository.</param>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase.LogAsync(Talegen.AspNetCore.App.Models.Audit.AuditEvent,Talegen.AspNetCore.App.Models.Audit.AuditResult,System.String,System.String,System.Nullable{System.Guid},System.String,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to log an audit event.
-            </summary>
-            <param name="auditEvent">Contains the audit event.</param>
-            <param name="eventResult">Contains the audit result.</param>
-            <param name="clientAddress">Remote client address.</param>
-            <param name="message">Optional event message.</param>
-            <param name="userId">Optional user identity.</param>
-            <param name="location">Optional location.</param>
-            <param name="cancellationToken">Optional Cancellation token.</param>
-            <returns>Returns a value indicatng success.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase.ReadAuditLogsAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogQueryFilterModel,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to read audit logs.
-            </summary>
-            <param name="filters">Contains the query filters.</param>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns a <see cref="T:Talegen.Common.Models.Server.Queries.PaginatedQueryResultModel`1"/> model results.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase.BuildPagedResultsQueryAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogQueryFilterModel,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to build the query LINQ for reuse between retrieval methods in the service class.
-            </summary>
-            <param name="filters">Contains the event log filter parameters object.</param>
-            <param name="cancellationToken">Contains the cancellation token.</param>
-            <returns>Returns an <see cref="T:System.Linq.IQueryable" /> query class built using optional parameters.</returns>
-            <exception cref="T:System.ArgumentNullException">The filters argument is null.</exception>
-            <exception cref="T:System.Exception">An exception occurred while building the query.</exception>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Audit.AuditServiceBase.ExecutePagedQueryAsync(System.Linq.IQueryable{Talegen.AspNetCore.App.Models.Audit.AuditLogBase},Talegen.AspNetCore.App.Models.Audit.AuditLogQueryFilterModel,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to execute the passed query LINQ and return the results as an <see cref="T:Talegen.AspNetCore.App.Models.Audit.AuditLogBase" /> list.
-            </summary>
-            <param name="query">Contains the LINQ statement to execute.</param>
-            <param name="filters">Contains the filters used for the query</param>
-            <param name="cancellationToken">Contains a cancellation token.</param>
-            <returns>Returns the results of the query in an <see cref="T:Talegen.Common.Models.Server.Queries.PaginatedQueryResultModel`1" /> model.</returns>
-            <exception cref="T:System.ArgumentNullException">The query argument is null.</exception>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Audit.IAuditModel">
-            <summary>
-            This interface defines the properties and methods for an audit model.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Audit.IAuditModel.AuditLogId">
-            <summary>
-            Gets or sets the unique identity of the security event log record.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Audit.IAuditModel.EventDateTime">
-            <summary>
-            Gets or sets the event date time the event occurred.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Audit.IAuditModel.UserId">
-            <summary>
-            Gets or sets the optional associated user that generated the event.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Audit.IAuditModel.Event">
-            <summary>
-            Gets or sets the event type.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Audit.IAuditModel.Action">
-            <summary>
-            Gets or sets the event action.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Audit.IAuditModel.Result">
-            <summary>
-            Gets or sets the event result.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Audit.IAuditModel.Message">
-            <summary>
-            Gets or sets an additional event message.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Audit.IAuditModel.ClientAddress">
-            <summary>
-            Gets or sets the client address.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Audit.IAuditModel.Location">
-            <summary>
-            Gets or sets the client location.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Audit.IAuditModel.Request">
-            <summary>
-            Gets or sets the request data.
-            </summary>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Audit.IAuditService`1">
-            <summary>
-            This interface defines the audit service contract.
-            </summary>
-            <typeparam name="TAuditModel">Contains the model type for audit records.</typeparam>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Audit.IAuditService`1.ReadAuditLogsAsync(Talegen.AspNetCore.App.Models.Audit.AuditLogQueryFilterModel,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to read audit logs.
-            </summary>
-            <param name="filters">Contains the query filters.</param>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns a <see cref="T:Talegen.Common.Models.Server.Queries.PaginatedQueryResultModel`1"/> model results.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Audit.IAuditService`1.LogAsync(Talegen.AspNetCore.App.Models.Audit.AuditEvent,Talegen.AspNetCore.App.Models.Audit.AuditResult,System.String,System.String,System.Nullable{System.Guid},System.String,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to log an audit event.
-            </summary>
-            <param name="auditEvent">Contains the audit event.</param>
-            <param name="eventResult">Contains the audit result.</param>
-            <param name="clientAddress">Remote client address.</param>
-            <param name="message">Optional event message.</param>
-            <param name="userId">Optional user identity.</param>
-            <param name="location">Optional location.</param>
-            <param name="cancellationToken">Optional Cancellation token.</param>
-            <returns>Returns a value indicatng success.</returns>
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob">
             <summary>
@@ -2733,14 +2323,13 @@
             </summary>
             <param name="context">Contains a base context to pass initialize the new context.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Notification.NotificationServiceContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Services.Messaging.IMessagingService,Talegen.AspNetCore.App.Services.Audit.IAuditService{Talegen.AspNetCore.App.Services.Audit.IAuditModel},Talegen.Common.Core.Errors.IErrorManager)">
+        <member name="M:Talegen.AspNetCore.App.Services.Notification.NotificationServiceContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Services.Messaging.IMessagingService,Talegen.Common.Core.Errors.IErrorManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Notification.NotificationServiceContext"/> class.
             </summary>
             <param name="cache">Contains a cache service.</param>
             <param name="security">Contains a security service.</param>
             <param name="messaging">Contains a messaging service.</param>
-            <param name="audit">Contains an audit service.</param>
             <param name="errorManager">Contains an error manager service.</param>
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.Queue.IQueue`1">
@@ -2930,14 +2519,13 @@
             </summary>
             <param name="context">Contains a base context to pass initialize the new context.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Security.SecurityServiceContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Services.Messaging.IMessagingService,Talegen.AspNetCore.App.Services.Audit.IAuditService{Talegen.AspNetCore.App.Services.Audit.IAuditModel},Talegen.Common.Core.Errors.IErrorManager)">
+        <member name="M:Talegen.AspNetCore.App.Services.Security.SecurityServiceContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Services.Messaging.IMessagingService,Talegen.Common.Core.Errors.IErrorManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Security.SecurityServiceContext"/> class.
             </summary>
             <param name="cache">Contains a cache service.</param>
             <param name="security">Contains a security service.</param>
             <param name="messaging">Contains a messaging service.</param>
-            <param name="audit">Contains an audit service.</param>
             <param name="errorManager">Contains an error manager service.</param>
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.ServiceBase`2">

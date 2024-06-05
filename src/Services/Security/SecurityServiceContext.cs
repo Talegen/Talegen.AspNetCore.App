@@ -16,7 +16,6 @@
 namespace Talegen.AspNetCore.App.Services.Security
 {
     using Microsoft.Extensions.Caching.Distributed;
-    using Talegen.AspNetCore.App.Services.Audit;
     using Talegen.AspNetCore.App.Services.Messaging;
     using Talegen.Common.Core.Errors;
 
@@ -30,7 +29,7 @@ namespace Talegen.AspNetCore.App.Services.Security
         /// </summary>
         /// <param name="context">Contains a base context to pass initialize the new context.</param>
         public SecurityServiceContext(BaseRequestContext context) 
-            : base(context.Cache, context.Security, context.Messaging, context.AuditLog, context.ErrorManager)
+            : base(context.Cache, context.Security, context.Messaging, context.ErrorManager)
         {
         }
 
@@ -40,10 +39,9 @@ namespace Talegen.AspNetCore.App.Services.Security
         /// <param name="cache">Contains a cache service.</param>
         /// <param name="security">Contains a security service.</param>
         /// <param name="messaging">Contains a messaging service.</param>
-        /// <param name="audit">Contains an audit service.</param>
         /// <param name="errorManager">Contains an error manager service.</param>
-        public SecurityServiceContext(IDistributedCache cache, ISecurityService security, IMessagingService messaging, IAuditService<IAuditModel> audit, IErrorManager errorManager) 
-            : base(cache, security, messaging, audit, errorManager)
+        public SecurityServiceContext(IDistributedCache cache, ISecurityService security, IMessagingService messaging, IErrorManager errorManager) 
+            : base(cache, security, messaging, errorManager)
         {
         }
     }
