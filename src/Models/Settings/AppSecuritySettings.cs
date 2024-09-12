@@ -46,5 +46,10 @@ namespace Talegen.AspNetCore.App.Models.Settings
         /// Gets or sets a value indicating whether the CORS settings are defined.
         /// </summary>
         public bool EnableCors { get; set; } = true;
+
+        /// <summary>
+        /// Gets or sets the resource scope.
+        /// </summary>
+        public string ResourceScope { get; set; }
     }
 }

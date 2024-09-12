@@ -96,7 +96,8 @@ namespace Talegen.AspNetCore.App
                 if (this.currentUserId == Guid.Empty && this.Principal != null)
                 {
                     // get subject
-                    this.currentUserId = this.Principal.SubjectId().ToGuid();
+                    var sub = this.Principal.SubjectId();
+                    this.currentUserId = sub.ToGuid();
                 }
 
                 return this.currentUserId;
@@ -122,6 +123,16 @@ namespace Talegen.AspNetCore.App
 
                 return this.currentUserName;
             }
+        }
+
+        /// <summary>
+        /// This method is used to determine if the user has admin role claim assigned.
+        /// </summary>
+        /// <param name="adminRole">Contains an optional admin role name.</param>
+        /// <returns>Returns a value indicating whether the use has the claim.</returns>
+        public bool IsAdmin(string adminRole = "admin")
+        {
+            return this.Principal.IsInRole(adminRole);
         }
 
         /// <summary>

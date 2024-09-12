@@ -16,16 +16,20 @@
 namespace Talegen.AspNetCore.App.Controllers
 {
     using System.Net;
+    using System.Security.Claims;
+    using Microsoft.AspNetCore.Authentication;
     using Microsoft.AspNetCore.Identity;
     using Microsoft.AspNetCore.Mvc;
     using Microsoft.AspNetCore.Mvc.Filters;
     using Talegen.Common.Core.Errors;
+    using Talegen.Common.Core.Extensions;
     using Talegen.Common.Models.Server;
 
     /// <summary>
     /// This class implements the base API controller class.
     /// </summary>
-    public abstract class BaseApiController : BaseController
+    [ApiController]
+    public abstract class BaseApiController : Controller
     {
         /// <summary>
         /// Initializes a new instance of the <see cref="BaseApiController" /> class.
@@ -46,7 +50,7 @@ namespace Talegen.AspNetCore.App.Controllers
         /// </summary>
         /// <param name="context">Contains the action context.</param>
         [NonAction]
-        public virtual void OnActionExecuting(ActionExecutingContext context)
+        public override void OnActionExecuting(ActionExecutingContext context)
         {
             // if the user is authenticated, then add the user identity to the request context.
             if (context.HttpContext != null)
@@ -60,6 +64,8 @@ namespace Talegen.AspNetCore.App.Controllers
                     this.RequestContext.Principal = context.HttpContext.User;
                 }
             }
+
+            base.OnActionExecuting(context);
         }
 
         /// <summary>
@@ -67,9 +73,10 @@ namespace Talegen.AspNetCore.App.Controllers
         /// </summary>
         /// <param name="context">The action executed context.</param>
         [NonAction]
-        public virtual void OnActionExecuted(ActionExecutedContext context)
+        public override void OnActionExecuted(ActionExecutedContext context)
         {
             // Do nothing; this is a placeholder for derived classes.
+            base.OnActionExecuted(context);
         }
 
         /// <summary>
@@ -82,7 +89,7 @@ namespace Talegen.AspNetCore.App.Controllers
         /// </param>
         /// <returns>A <see cref="Task" /> instance.</returns>
         [NonAction]
-        public virtual async Task OnActionExecutionAsync(
+        public override async Task OnActionExecutionAsync(
             ActionExecutingContext context,
             ActionExecutionDelegate next)
         {
@@ -199,6 +206,66 @@ namespace Talegen.AspNetCore.App.Controllers
 
             // create new response with the error response model in the Content.
             return this.StatusCode((int)errorCode, responseModel);
+        }
+
+        // <summary>
+        /// Gets the access token if available in the request header.
+        /// </summary>
+        public string AccessToken
+        {
+            get
+            {
+                string? result = string.Empty;
+                HttpContext context = this.HttpContext;
+
+                if (this.User.Identity != null && this.User.Identity.IsAuthenticated)
+                {
+                    result = this.User.HasClaim(c => c.Type == "access_token") ?
+                        this.User.FindFirstValue("access_token") :
+                        AsyncHelper.RunSync(() => context.GetTokenAsync("access_token"));
+                }
+
+                return result ?? GetToken(this.Request);
+            }
+        }
+
+        /// <summary>
+        /// This method is used to retrieve the authentication token from the request header and/or the url if not in the header.
+        /// </summary>
+        /// <param name="request">Contains the request to search for an access token.</param>
+        /// <returns>Returns the token from the request header.</returns>
+        private static string GetToken(HttpRequest request)
+        {
+            string? result;
+
+            if (request == null)
+            {
+                throw new ArgumentNullException(nameof(request));
+            }
+
+            string auth = request.Headers.Authorization.ConvertToString();
+
+            if (string.IsNullOrWhiteSpace(auth))
+            {
+                result = request.Form?["token"];
+
+                if (string.IsNullOrWhiteSpace(result))
+                {
+                    result = request.Query?["token"];
+                }
+
+                if (string.IsNullOrWhiteSpace(result))
+                {
+                    // http://docs.identityserver.io/en/latest/topics/add_apis.html
+                    result = request.Form?["access_token"];
+                }
+            }
+            else
+            {
+                result = auth.Split(' ')[1];
+            }
+
+            return result.ConvertToString();
         }
     }
 }

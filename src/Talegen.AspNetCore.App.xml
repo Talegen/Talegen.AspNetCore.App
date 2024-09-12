@@ -74,14 +74,14 @@
             Contains the value for max number of files to import. The default value is 1024.
             </summary>
         </member>
-        <member name="F:Talegen.AspNetCore.App.AppStartup`1.ScopeProfile">
-            <summary>
-            Contains the default scope profile.
-            </summary>
-        </member>
         <member name="F:Talegen.AspNetCore.App.AppStartup`1.DefaultTelemetryKey">
             <summary>
             Contains the default telemetry key.
+            </summary>
+        </member>
+        <member name="F:Talegen.AspNetCore.App.AppStartup`1.NotificationHubRoute">
+            <summary>
+            Contains the notifications hub route.
             </summary>
         </member>
         <member name="F:Talegen.AspNetCore.App.AppStartup`1.cacheConnectionString">
@@ -227,6 +227,21 @@
             </summary>
             <param name="services">Contains the services collection.</param>
         </member>
+        <member name="T:Talegen.AspNetCore.App.AppStartupConstants">
+            <summary>
+            This class implements the application startup constants.
+            </summary>
+        </member>
+        <member name="F:Talegen.AspNetCore.App.AppStartupConstants.ResourcePolicyName">
+            <summary>
+            Contains the resource policy name.
+            </summary>
+        </member>
+        <member name="F:Talegen.AspNetCore.App.AppStartupConstants.ScopeProfile">
+            <summary>
+            Contains the default scope profile.
+            </summary>
+        </member>
         <member name="T:Talegen.AspNetCore.App.BaseRequestContext">
             <summary>
             This class defines the application context to be used in the application.
@@ -290,6 +305,13 @@
             <summary>
             Gets the current user name.
             </summary>
+        </member>
+        <member name="M:Talegen.AspNetCore.App.BaseRequestContext.IsAdmin(System.String)">
+            <summary>
+            This method is used to determine if the user has admin role claim assigned.
+            </summary>
+            <param name="adminRole">Contains an optional admin role name.</param>
+            <returns>Returns a value indicating whether the use has the claim.</returns>
         </member>
         <member name="P:Talegen.AspNetCore.App.BaseRequestContext.ClientAddress">
             <summary>
@@ -399,6 +421,14 @@
             </summary>
             <param name="errorCode">Contains an optional status code to return in the response message. By default 400 Bad Request is returned.</param>
             <returns>Returns an action response containing an <see cref="T:Talegen.Common.Models.Server.ErrorResponseModel" /> object.</returns>
+        </member>
+        <!-- Badly formed XML comment ignored for member "P:Talegen.AspNetCore.App.Controllers.BaseApiController.AccessToken" -->
+        <member name="M:Talegen.AspNetCore.App.Controllers.BaseApiController.GetToken(Microsoft.AspNetCore.Http.HttpRequest)">
+            <summary>
+            This method is used to retrieve the authentication token from the request header and/or the url if not in the header.
+            </summary>
+            <param name="request">Contains the request to search for an access token.</param>
+            <returns>Returns the token from the request header.</returns>
         </member>
         <member name="T:Talegen.AspNetCore.App.Controllers.BaseController">
             <summary>
@@ -1000,6 +1030,11 @@
         <member name="P:Talegen.AspNetCore.App.Models.Settings.AppSecuritySettings.EnableCors">
             <summary>
             Gets or sets a value indicating whether the CORS settings are defined.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Models.Settings.AppSecuritySettings.ResourceScope">
+            <summary>
+            Gets or sets the resource scope.
             </summary>
         </member>
         <member name="T:Talegen.AspNetCore.App.Models.Settings.AppSettingsBase">

@@ -17,10 +17,11 @@ namespace Talegen.AspNetCore.App
 {
     using System.IdentityModel.Tokens.Jwt;
     using System.Reflection;
-    using System.Runtime.Serialization;
     using IdentityModel.Client;
     using Microsoft.AspNetCore.Authentication.JwtBearer;
+    using Microsoft.AspNetCore.Authentication.OpenIdConnect;
     using Microsoft.AspNetCore.Authorization;
+    using Microsoft.AspNetCore.Authorization.Infrastructure;
     using Microsoft.AspNetCore.Hosting;
     using Microsoft.AspNetCore.Http.Features;
     using Microsoft.AspNetCore.Mvc;
@@ -38,7 +39,6 @@ namespace Talegen.AspNetCore.App
     using Talegen.AspNetCore.App.Services.Messaging;
     using Talegen.AspNetCore.App.Services.Messaging.Queue;
     using Talegen.AspNetCore.App.Services.Messaging.Smtp;
-    using Talegen.AspNetCore.App.Services.Queue;
     using Talegen.AspNetCore.Web.Bindings;
     using Talegen.Common.Core.Errors;
     using Talegen.Common.Core.Extensions;
@@ -56,14 +56,14 @@ namespace Talegen.AspNetCore.App
         public const int MaxNumberOfFilesToImport = 8192;
 
         /// <summary>
-        /// Contains the default scope profile.
-        /// </summary>
-        private const string ScopeProfile = "profile";
-
-        /// <summary>
         /// Contains the default telemetry key.
         /// </summary>
         private const string DefaultTelemetryKey = "TelemetryConnection";
+
+        /// <summary>
+        /// Contains the notifications hub route.
+        /// </summary>
+        private const string NotificationHubRoute = "/hubs/notificationHub";
 
         /// <summary>
         /// Contains the cache connection string.
@@ -414,16 +414,12 @@ namespace Talegen.AspNetCore.App
 
             services.AddControllers(options =>
             {
-                // if security is enabled, add the authorization policy
-                if (development || authEnabled)
-                {
-                    var policy = new AuthorizationPolicyBuilder()
-                        .RequireAuthenticatedUser()
-                        .Build();
 
-                    options.Filters.Add(new AuthorizeFilter(policy));
-                }
-                
+                var policy = new AuthorizationPolicyBuilder()
+                     .RequireAuthenticatedUser()
+                     .Build();
+                options.Filters.Add(new AuthorizeFilter(policy));
+
                 // add custom bindings overrides to support empty Guids and other custom binding types.
                 options.AddBindingOverrides();
             })
@@ -511,6 +507,48 @@ namespace Talegen.AspNetCore.App
                 });
 
                 services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                    .AddJwtBearer(options =>
+                    {
+                        options.Authority = this.AppSettings.Security.AuthorityUri.ToString();
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateAudience = false,
+
+                        };
+                        
+                        options.AutomaticRefreshInterval = TimeSpan.FromMinutes(5);
+                        options.Audience = this.AppSettings.Security.ResourceName;
+                        options.RefreshInterval = TimeSpan.FromMinutes(5);
+                        options.BackchannelTimeout = TimeSpan.FromMinutes(5);
+                        options.Challenge = JwtBearerDefaults.AuthenticationScheme;
+                        options.MapInboundClaims = false;
+                        options.RefreshInterval = TimeSpan.FromMinutes(5);
+                        options.SaveToken = true;
+                        
+                        options.UseSecurityTokenValidators = false;
+                        options.RefreshOnIssuerKeyNotFound = false;
+                        options.RequireHttpsMetadata = !development;
+                        options.Events = new JwtBearerEvents
+                        {
+                            OnMessageReceived = context =>
+                            {
+                                // for SignalR, they can only send access token via query parameter
+                                string accessToken = context.HttpContext.Request.Query["access_token"].ConvertToString();
+                                string path = context.HttpContext.Request.Path;
+
+                                // If the request is for our hub...
+                                if (!string.IsNullOrEmpty(accessToken) && path.StartsWith(NotificationHubRoute, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    // set the context access token.
+                                    context.Token = accessToken;
+
+                                    Log.Information("Hub access token received from {0}.", path);
+                                }
+
+                                return Task.CompletedTask;
+                            }
+                        };
+                    })
                     .AddOpenIdConnect(options =>
                     {
                         options.SignInScheme = JwtBearerDefaults.AuthenticationScheme;
@@ -521,27 +559,54 @@ namespace Talegen.AspNetCore.App
                         options.Resource = this.AppSettings.Security.ResourceName;
                         options.ResponseType = "code";
                         options.UsePkce = true;
-                        options.Scope.Add(ScopeProfile);
+                        options.Scope.Add(AppStartupConstants.ScopeProfile);
+                        options.TokenValidationParameters = new TokenValidationParameters
+                        {
+                            ValidateAudience = false
+
+                        };
+
+                        if (!string.IsNullOrWhiteSpace(this.AppSettings.Security.ResourceScope))
+                        {
+                            options.Scope.Add(this.AppSettings.Security.ResourceScope);
+                        }
+
                         options.SaveTokens = true;
                         options.GetClaimsFromUserInfoEndpoint = true;
                         options.AutomaticRefreshInterval = TimeSpan.FromMinutes(5);
                         options.BackchannelTimeout = TimeSpan.FromMinutes(5);
                         options.RefreshInterval = TimeSpan.FromMinutes(5);
-                        
-                        options.TokenValidationParameters = new TokenValidationParameters
+
+                        options.Events = new OpenIdConnectEvents
                         {
-                            NameClaimType = "name",
-                            RoleClaimType = "role"
+                            
+                            OnMessageReceived = context =>
+                            {
+                                // for SignalR, they can only send access token via query parameter
+                                string accessToken = context.HttpContext.Request.Query["access_token"].ConvertToString();
+                                string path = context.HttpContext.Request.Path;
+
+                                // If the request is for our hub...
+                                if (!string.IsNullOrEmpty(accessToken) && path.StartsWith(NotificationHubRoute, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    // set the context access token.
+                                    context.Token = accessToken;
+
+                                    Log.Information("Hub access token received from {0}.", path);
+                                }
+
+                                return Task.CompletedTask;
+                            }
                         };
+
+                        //options.TokenValidationParameters = new TokenValidationParameters
+                        //{
+                        //    NameClaimType = "name",
+                        //    RoleClaimType = "role"
+                        //};
                     });
 
-                services.AddAuthorization(options =>
-                {
-                    options.AddPolicy("ResourcePolicy", builder => 
-                    {
-                        builder.RequireClaim(this.AppSettings.Security.ResourceName);
-                    });
-                });
+                services.AddAuthorization();
 
                 if (this.AppSettings.Security.EnableCors)
                 {
