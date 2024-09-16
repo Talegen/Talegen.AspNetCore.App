@@ -336,9 +336,12 @@ namespace Talegen.AspNetCore.App
                 (!development || this.AppSettings.Advanced.ShowDiagnostics)
                 && !string.IsNullOrWhiteSpace(telemetryConnectionString))
             {
+                Log.Debug("Using Telemetry at {0}", telemetryConnectionString);
+
                 switch (this.AppSettings.Telemetry.TelemetryType)
                 {
                     case TelemetryType.ApplicationInsights:
+                        
                         services.AddApplicationInsightsTelemetry(option => option.ConnectionString = telemetryConnectionString);
                         break;
                     case TelemetryType.AwsCloudWatch:
