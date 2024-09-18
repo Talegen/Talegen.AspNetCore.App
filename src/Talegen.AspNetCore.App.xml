@@ -932,6 +932,11 @@
             Gets or sets the maximum value length limit.
             </summary>
         </member>
+        <member name="P:Talegen.AspNetCore.App.Models.Settings.AppAdvancedSettings.DiagnosticsKey">
+            <summary>
+            Gets or sets the diagnostics API access key.
+            </summary>
+        </member>
         <member name="T:Talegen.AspNetCore.App.Models.Settings.AppCacheSettings">
             <summary>
             This class contains the cache settings.

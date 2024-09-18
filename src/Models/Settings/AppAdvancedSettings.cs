@@ -41,5 +41,10 @@ namespace Talegen.AspNetCore.App.Models.Settings
         /// Gets or sets the maximum value length limit.
         /// </summary>
         public int ValueLengthLimit { get; set; } = 4000000;
+
+        /// <summary>
+        /// Gets or sets the diagnostics API access key.
+        /// </summary>
+        public string? DiagnosticsKey { get; set; }
     }
 }
