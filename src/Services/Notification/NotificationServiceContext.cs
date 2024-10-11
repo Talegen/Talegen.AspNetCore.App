@@ -13,10 +13,10 @@
  * limitations under the License.
  *
 */
-namespace Talegen.AspNetCore.App.Services.Notification
+namespace Talegen.AspNetCore.App.Shared.Services.Notification
 {
     using Microsoft.Extensions.Caching.Distributed;
-    using Talegen.AspNetCore.App.Services.Messaging;
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
     using Talegen.AspNetCore.App.Services.Security;
     using Talegen.Common.Core.Errors;
 

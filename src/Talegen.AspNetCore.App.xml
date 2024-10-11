@@ -257,7 +257,7 @@
             Contains the current user's name.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.BaseRequestContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Services.Messaging.IMessagingService,Talegen.Common.Core.Errors.IErrorManager)">
+        <member name="M:Talegen.AspNetCore.App.BaseRequestContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Shared.Services.Messaging.IMessagingService,Talegen.Common.Core.Errors.IErrorManager)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.BaseRequestContext"/> class.
             </summary>
@@ -1418,258 +1418,114 @@
             Gets or sets the entity to return to the user.
             </summary>
         </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob">
+        <member name="T:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob">
             <summary>
             This class defines a background job that processes messages in the message queue.
             </summary>
         </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.service">
+        <member name="F:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob.service">
             <summary>
             Contains the messaging service instance.
             </summary>
         </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.executionCount">
+        <member name="F:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob.executionCount">
             <summary>
             Contains the execution count.
             </summary>
         </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.timer">
+        <member name="F:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob.timer">
             <summary>
             Contains a timer.
             </summary>
         </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.disposed">
+        <member name="F:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob.disposed">
             <summary>
             Contains a value indicating if dispose has been called.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.#ctor(Talegen.AspNetCore.App.Services.Messaging.IMessagingService)">
+        <member name="M:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob.#ctor(Talegen.AspNetCore.App.Shared.Services.Messaging.IMessagingService)">
             <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob" /> class.
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob" /> class.
             </summary>
             <param name="service">Contains an instance of the messaging service.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.StartAsync(System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob.StartAsync(System.Threading.CancellationToken)">
             <summary>
             This method is used to start executing the background job timer.
             </summary>
             <param name="cancellationToken">Contains a cancellation token.</param>
             <returns>Returns the task to execute.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.StopAsync(System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob.StopAsync(System.Threading.CancellationToken)">
             <summary>
             This method is used to stop the execution of a background job.
             </summary>
             <param name="cancellationToken">Contains a cancellation token.</param>
             <returns>Returns the task result.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.Dispose">
+        <member name="M:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob.Dispose">
             <summary>
             Disposes of internal disposable objects.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.Dispose(System.Boolean)">
+        <member name="M:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob.Dispose(System.Boolean)">
             <summary>
             Disposes internal disposable objects.
             </summary>
             <param name="disposing">Contains a value indicating whether disposing is underway.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.BackgroundMessagingJob.DoWork(System.Object)">
+        <member name="M:Talegen.AspNetCore.App.Shared.Services.Messaging.BackgroundMessagingJob.DoWork(System.Object)">
             <summary>
             This method is what executes the work to be performed.
             </summary>
             <param name="state">Contains thread state.</param>
         </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Messaging.IMessageProcessor">
+        <member name="T:Talegen.AspNetCore.App.Shared.Services.Notification.NotificationServiceContext">
             <summary>
-            This interface class represents the basic message processing interface.
+            This class contains the security service context to be used in the application.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.IMessageProcessor.ProcessMessageAsync(Talegen.AspNetCore.App.Services.Queue.IQueueItem,System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Shared.Services.Notification.NotificationServiceContext.#ctor(Talegen.AspNetCore.App.BaseRequestContext)">
             <summary>
-            This method is used to send a message for the application.
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Shared.Services.Notification.NotificationServiceContext"/> class.
             </summary>
-            <param name="message">Contains the mail message to send.</param>
-            <param name="cancellationToken">Contains an optional cancellation token.</param>
-            <returns>Returns a value indicating whether the processing was successful.</returns>
+            <param name="context">Contains a base context to pass initialize the new context.</param>
         </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Messaging.IMessageSender">
+        <member name="M:Talegen.AspNetCore.App.Shared.Services.Notification.NotificationServiceContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Shared.Services.Messaging.IMessagingService,Talegen.Common.Core.Errors.IErrorManager)">
             <summary>
-            This interface defines a minimum implementation of a message sender.
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Shared.Services.Notification.NotificationServiceContext"/> class.
             </summary>
+            <param name="cache">Contains a cache service.</param>
+            <param name="security">Contains a security service.</param>
+            <param name="messaging">Contains a messaging service.</param>
+            <param name="errorManager">Contains an error manager service.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.IMessageSender.SendMessage(Talegen.AspNetCore.App.Services.Queue.IQueueItem)">
+        <member name="T:Talegen.AspNetCore.App.Shared.Services.Security.SecurityServiceContext">
             <summary>
-            This method is used to send a message for the application.
-            </summary>
-            <param name="message">Contains the mail message to send.</param>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.IMessageSender.SendMessageAsync(Talegen.AspNetCore.App.Services.Queue.IQueueItem,System.Threading.CancellationToken)">
-            <summary>
-            This method is used to send a message for the application.
-            </summary>
-            <param name="message">Contains the mail message to send.</param>
-            <param name="cancellationToken">Contains a cancellation token.</param>
-            <returns>Returns an async Task result.</returns>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Messaging.IMessagingQueue">
-            <summary>
-            This interface defines a minimmum implementation of a messaging queue.
+            This class contains the security service context to be used in the application.
             </summary>
         </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Messaging.IMessagingService">
+        <member name="M:Talegen.AspNetCore.App.Shared.Services.Security.SecurityServiceContext.#ctor(Talegen.AspNetCore.App.BaseRequestContext)">
             <summary>
-            This interface defines a minimum implementation of a message service.
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Shared.Services.Security.SecurityServiceContext"/> class.
             </summary>
+            <param name="context">Contains a base context to pass initialize the new context.</param>
         </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress">
+        <member name="M:Talegen.AspNetCore.App.Shared.Services.Security.SecurityServiceContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Shared.Services.Messaging.IMessagingService,Talegen.Common.Core.Errors.IErrorManager)">
             <summary>
-            This interface defines a minimum implementation of a sender address.
+            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Shared.Services.Security.SecurityServiceContext"/> class.
             </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress.Address">
-            <summary>
-            Gets or sets the address.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress.DisplayName">
-            <summary>
-            Gets or sets the display name.
-            </summary>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Messaging.MessageBodyType">
-            <summary>
-            Contains an enumeration of message body types.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.MessageBodyType.Text">
-            <summary>
-            Message body is plain text.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.MessageBodyType.Html">
-            <summary>
-            Message body is HTML.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.MessageBodyType.Other">
-            <summary>
-            Message body is other.
-            </summary>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Messaging.MessagePriority">
-            <summary>
-            Contains an enumeration of message priorities.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.MessagePriority.Low">
-            <summary>
-            Low priority.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.MessagePriority.Normal">
-            <summary>
-            Normal priority.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Messaging.MessagePriority.High">
-            <summary>
-            High priority.
-            </summary>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage">
-            <summary>
-            This interface defines a minimum implementation of a sender message.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage.From">
-            <summary>
-            Gets or sets the sender address.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage.Recipients">
-            <summary>
-            Gets or sets the recipient addresses.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage.Priority">
-            <summary>
-            Gets or sets the message priority.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage.Subject">
-            <summary>
-            Gets or sets the message subject.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage.Bodies">
-            <summary>
-            Gets or sets a dictionary of message bodies.
-            </summary>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessageFactory">
-            <summary>
-            This interface defines the message factory used to create new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> objects.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.ISenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Services.Messaging.ISenderAddress},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Resources.ResourceManager,System.Globalization.CultureInfo)">
-            <summary>
-            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> and populate the message content with optional token values.
-            </summary>
-            <param name="from">Contains the message sender address.</param>
-            <param name="recipients">Contains a list of <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress" /> recipient objects.</param>
-            <param name="subject">Contains the message subject.</param>
-            <param name="templateName">Contains a message template name to retrieve and load into the message body.</param>
-            <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
-            <param name="resourceManager">Contains the resource manager used for retrieving template content.</param>
-            <param name="cultureInfoOverride">Contains an optional locale string override for message body resource lookup.</param>
-            <returns>Returns a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> containing template message content.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.ISenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
-            <summary>
-            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> and populate the message content with optional token values.
-            </summary>
-            <param name="from">Contains the message sender address.</param>
-            <param name="to">Contains the message recipient address.</param>
-            <param name="subject">Contains the message subject.</param>
-            <param name="textBody">Contains the body of the message in text format.</param>
-            <param name="htmlBody">Contains the body of the message in HTML format.</param>
-            <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
-            <param name="textBodyContentType">Contains an optional text body content type.</param>
-            <param name="htmlBodyContentType">Contains an optional HTML body content type.</param>
-            <returns>Returns a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> containing message content.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.ISenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Services.Messaging.ISenderAddress},System.String,System.String,System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
-            <summary>
-            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> and populate the message content with optional token values.
-            </summary>
-            <param name="from">Contains the message sender address.</param>
-            <param name="recipients">Contains a list of <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress" /> recipient objects.</param>
-            <param name="subject">Contains the message subject.</param>
-            <param name="textBody">Contains the body of the message in text format.</param>
-            <param name="htmlBody">Contains the body of the message in HTML format.</param>
-            <param name="recipientsVisible">
-            Contains a value indicating whether the recipients are visible to each other. If false, each recipient shall receive their own message.
-            </param>
-            <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
-            <param name="textBodyContentType">Contains an optional text body content type.</param>
-            <param name="htmlBodyContentType">Contains an optional HTML body content type.</param>
-            <returns>Returns a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> containing message content.</returns>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.ISenderMessageFactory.CreateAddress(System.String,System.String)">
-            <summary>
-            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress" /> object.
-            </summary>
-            <param name="address">Contains the address.</param>
-            <param name="displayName">Contains an optional display name.</param>
-            <returns>Returns the address.</returns>
+            <param name="cache">Contains a cache service.</param>
+            <param name="security">Contains a security service.</param>
+            <param name="messaging">Contains a messaging service.</param>
+            <param name="errorManager">Contains an error manager service.</param>
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.Messaging.MessageExtensions">
             <summary>
             This class contains extensions for the message service.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.MessageExtensions.IsHtml(Talegen.AspNetCore.App.Services.Messaging.ISenderMessage)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.MessageExtensions.IsHtml(Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderMessage)">
             <summary>
             This method is used to determine if a message contains an HTML body.
             </summary>
@@ -1879,7 +1735,7 @@
             Gets the thread-safe queue for handling messages.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.MessagingQueue.Add(Talegen.AspNetCore.App.Services.Queue.IQueueItem)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.MessagingQueue.Add(Talegen.AspNetCore.App.Shared.Services.Queue.IQueueItem)">
             <summary>
             Adds a new sender message to the queue to be processed.
             </summary>
@@ -1897,7 +1753,7 @@
             <param name="count"></param>
             <returns></returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.MessagingQueue.Remove(Talegen.AspNetCore.App.Services.Queue.IQueueItem)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.MessagingQueue.Remove(Talegen.AspNetCore.App.Shared.Services.Queue.IQueueItem)">
             <summary>
             Removes a message from the queue.
             </summary>
@@ -1905,7 +1761,7 @@
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender">
             <summary>
-            A basic implementation of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.IMessageSender" /> that sends messages to the message queue.
+            A basic implementation of the <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.IMessageSender" /> that sends messages to the message queue.
             </summary>
         </member>
         <member name="F:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender.messagingQueue">
@@ -1913,20 +1769,20 @@
             Gets the messaging queue service.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender.#ctor(Talegen.AspNetCore.App.Services.Messaging.IMessagingQueue)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender.#ctor(Talegen.AspNetCore.App.Shared.Services.Messaging.IMessagingQueue)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender" /> class.
             </summary>
             <param name="queueService">Contains an instance of the queue service.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender.SendMessage(Talegen.AspNetCore.App.Services.Queue.IQueueItem)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender.SendMessage(Talegen.AspNetCore.App.Shared.Services.Queue.IQueueItem)">
             <inheritdoc />
             <summary>
             This method is used to send a message for the application.
             </summary>
             <param name="message">Contains the mail message to send.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender.SendMessageAsync(Talegen.AspNetCore.App.Services.Queue.IQueueItem,System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Queue.QueuedMessageSender.SendMessageAsync(Talegen.AspNetCore.App.Shared.Services.Queue.IQueueItem,System.Threading.CancellationToken)">
             <summary>
             This method is used to send a message for the application.
             </summary>
@@ -1978,7 +1834,7 @@
             <param name="textBodyContentType">Contains the optional text body content type value.</param>
             <param name="htmlBodyContentType">Contains the optional HTML body content type value.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage.#ctor(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.String,System.String,System.String,System.String,System.String)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage.#ctor(Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress,Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress,System.String,System.String,System.String,System.String,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage" /> class.
             </summary>
@@ -1990,7 +1846,7 @@
             <param name="textBodyContentType">Contains the optional text body content type value.</param>
             <param name="htmlBodyContentType">Contains the optional HTML body content type value.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage.#ctor(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Services.Messaging.ISenderAddress},System.String,System.String,System.String,System.Boolean,System.String,System.String)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage.#ctor(Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress},System.String,System.String,System.String,System.Boolean,System.String,System.String)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage" /> class.
             </summary>
@@ -2148,7 +2004,7 @@
             <param name="context">Contains message settings.</param>
             <param name="errorManager">Contains an instance of the error manager.</param>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessageProcessor.ProcessMessageAsync(Talegen.AspNetCore.App.Services.Queue.IQueueItem,System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessageProcessor.ProcessMessageAsync(Talegen.AspNetCore.App.Shared.Services.Queue.IQueueItem,System.Threading.CancellationToken)">
             <summary>
             This method is used to send a message for the application.
             </summary>
@@ -2181,7 +2037,7 @@
             Contains a value indicating whether the queue should be processing.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService.#ctor(Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessageContext,Talegen.AspNetCore.App.Services.Messaging.IMessagingQueue,Talegen.AspNetCore.App.Services.Messaging.IMessageProcessor)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService.#ctor(Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessageContext,Talegen.AspNetCore.App.Shared.Services.Messaging.IMessagingQueue,Talegen.AspNetCore.App.Shared.Services.Messaging.IMessageProcessor)">
             <summary>
             Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessagingService" /> class.
             </summary>
@@ -2217,7 +2073,7 @@
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory">
             <summary>
-            This class is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> object for the SMTP messaging service.
+            This class is used to create a new <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderMessage" /> object for the SMTP messaging service.
             </summary>
         </member>
         <member name="F:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.resourceManager">
@@ -2239,28 +2095,28 @@
         </member>
         <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.CreateAddress(System.String,System.String)">
             <summary>
-            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress" /> object for the SMTP messaging service.
+            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress" /> object for the SMTP messaging service.
             </summary>
             <param name="address">Contains the address.</param>
             <param name="displayName">Contains an optional display name.</param>
             <returns>Returns the address.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Services.Messaging.ISenderAddress},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Resources.ResourceManager,System.Globalization.CultureInfo)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress},System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.Resources.ResourceManager,System.Globalization.CultureInfo)">
             <summary>
-            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> and populate the message content with optional token values.
+            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderMessage" /> and populate the message content with optional token values.
             </summary>
             <param name="from">Contains the message sender address.</param>
-            <param name="recipients">Contains a list of <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress" /> recipient objects.</param>
+            <param name="recipients">Contains a list of <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress" /> recipient objects.</param>
             <param name="subject">Contains the message subject.</param>
             <param name="templateName">Contains a message template name to retrieve and load into the message body.</param>
             <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
             <param name="resourceManager">Contains the resource manager used for retrieving template content.</param>
             <param name="cultureInfoOverride">Contains an optional locale string override for message body resource lookup.</param>
-            <returns>Returns a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> containing template message content.</returns>
+            <returns>Returns a new <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderMessage" /> containing template message content.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress,Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress,System.String,System.String,System.String,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
             <summary>
-            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> and populate the message content with optional token values.
+            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderMessage" /> and populate the message content with optional token values.
             </summary>
             <param name="from">Contains the message sender address.</param>
             <param name="to">Contains the message recipient address.</param>
@@ -2270,14 +2126,14 @@
             <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
             <param name="textBodyContentType">Contains an optional text body content type.</param>
             <param name="htmlBodyContentType">Contains an optional HTML body content type.</param>
-            <returns>Returns a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> containing message content.</returns>
+            <returns>Returns a new <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderMessage" /> containing message content.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Services.Messaging.ISenderAddress},System.String,System.String,System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
+        <member name="M:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpSenderMessageFactory.CreateSenderMessage(Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress,System.Collections.Generic.List{Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress},System.String,System.String,System.String,System.Boolean,System.Collections.Generic.Dictionary{System.String,System.String},System.String,System.String)">
             <summary>
-            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> and populate the message content with optional token values.
+            This method is used to create a new <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderMessage" /> and populate the message content with optional token values.
             </summary>
             <param name="from">Contains the message sender address.</param>
-            <param name="recipients">Contains a list of <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderAddress" /> recipient objects.</param>
+            <param name="recipients">Contains a list of <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderAddress" /> recipient objects.</param>
             <param name="subject">Contains the message subject.</param>
             <param name="textBody">Contains the body of the message in text format.</param>
             <param name="htmlBody">Contains the body of the message in HTML format.</param>
@@ -2287,7 +2143,7 @@
             <param name="tokensList">Contains an optional tokens list for populating message body with token values.</param>
             <param name="textBodyContentType">Contains an optional text body content type.</param>
             <param name="htmlBodyContentType">Contains an optional HTML body content type.</param>
-            <returns>Returns a new <see cref="T:Talegen.AspNetCore.App.Services.Messaging.ISenderMessage" /> containing message content.</returns>
+            <returns>Returns a new <see cref="T:Talegen.AspNetCore.App.Shared.Services.Messaging.ISenderMessage" /> containing message content.</returns>
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.Messaging.TemplateExtensions">
             <summary>
@@ -2331,7 +2187,7 @@
             This interface defines the notification service contract.
             </summary>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Notification.INotificationService.NotifyUserAsync``1(Talegen.AspNetCore.App.Models.Notifications.NotificationModel{``0,System.String},Talegen.AspNetCore.App.Services.Notification.NotificationServiceContext,System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Services.Notification.INotificationService.NotifyUserAsync``1(Talegen.AspNetCore.App.Models.Notifications.NotificationModel{``0,System.String},Talegen.AspNetCore.App.Shared.Services.Notification.NotificationServiceContext,System.Threading.CancellationToken)">
             <summary>
             This method is used to send a notification message to the specific connected user.
             </summary>
@@ -2341,7 +2197,7 @@
             <param name="cancellationToken">Contains an optional cancellation token.</param>
             <returns>Returns a task.</returns>
         </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Notification.INotificationService.NotifyAllAsync``1(Talegen.AspNetCore.App.Models.Notifications.NotificationModel{``0,System.String},Talegen.AspNetCore.App.Services.Notification.NotificationServiceContext,System.Boolean,System.Threading.CancellationToken)">
+        <member name="M:Talegen.AspNetCore.App.Services.Notification.INotificationService.NotifyAllAsync``1(Talegen.AspNetCore.App.Models.Notifications.NotificationModel{``0,System.String},Talegen.AspNetCore.App.Shared.Services.Notification.NotificationServiceContext,System.Boolean,System.Threading.CancellationToken)">
             <summary>
             This method is used to send a notification message to all the connected users.
             </summary>
@@ -2351,147 +2207,6 @@
             <param name="excludeCurrentUser">Contains a value indicating whether the current user is excluded from receiving the signal message.</param>
             <param name="cancellationToken">Contains an optional cancellation token.</param>
             <returns>Returns a task.</returns>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Notification.NotificationServiceContext">
-            <summary>
-            This class contains the security service context to be used in the application.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Notification.NotificationServiceContext.#ctor(Talegen.AspNetCore.App.BaseRequestContext)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Notification.NotificationServiceContext"/> class.
-            </summary>
-            <param name="context">Contains a base context to pass initialize the new context.</param>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Notification.NotificationServiceContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Services.Messaging.IMessagingService,Talegen.Common.Core.Errors.IErrorManager)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Notification.NotificationServiceContext"/> class.
-            </summary>
-            <param name="cache">Contains a cache service.</param>
-            <param name="security">Contains a security service.</param>
-            <param name="messaging">Contains a messaging service.</param>
-            <param name="errorManager">Contains an error manager service.</param>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Queue.IQueue`1">
-            <summary>
-            This interface defines the minimum implementation of a queue service.
-            </summary>
-            <typeparam name="IQueueItem">Contains the message implementation to interact with.</typeparam>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Queue.IQueue`1.Messages">
-            <summary>
-            Gets the thread-safe queue for handling messages.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueue`1.Add(`0)">
-            <summary>
-            Adds a new sender message to the queue to be processed.
-            </summary>
-            <param name="message">Contains the message to process.</param>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueue`1.Remove(`0)">
-            <summary>
-            Removes the specified message.
-            </summary>
-            <param name="message">Contains the message to remove</param>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueue`1.Clear">
-            <summary>
-            Clears the queue.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueue`1.Peek(System.Int32)">
-            <summary>
-            Gets the next available messages in the queue to process.
-            </summary>
-            <param name="count">Contains the number of messages to process. Default is 0, indicating all available messages to process.</param>
-            <returns>Returns an enumerable list of queue items to process.</returns>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Queue.QueueItemState">
-            <summary>
-            Contains an enumeration of queue item states.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Queue.QueueItemState.New">
-            <summary>
-            Item is new and has not been processed.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Queue.QueueItemState.Processing">
-            <summary>
-            Item is currently being processed.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Queue.QueueItemState.Complete">
-            <summary>
-            Item is complete.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Queue.QueueItemState.CanRetry">
-            <summary>
-            Item is available to retry.
-            </summary>
-        </member>
-        <member name="F:Talegen.AspNetCore.App.Services.Queue.QueueItemState.Failed">
-            <summary>
-            Item has failed to process.
-            </summary>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Queue.IQueueItem">
-            <summary>
-            This interface defines the minimum implementation of a queue item.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Queue.IQueueItem.Id">
-            <summary>
-            Gets or sets the identity of the queue item.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Queue.IQueueItem.QueueDateTime">
-            <summary>
-            Gets or sets the queue date time.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Queue.IQueueItem.State">
-            <summary>
-            Gets or sets the state of the queue item.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Queue.IQueueItem.RetryCount">
-            <summary>
-            Gets or sets the rety count of the queue item.
-            </summary>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Queue.IQueueService">
-            <summary>
-            This interface is used to interact with the queue service.
-            </summary>
-        </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Queue.IQueueService.QueueProcessingIntervalSeconds">
-            <summary>
-            Gets or sets the queue processing interval in seconds.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService.Process">
-            <summary>
-            This method is used to execute and process the queue messaging.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService.StoreQueue">
-            <summary>
-            This method is used to store the remaining queue items to disk during a shutdown event.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService.RestoreQueue">
-            <summary>
-            This method is used to restore queue items from the disk during a startup.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Queue.IQueueService.CheckQueuePath">
-            <summary>
-            This method is used to check on the existence of the queue path, and if it doesn't exist, it is created.
-            </summary>
-            <returns>Returns a value indicating if the path exists.</returns>
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.Security.PermissionType">
             <summary>
@@ -2547,26 +2262,6 @@
             <param name="permissionType">Contains the permission type to check.</param>
             <param name="cancellationToken">Contains an optional cancellation token.</param>
             <returns>Returns a value indicating whether the user has the specified permission type for the given permission.</returns>
-        </member>
-        <member name="T:Talegen.AspNetCore.App.Services.Security.SecurityServiceContext">
-            <summary>
-            This class contains the security service context to be used in the application.
-            </summary>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Security.SecurityServiceContext.#ctor(Talegen.AspNetCore.App.BaseRequestContext)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Security.SecurityServiceContext"/> class.
-            </summary>
-            <param name="context">Contains a base context to pass initialize the new context.</param>
-        </member>
-        <member name="M:Talegen.AspNetCore.App.Services.Security.SecurityServiceContext.#ctor(Microsoft.Extensions.Caching.Distributed.IDistributedCache,Talegen.AspNetCore.App.Services.Security.ISecurityService,Talegen.AspNetCore.App.Services.Messaging.IMessagingService,Talegen.Common.Core.Errors.IErrorManager)">
-            <summary>
-            Initializes a new instance of the <see cref="T:Talegen.AspNetCore.App.Services.Security.SecurityServiceContext"/> class.
-            </summary>
-            <param name="cache">Contains a cache service.</param>
-            <param name="security">Contains a security service.</param>
-            <param name="messaging">Contains a messaging service.</param>
-            <param name="errorManager">Contains an error manager service.</param>
         </member>
         <member name="T:Talegen.AspNetCore.App.Services.ServiceBase`2">
             <summary>

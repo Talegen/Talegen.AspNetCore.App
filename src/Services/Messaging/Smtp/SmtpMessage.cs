@@ -18,7 +18,8 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
     using System;
     using System.Collections.Generic;
     using Newtonsoft.Json;
-    using Talegen.AspNetCore.App.Services.Queue;
+    using Talegen.AspNetCore.App.Shared.Services.Queue;
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
 
     /// <summary>
     /// This class represents a message to be sent via the sender messaging system.

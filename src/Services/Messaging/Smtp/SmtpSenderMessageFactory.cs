@@ -17,6 +17,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
 {
     using System.Globalization;
     using System.Resources;
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
 
 
     /// <summary>

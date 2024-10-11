@@ -17,6 +17,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
 {
     using System.Net.Mail;
     using System.Net.Mime;
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
 
     /// <summary>
     /// This class contains extension methods for the <see cref="SmtpMessage" /> class.

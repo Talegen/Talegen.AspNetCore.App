@@ -13,7 +13,7 @@
  * limitations under the License.
  *
 */
-namespace Talegen.AspNetCore.App.Services.Messaging
+namespace Talegen.AspNetCore.App.Shared.Services.Messaging
 {
     using Serilog;
     using Talegen.AspNetCore.App.Properties;

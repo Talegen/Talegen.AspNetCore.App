@@ -16,6 +16,7 @@
 namespace Talegen.AspNetCore.App.Services.Notification
 {
     using Talegen.AspNetCore.App.Models.Notifications;
+    using Talegen.AspNetCore.App.Shared.Services.Notification;
 
     /// <summary>
     /// This interface defines the notification service contract.

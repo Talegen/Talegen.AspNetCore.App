@@ -39,6 +39,7 @@ namespace Talegen.AspNetCore.App
     using Talegen.AspNetCore.App.Services.Messaging;
     using Talegen.AspNetCore.App.Services.Messaging.Queue;
     using Talegen.AspNetCore.App.Services.Messaging.Smtp;
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
     using Talegen.AspNetCore.Web.Bindings;
     using Talegen.Common.Core.Errors;
     using Talegen.Common.Core.Extensions;

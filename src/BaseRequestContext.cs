@@ -17,7 +17,7 @@ namespace Talegen.AspNetCore.App
 {
     using System.Security.Claims;
     using Microsoft.Extensions.Caching.Distributed;
-    using Talegen.AspNetCore.App.Services.Messaging;
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
     using Talegen.AspNetCore.App.Services.Security;
     using Talegen.AspNetCore.Web.Extensions;
     using Talegen.Common.Core.Errors;

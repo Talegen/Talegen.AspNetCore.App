@@ -18,6 +18,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
     using System.Globalization;
     using System.Linq;
     using Talegen.AspNetCore.App.Models;
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
     using Talegen.Common.Models.Security;
 
     /// <summary>

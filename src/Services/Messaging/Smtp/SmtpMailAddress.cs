@@ -15,6 +15,8 @@
 */
 namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
 {
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
+
     /// <summary>
     /// This class represents a recipient address.
     /// </summary>

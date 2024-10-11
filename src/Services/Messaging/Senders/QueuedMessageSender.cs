@@ -15,7 +15,8 @@
 */
 namespace Talegen.AspNetCore.App.Services.Messaging.Queue
 {
-    using Talegen.AspNetCore.App.Services.Queue;
+    using Talegen.AspNetCore.App.Shared.Services.Queue;
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
 
     /// <summary>
     /// A basic implementation of the <see cref="IMessageSender" /> that sends messages to the message queue.

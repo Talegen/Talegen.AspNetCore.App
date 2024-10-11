@@ -13,10 +13,11 @@
  * limitations under the License.
  *
 */
-namespace Talegen.AspNetCore.App.Services.Security
+namespace Talegen.AspNetCore.App.Shared.Services.Security
 {
     using Microsoft.Extensions.Caching.Distributed;
-    using Talegen.AspNetCore.App.Services.Messaging;
+    using Talegen.AspNetCore.App.Services.Security;
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
     using Talegen.Common.Core.Errors;
 
     /// <summary>

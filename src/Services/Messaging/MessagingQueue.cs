@@ -17,7 +17,8 @@ namespace Talegen.AspNetCore.App.Services.Messaging
 {
     using System.Collections.Concurrent;
     using System.Collections.Generic;
-    using Talegen.AspNetCore.App.Services.Queue;
+    using Talegen.AspNetCore.App.Shared.Services.Queue;
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
 
     /// <summary>
     /// This class represents a queue for handling messages.

@@ -21,7 +21,8 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
     using System.Threading;
     using System.Threading.Tasks;
     using Talegen.AspNetCore.App.Properties;
-    using Talegen.AspNetCore.App.Services.Queue;
+    using Talegen.AspNetCore.App.Shared.Services.Queue;
+    using Talegen.AspNetCore.App.Shared.Services.Messaging;
     using Talegen.Common.Core.Errors;
 
     /// <summary>
