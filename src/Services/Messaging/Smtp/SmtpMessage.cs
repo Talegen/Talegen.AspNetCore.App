@@ -76,16 +76,16 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
 
             this.RecipientsVisible = recipientsVisible;
             this.Subject = subject;
-            this.Bodies = new Dictionary<MessageBodyType, string>();
+            this.Bodies = new List<MessageBody>();
 
             if (!string.IsNullOrWhiteSpace(textBody))
             {
-                this.Bodies.Add(MessageBodyType.Text, textBody);
+                this.Bodies.Add(new MessageBody { BodyType = MessageBodyType.Text, Body = textBody });
             }
 
             if (!string.IsNullOrWhiteSpace(htmlBody))
             {
-                this.Bodies.Add(MessageBodyType.Html, htmlBody);
+                this.Bodies.Add(new MessageBody { BodyType = MessageBodyType.Html, Body = htmlBody });
             }
 
             this.TextContentType = textBodyContentType;
@@ -108,12 +108,12 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         public QueueItemState State { get; set; } = QueueItemState.New;
 
         /// <summary>
-        /// Gets or sets the rety count of the queue item.
+        /// Gets or sets the retry count of the queue item.
         /// </summary>
         public int RetryCount { get; set; }
 
         /// <summary>
-        /// Gets or sets a priorty.
+        /// Gets or sets a priority.
         /// </summary>
         public MessagePriority Priority { get; set;} = MessagePriority.Normal;
 
@@ -130,7 +130,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         /// <summary>
         /// Gets or sets the message body dictionary.
         /// </summary>
-        public Dictionary<MessageBodyType, string> Bodies { get; set; }
+        public List<MessageBody> Bodies { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the recipients are all included in a single message.

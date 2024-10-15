@@ -33,7 +33,7 @@ namespace Talegen.AspNetCore.App.Services.Messaging
         /// <returns>Returns a value indicating if an HTML body was found.</returns>
         public static bool IsHtml(this ISenderMessage message)
         {
-            return message.Bodies.Any(kvp => kvp.Key == MessageBodyType.Html);
+            return message.Bodies.Exists(kvp => kvp.BodyType == MessageBodyType.Html);
         }
 
         /// <summary>

@@ -47,17 +47,17 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
             });
 
             result.Subject = message.Subject;
-            bool hasTextBody = message.Bodies.Any(kvp => kvp.Key == MessageBodyType.Text);
+            bool hasTextBody = message.Bodies.Exists(kvp => kvp.BodyType == MessageBodyType.Text);
 
             if (hasTextBody)
             {
-                result.Body = message.Bodies.First(kvp => kvp.Key == MessageBodyType.Text).Value;
+                result.Body = message.Bodies.First(kvp => kvp.BodyType == MessageBodyType.Text).Body;
                 result.IsBodyHtml = false;
             }
 
             if (message.IsHtml())
             {
-                string htmlBody = message.Bodies.First(kvp => kvp.Key == MessageBodyType.Html).Value;
+                string htmlBody = message.Bodies.First(kvp => kvp.BodyType == MessageBodyType.Html).Body;
 
                 // if there is only an HTML body, use it as the body. Otherwise, add it as an alternate view.
                 if (!hasTextBody)

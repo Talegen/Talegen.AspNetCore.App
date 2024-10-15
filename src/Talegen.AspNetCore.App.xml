@@ -1878,12 +1878,12 @@
         </member>
         <member name="P:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage.RetryCount">
             <summary>
-            Gets or sets the rety count of the queue item.
+            Gets or sets the retry count of the queue item.
             </summary>
         </member>
         <member name="P:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage.Priority">
             <summary>
-            Gets or sets a priorty.
+            Gets or sets a priority.
             </summary>
         </member>
         <member name="P:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage.From">
