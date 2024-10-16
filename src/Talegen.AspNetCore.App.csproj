@@ -12,9 +12,9 @@
     <Company>Talegen, LLC</Company>
     <Description>Common Support Code for ASP.NET Core Applications Built by Talegen</Description>
     <Copyright>Copyright © Talegen, LLC. All rights reserved.</Copyright>
-    <Version>1.2.5</Version>
-    <AssemblyVersion>1.2.5</AssemblyVersion>
-    <FileVersion>1.2.5</FileVersion>
+    <Version>1.2.6</Version>
+    <AssemblyVersion>1.2.6</AssemblyVersion>
+    <FileVersion>1.2.6</FileVersion>
     <PackageProjectUrl>https://talegen.com</PackageProjectUrl>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageIcon>logo.png</PackageIcon>
@@ -60,7 +60,7 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="6.0.0" />
     <PackageReference Include="StackExchange.Redis" Version="2.8.16" />
     <PackageReference Include="Swashbuckle.AspNetCore.Newtonsoft" Version="6.9.0" />
-    <PackageReference Include="Talegen.AspNetCore.App.Shared" Version="1.0.1" />
+    <PackageReference Include="Talegen.AspNetCore.App.Shared" Version="1.0.2" />
     <PackageReference Include="Talegen.AspNetCore.Web" Version="1.1.6" />
   </ItemGroup>
 

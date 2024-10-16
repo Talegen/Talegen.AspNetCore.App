@@ -1896,9 +1896,14 @@
             Gets or sets a list of recipient addresses.
             </summary>
         </member>
-        <member name="P:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage.Bodies">
+        <member name="P:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage.TextBody">
             <summary>
-            Gets or sets the message body dictionary.
+            Gets or sets the text body of the message.
+            </summary>
+        </member>
+        <member name="P:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage.HtmlBody">
+            <summary>
+            Gets or sets the HTML body of the message.
             </summary>
         </member>
         <member name="P:Talegen.AspNetCore.App.Services.Messaging.Smtp.SmtpMessage.RecipientsVisible">

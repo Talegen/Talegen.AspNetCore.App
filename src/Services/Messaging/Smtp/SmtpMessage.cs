@@ -76,18 +76,8 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
 
             this.RecipientsVisible = recipientsVisible;
             this.Subject = subject;
-            this.Bodies = new List<MessageBody>();
-
-            if (!string.IsNullOrWhiteSpace(textBody))
-            {
-                this.Bodies.Add(new MessageBody { BodyType = MessageBodyType.Text, Body = textBody });
-            }
-
-            if (!string.IsNullOrWhiteSpace(htmlBody))
-            {
-                this.Bodies.Add(new MessageBody { BodyType = MessageBodyType.Html, Body = htmlBody });
-            }
-
+            this.TextBody = textBody;
+            this.HtmlBody = htmlBody;
             this.TextContentType = textBodyContentType;
             this.HtmlContentType = htmlBodyContentType;
         }
@@ -128,9 +118,14 @@ namespace Talegen.AspNetCore.App.Services.Messaging.Smtp
         public List<ISenderAddress> Recipients { get; set; }
 
         /// <summary>
-        /// Gets or sets the message body dictionary.
+        /// Gets or sets the text body of the message.
         /// </summary>
-        public List<MessageBody> Bodies { get; set; }
+        public string TextBody { get; set; }
+
+        /// <summary>
+        /// Gets or sets the HTML body of the message.
+        /// </summary>
+        public string HtmlBody { get; set; }
 
         /// <summary>
         /// Gets or sets a value indicating whether the recipients are all included in a single message.
